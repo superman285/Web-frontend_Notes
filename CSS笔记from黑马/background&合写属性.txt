@@ -1,0 +1,118 @@
+﻿
+🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮
+终于弄清background-position位置px值奥秘，太容易记混乱了！！
+
+假设div元素A设置了图片背景B
+
+1.初始位置为0 0，图片B左上角对准元素A最左上角。对应left top.
+第一个值代表水平方向，第二个值代表垂直方向，与box-shadow\text-shadow同
+然后切记切记这个位置是指移动图片背景，元素A不动，相对A的位置来移动图片B！
+所以水平正值指将图片向右移动x的px；垂直正值指将图片向下移动y的px。
+
+区分开left,right,bottom,top; 和百分比
+0% 0% == left top
+100% 100% == right bottom
+百分比不要与px值弄混
+
+🐮🐮🐮
+left right top bottom 的位置指图片的位置，
+right bottom指将图片的右下角 套进div内。
+
+
+🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮
+
+
+
+同一个括号里，css属性覆盖，后面的覆盖前面的
+
+还有个冷门background-size:  
+
+background合写(没有顺序要求)，包括
+background-color,background-image,background-position,background-repeat
+合写中即使没写其中某个属性，某个属性也有默认值，
+没写color，默认值是透明
+没写position，默认值是0 0，
+没写repeat，默认是平铺
+image默认无图
+background-repeat:no-repeat;
+background:url("");
+默认的平铺会覆盖掉no-repeat
+
+background-repeat:repeat-y;
+background-repeat:repeat-x;
+这两句后效果是横向平铺，而不是完全整个平铺，因为层叠性，下面的覆盖了上面的。
+
+background-position:10px 10px;第一个代表水平(正为向右) 第二个代表垂直(正为向下)
+background-position:10px; 只写一个属性代表水平，垂直默认center
+background-position:center right;(或写right center)
+===============================================================================
+position为百分比时的计算公式：
+
+background:#FFF url(image) no-repeat fixed 50% -30%;
+这个时候图片应该在容器的什么位置呢,算法公式如下： 
+图片左顶点距容器左顶点的坐标位置为 
+
+x：（容器的宽度-图片的宽度）x 50% 
+y：（容器的高度-图片的高度）x（-30%） 
+
+得到的结果应用坐标法则，差值如果为负数，百分比为正那么运算结果是负值。如果差值为负数，百分比也为负数，那么运算结果就是正数。总而言之就是这里的运算符合运算法则。把运算的结果带入坐标法则就能得到图片的位置。 
+
+比如：容器是width：600px；height：600px；而图片是width：200px；height：200px； 
+我们用上面的样式，可以得到图片位置为： 
+x：(600px-200px)*50% 
+y：(600px-200px)*(-30%) 
+=====================================
+
+常用精灵图，相当于图集，一个图中有多个图标
+background-position，从左上顶点开始。
+一般设置往左往上移，background: url("") no-repeat -200px -100px;
+
+💨💨💨常用滑动门，设置元素背景、子元素背景，左右两张图片。
+滑动门用的a标签，a标签子元素span标签，
+一般a和span都要设置固定高度，不设置宽度、设置padding
+选择器注意 a:hover{}; a:hover span{};
+
+
+💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨
+一个好用的属性:background-size
+auto:原大小
+200px 100px :宽度高度
+100% 100%：父元素的百分比设置(即所在的标签内？)一个100%意思好像一样
+contain:容器包含整个图，可能有留白，宽高比不动，等比放大缩小到整个被含进去
+cover:容器把图盖住，多余部分裁剪掉，宽高比不动
+cover会等比缩小或放大到宽等于容器的宽或者高等于容器的高。铺满
+
+
+background-size:
+
+
+💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨
+
+
+text-shadow:1px 1px 10px red;
+第一个代表水平方向(正为向右)
+第二个代表垂直方向(正为向下)
+第三个值代表阴影模糊度(不能负数)
+第四个代表阴影颜色
+
+多阴影写法：
+text-shadow:1px 1px 10px red,1px 1px 10px blue;
+
+box-shadow:1px 1px 10px blue;
+【水平方向(正为向右),垂直方向(正为向下)】，模糊度(即阴影大小)，颜色。
+⚔内阴影加个inset，则阴影在内部，方向与外部的相反，右下的内阴影为内部左上。
+
+
+border合写：border-width,border-style,border-color;
+border-style的默认值是none，所以是必须设置的，另外两个属性有默认值，不设置也可显示；
+border:solid;也可以缺少style不可。
+border写在border-top后会覆盖属性，体现层叠性。
+
+border-radius:30px/40px; 椭圆的水平半径和垂直半径，
+相等时为圆，可写为border-radius:30px;
+
+轮廓线：边框外围的一层边
+outline-style:none; 去掉轮廓线
+
+
+

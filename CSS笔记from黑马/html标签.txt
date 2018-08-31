@@ -1,0 +1,50 @@
+strong；b
+em；i
+ins；u
+del；s
+
+
+除了div和span，其他标签都有默认样式。
+
+ul标签内直接后代只能是li，不能是别的标签，li内再放其他标签
+
+kbd标签代表键盘按键，语义标签。
+
+img的属性
+alt：图片无法显示时设置描述信息
+title：图片显示时鼠标悬停的描述信息
+
+将图像作为链接：
+<a href="/example/html/lastpage.html"><img src=""></a>
+在a标签中嵌入img标签
+
+a标签不带href属性就不会显示下划线和鼠标手
+a标签也能设置背景！！background:url();
+ul li也可以设置背景 background:url();
+button也可以设置背景
+
+head中加入base标签 <base target="_blank">，设置当前html所有超链接的统一打开方式
+
+超链接：跳转到另外一个页面；a标签
+点图片跳转链接实现方法：
+在a标签中嵌套img标签
+<a href="目标地址"><img src="1.jpg"></a>
+target属性设置打开方式：
+·当前窗口打开：_self
+·新窗口中打开：_blank
+
+锚链接：本页面内部的跳转
+方式一(优)：
+a标签，直接给跳转元素加个id，用#跳到id去
+<a href="#id1"></a> 跳转到p
+<p id="id1">我的作品</p>
+方式二：
+a标签，加一重a标签，name属性设为id2
+<a href="#id2"></a> 跳转到p
+<a name="id2"><p>我的作品</p></a>
+
+跨页面锚链接：
+href的属性#前加上具体html文件名
+例；
+<a href="页面内锚点.html#gzjy">查看小明同学的工作经验</a>
+<a href="页面内锚点.html#wdzp">查看小明同学的我的作品</a>

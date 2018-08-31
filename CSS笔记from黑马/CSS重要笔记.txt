@@ -1,0 +1,193 @@
+Georgia好看字体 ❤
+
+
+https://docs.emmet.io/cheat-sheet/  emmet作弊表
+
+emmet上级：^  一般用于 a>b+c^d 这种场景 就不需要括号了
+link:css
+link:favicon 
+
+inline行内元素，width、height无效
+block块元素，width、height有效
+
+a标签也能设置背景！！
+
+--------------------------------------------------------------------------
+行内块元素位置错乱问题，有时总是不对齐，或者被挤出父元素，或者中间多出空格：
+处理方式：
+1.给元素设置vertical-align:top或者middle
+2.给元素的父亲设置font-size:0px
+---------------------------------------------------------------------------
+
+
+超级易错点：
+各种浮动设置问题，记得清浮动，还有浮动塌陷问题
+子元素都是浮动元素，然后父元素又没设置宽高，就塌了
+容易出现子元素高度超出父元素，然后下面的元素被挤到右侧都发现不了
+一个坏习惯！！！
+父元素设置宽度和高度，子元素反而不设置，最后若子元素超出父元素边界不好发现。
+最好是父元素子元素都设置相同高度，或者父元素不设置，由子元素撑开。
+
+
+宽高问题：
+用百分比的意思是相对父元素的百分比
+宽度100%
+高度100%
+
+定位问题：
+TRBL为百分比值时，一定是相对父元素的百分比，切记切记！！！！
+absolute：
+是生成绝对定位的元素，即在文档中已经不占据位置(其他元素会顶上他原来设置定位前位置)，可以与其他元素重叠
+设置了TRBL则以浏览器窗口为定位，否则以父元素的TRBL来定位：
+即设置了left就以浏览器的左边定位，设置了top就以浏览器的顶部定位；
+若只设置了left没有设置T和B，则上下位置还是以父节点为参考定位(紧贴父元素边界)。
+
+relative：
+相对定位，在文档中会占据位置(占据原有位置)，相对原来自己应该在的位置TRBL移动；
+(部分情况下？)相当于依据父元素的边框来移动或者依据兄弟元素的边框来移动trbl。
+
+记住：r日不管别人只管自己偏自己的。
+当子元素为relative时，不管父元素有position(不管他是哪种)还是没position，
+trbl值的设置都是相对于原本自己应该所在位置(即没有position时)来做偏移，
+bottom即向上偏移，right即向左偏移。
+r日不管别人(不管父亲)(有没有p、p是什么)只管自己偏自己的。
+r儿子自私，只管自己！
+
+当子元素为absolute时，两种情况来了：这时一般都把父亲设置为relative，否则会脱标。
+口诀：子绝父相！！
+父元素没有position：好说，就相当于没有父元素，把浏览器窗口body看作父元素，
+left值相对于左边框，right值相对于右边框，top相对于上，bottom相对于底部边框(区别于relative)；
+当父元素有position时：反正父元素有position也不设置trbl(只是为了子元素调整定位座机自己加上了position)，
+这时因为父元素有了position属性，子元素开始向父亲看齐了，这时候absolute把父元素当成了浏览器body，(不管父亲有没有设置trbl值)
+trbl都以父元素边框来做参考了！
+a看父亲的，父亲有p就看齐父亲，父亲没p就看齐大佬body。
+a儿子视p为父，父亲无p只能看大佬body了！(p是fixed也可,p是fixed或absolute或relative都可以，
+除了静态定位！)静态定位，static
+
+static定位为标准文档流，不会改变位置，作用是
+例如京东搜索栏，原本静态定位，下拉滚动条时
+js将静态定位改为了fixed定位，固定在顶部了
+相当于在不同定位种类间做转换，而不是新增定位属性。
+
+fixed：固定的，不随浏览器进度条滚动而滚动，记得设置trbl。
+不设置trbl的话，可能会被其他元素修改margin所误伤影响。 
+以body(浏览器)为参照而不是父亲
+
+内容如果想自适应高度，那就不要写死容器的高度
+
+结构设计：
+三列布局法：
+float方法：
+.div1{float:left;}
+.div2{float:left;}
+.div3{float:right;}//或者left 看着调
+设置float前最好设置宽度？否则容易不生效
+
+用了float之后，float之后的元素会浮于float元素下方，除非他们也加上float属性
+
+inline-block大法：
+.div1,.div2,.div3{display:inline-block}
+div变成了行内元素，div内的元素为块元素
+
+flex布局大法，必学：
+http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
+https://www.cnblogs.com/sxz2008/p/6635196.html
+
+flex:1;代表flex-grow,flex-shrink,flex-basis
+
+选择器：
+<div class="one two three"></div>
+选中: .one.two.three{}
+span.one ✔ .onespan ×
+div.one/div.a/div.z; 并集：.one,.a,.z
+
+居中方法：
+·块状元素A居中(自身设置)：
+ 自身A设置margin:0 auto;A必须设置宽度噢，不设置宽度是占一整行的
+·B居中(依赖父亲F)：
+ 把B元素设置为行内或行内块，设置父亲F的text-align:center;
+·C文字垂直居中：
+ 比如说p或div的属性line-height设置为和标签同高度。
+ 不设置高度height和line-height，然后给文字设置相同的padding-top和padding-bottom
+···问题点。重要！例如：<div><p></p></div>
+通过改自己的line-height让儿子居中(因为儿子继承了;或改儿子的line-height也行)
+由于line-height可以被继承，所以div设置height后同时设置相等的line-height，即可完成内容垂直居中表现。
+实际上相当于div内部的子元素继承了div的line-height，如果为了清晰还是直接设置子元素更好。
+··· 
+
+隐藏：
+display:none;隐藏后不占文档流位置(用的更多)
+visibility:hidden;隐藏后会占文档流位置 
+ 
+快捷键：boxsz + tab
+box-sizing:border-box;
+设置了此属性后，padding属性不会再增大整个盒子的长度宽度！非常好
+
+提高效率：
+常用居中版心
+.w{
+	width:80%;或固定设好一个值
+	margin:0 auto;
+}
+常用清除浮动clearfix
+.clearfix::after{
+	content:"";
+	display:block;
+	clear:both;
+}
+常用浮动
+.floatLeft{
+	float:left;
+}
+.floatRight{
+	float:right;
+}
+
+*******************************************************************
+CSS reset 清除浏览器自家的css样式，方便调整，可命名为base.csss
+且一致性更好，要放在css中最前面的位置
+将来很有用！如果做内联式css，可放在单独要给style内
+*******************************************************************
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

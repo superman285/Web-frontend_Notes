@@ -1,0 +1,19 @@
+
+
+form表单
+
+action为服务器程序代码，例如1.js
+指定一个用来处理数据的后台程序文件
+
+method设置一种提交数据的方式
+用get或post
+get(能在地址栏看到提交信息)
+
+提交表单后将表单中所有数据发给1.js
+1.js对数据进行处理
+
+文本域textarea用的少，实际项目中多用富文本编辑器
+
+提交按钮有两种：
+<input type="submit">
+<input type="image" src="按钮.png">

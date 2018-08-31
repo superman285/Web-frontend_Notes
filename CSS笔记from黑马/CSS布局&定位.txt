@@ -1,0 +1,124 @@
+CSS布局两个基础页签：
+div，span
+div可嵌套span，不可span内嵌套div
+行内元素不可嵌套块状元素
+
+
+布局方式：
+🔲 normal flow 正常的块级、行内块
+🔲 float + clear(清除浮动)	
+🔲 position relative + absolute
+🔲 display inline-block
+🔲 负margin
+🔲 display:table + display:table-cell，父亲用table，后代用table-cell(嵌套麻烦)
+❤ 最新最好的方式：flex布局
+
+【浮动不是布局中特别好的机制，设置宽度百分比时，不同浏览器取值不一样
+(有的向上取整，有的向下取整),导致表现不一致，还要清浮动，烦！】
+
+导航栏常用做法：
+div套ul>li，li套a链接
+li设置float:left(要清浮动)或者/ display:inline-block(貌似更优)
+a设置成block，a设置宽高占满，鼠标在哪都能触发跳转，
+可给a设置好宽高，就会撑开li，或者给li设置宽高也可以，，
+给a设置宽高可能更好。
+如果导航菜单文字数不一致，a标签可不设置具体宽度，设置padding值即可，由内容撑开
+
+❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤
+浮动布局，不清除浮动，可设置父元素高度即可，后面的元素无法顶上去，
+若想内容也自适应，更好的方式是设置父元素的min-height。！
+❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤
+
+定位迷惑问题：
+*绝对定位*的margin和left值的参照
+🔲只单独使用left定位，按照父亲(相对或绝对)的边界进行定位(没设父亲就参照浏览器，不是参照body，是参照浏览器即整个html)
+🔲只单独使用margin定位，按照标准流祖先(没有设定位)的边界进行定位
+🔲同时使用margin和left时，按设置了定位的父亲的边界进行定位，距离为二者相加
+🔲不使用left和margin，自动按照标准流祖先进行定位
+🔲 绝对定位元素如果不给宽高 可能会出问题 宽度不写和写100%结果不一样
+最好写一下，非定位元素没这问题
+
+z-index：定位才有的属性，层级
+z-index相同时，
+默认z-index值为auto，跟设置为0的层级相同。根据后来居上原则。
+后来居上原则：最后的定位元素会位于前面的定位元素之上，即html中后面的居上
+拼爹原则：先比父元素，父元素层级高的子元素层级就高。
+z-index可设置为负数或者0
+
+🔲🔲🔲🔲
+trbl值为百分比时，百分比一定是相对父亲而言的，不管是absolute或relative，任何布局方式都是
+
+💩flex布局开始学习：
+10个概念：main axis主轴，cross axis侧轴。
+main size;cross size;main axis;cross axis;
+main start;main end;cross start;cross end;
+flex item;flex container;
+包含6个属性：
+flex-direction:方向 row|column|row-reverse|column-reverse 行/行反向/列/列反向
+flex-wrap:换行(横向排布)/换列(纵向排布)
+flex-flow:上面两个的简写(合写)
+justify-content:主轴方向对齐方式  主轴内容排布
+align-items:侧轴方向对齐方式	  侧轴item对齐
+align-content:多行/多列内容对齐方式
+
+
+
+flex-container属性
+flex-direction决定主轴方向为行或者列
+flex-wrap:wrap;设为换行后宽度就不会被挤压了，而是到下一行去
+flex-flow:row nowrap;
+justify-content:center|space-between|space-around|flex-start|flex-end
+space-between:元素均匀分布，所有空间放在中间，两边没空隙。
+space-around:所有空间放在元素的左右两边(周围)，相当于设置了相同的margin-left和margin-right
+center:元素都居中(元素贴在一起居中)
+flex-start:往start起点靠；flex-end:往end终点靠
+align-items:stretch|flex-start|flex-end|center
+stretch:元素伸开到和最高元素同高
+center:相当于垂直居中
+flex-start:往垂直方向起点靠；flex-end:往垂直方向终点靠
+
+flex-item属性 父元素定宽度，子元素不定宽度
+flex-grow:增长比例(空间过多时)
+flex-shrink:收缩比例(父元素空间不够时)基本不用
+flex-basis:默认大小(用的少)
+flex:上面三属性合写
+order:顺序(代替双飞翼)
+align-self:自身对齐方式(孩子自己选择所需的对齐方式,不管父亲的了)
+
+flex-grow:设置自身所占权重，分配剩余空间(若没设置子元素宽度则分配所有，若设置了则分配剩余的)
+设置的值为剩余空间的百分比，权重越大，分配宽高越大。
+flex-shrink:子元素超出父元素的量，差值分配权重，权重越大的需要扣除宽高越多。
+flex-basis:可设置具体宽度px值
+flex:grow和basis都存在时以flex-grow为准
+
+想实现导航栏效果怎么弄，
+💩一个大div套两个ul，一个左一个右，space-between，左边的ul再用flex between？麻烦！！
+
+💩绝技！！margin在flex中就是神技！|！！margin中auto的意思是吃掉所有剩余空间！！
+水平垂直居中： .father{display:flex;} | .sons{margin:auto;} 搞定！ 
+哪个方向需要居中，就用margin auto即可 效果基本等同justify-content/align-items
+💢导航栏超简便写法：例如左边4个a，右边1个a 
+.father{display:flex;} .a-left{margin-right:20px;} .a-right{margin-left:auto;} 搞定！
+
+❤❤❤❤多行多列布局：grid神技❤❤❤❤
+
+💩1. 定了容器宽高，子元素就用%或fr 来布局。
+💩2. 定了子元素宽高，用具体px来布局，父元素就不要限制宽高，
+	由子元素加grid-gap来撑开。
+
+grid-template-rows
+grid-template-columns
+grid-template-areas
+grid-gap| grid-row-gap/grid-column-gap
+
+justify-content/align-content:start|end|center|space-between|space-around|space-evenly|stretch
+justify-items/align-items: start|end|center|stretch
+
+justify-content/align-content:针对grid items(网格容器内的网格项子元素在网格大容器中的排布，
+
+justify-items/align-items:针对grid items网格项里头的内容在各个网格项中的排布。
+这儿的居中
+
+水平居中可考虑text-align，
+
+

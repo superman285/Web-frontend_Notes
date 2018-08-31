@@ -1,0 +1,165 @@
+
+Ⅰ 多媒体标签
+H5:多媒体 解决移动端播放多媒体问题
+
+多媒体多种格式设置方式，实现让浏览器支持各种视频格式
+
+换一种写法：
+<video controls loop>
+	<source src="ds.mp4" type="">
+	<source src="ds.rmvb" type="">
+</video>
+	
+💠video
+src,源地址
+controls 加控制栏
+autoplay 自动播放 (chrome已禁止)
+loop 循环播放 默认只播放一次
+
+💠audio  属性同video
+
+💠canvas [画布] 标签+js+API,实现各种效果 例如:H5游戏
+
+
+Ⅱ 多背景
+一个容器可以同时设置多张背景图片，
+背景图片后使用逗号隔开即可。使用背景合写方式设置。
+ background: url(img/bg1.png) no-repeat left top,
+ background: url(img/bg2.png) no-repeat right top,
+ background: url(img/bg3.png) no-repeat left top,
+ background: url(img/bg4.png) no-repeat left top;
+
+Ⅲ 2D转换
+
+transform属性合写 逗号隔开
+
+transform:translate(10px,10px);
+占的文档流位置还是初始位置，移动不影响原位置。
+
+
+rotate: 旋转中心或者倾斜中心可以修改，
+transform-orign:
+left top;center center;
+right bottom;
+
+位移 旋转合到一块的话，要先写位移再写旋转
+transform:translate(10px) rotate(50deg);
+会先位移一点 再旋转一点 始终在水平方向上动。
+若先写旋转再写位移，则旋转一点后位移 方向就不在水平方向上了，
+位置会移动错乱。
+
+scale() 设置一个值，则宽高缩放倍数都是这个数。
+scale不能设置负数
+
+skew，倾斜，用的少 不是立体动作
+skewX水平倾斜(x轴方向不动)，
+skewY垂直倾斜(y轴方向不动)。
+
+Ⅳ 3D转换 transform transform合写容易忘记前面的属性然后被层叠掉。 
+立体轴 加透视效果
+💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠
+切记切记，当一个平面div旋转后，坐标轴
+也会跟着旋转，会变化！！！！
+💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠💠
+
+合写需要空格 隔开不同属性。
+translateX,translateY,translateZ
+
+css: x,y,z 坐标轴 x轴水平向右，y轴垂直向下，z轴垂直屏幕朝向眼睛。
+
+x轴往右，y轴往下，与css二维轴相同。
+
+(区分数学中的空间直角坐标系，区别是数学中的y轴是向上，其他一样。)
+
+加透视效果可以渲染出近大远小的效果。默认没有该效果。
+给加了transform属性的子元素的父元素
+父元素加透视属性:perspective: 推荐范围600~1000px。
+
+旋转方向：用左手法则；
+左手握住坐标轴，大拇指指向坐标轴方向(正则为正方向，负值则为反方向)，四指弯曲方向即旋转方向。
+正数即值的方向(轴的正向或反向)冲着眼睛，顺时针转。
+
+做立方体box
+💠💠💠
+将平面图形转换为3D图形：这时可去掉透视perspective(透视是辅助平面观看的)
+transform-style:preserve-3d;
+💠💠💠
+
+
+😈 😈 动画 animation 😈 😈
+transition 需要经过事件触发，:hover click等
+animation 不是必须经过事件触发 只要调用动画就立即执行
+
+①定义动画集(动画序列) 不在选择器中
+@keyframes 动画名{
+	from{}  --开始状态
+	to{}	--结束状态
+}
+
+②定义开始状态和结束状态 from 和 to
+e.g. from{transform:rotate(0deg);} to{transform:rotate(360deg);}
+
+③执行动画 (通过动画集名称调用即可)
+
+动画属性:
+animation-name,动画名
+animation-duration,动画时间
+animation-iteration-count:infinite,重复次数，默认为1次，填写数字
+animation-timing-function:ease,
+animation-delay:1s,延时执行
+animation-play-state:paused|running| ; 动画状态
+
+animation-name+动画名 相当于调用时机
+如果在非行为选择器中写，相当于浏览器一渲染页面就开始播动画
+！name和duration是必须的！
+
+两个属性：
+
+animation-direction:alternate; 动画逆播-即由结束状态返回开始状态时也有动画
+如果iteration-count为奇数，最后一次没有逆播效果；偶数次数都有逆播效果。
+animation-fill-mode:forwards|backwards; 
+停止在最终状态，所以对重复次数为无限次的不生效。
+
+多状态动画。通过百分比切割。
+百分比是相对于动画执行时间的，在里头实现延时
+@keyframes percent{
+0%{
+	状态1
+}
+
+50%{
+	状态2
+}
+
+75%{
+	状态2
+}
+
+100%{
+	状态3
+}
+}
+
+0%相当于开始，100%相当于结束。
+到50%时间时变成了状态2。50%到75%都是状态2，相当于延时效果，这阶段停着没动。
+
+
+
+合写：
+animation:
+🔘必须带有animation-name和animation-duration，
+🔘两个时间，执行时间在前、延迟时间在后。其他没有先后顺序。
+🔘steps(x次) 步数，平均分成了x次去完成；和linear不能同时使用。
+
+
+
+
+
+
+
+
+
+
+
+
+

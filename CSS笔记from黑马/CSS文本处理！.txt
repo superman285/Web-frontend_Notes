@@ -1,0 +1,38 @@
+粗体：
+font-weight:bold;
+斜体：
+font-style:italic;
+下划线：
+text-decoration:underline;
+技巧Tips：
+a链接去掉下划线：text-decoration:none;
+下划线超级技巧：
+有距离的下划线，啧啧，用border-bottom即可,其他的border不设置。
+
+删除线(横划线)：
+text-decoration:line-through;
+上划线：
+text-decoration:overline;
+
+strong；b	粗体
+em；i		斜体
+ins；u		下划线
+del；s		删除线
+
+font集合：
+font: bold italic 20px/30px "楷体";
+粗体，斜体，字体大小，行高，字体类型
+font合写必须必须设置font-size和font-family，否则失效。
+合写中font-size必须再font-family之前。	
+
+font-family:字体类型
+3种方式：
+英文，中文，Unicode编码(js用escape函数加中文参数查看)
+
+行高：
+line-height:30px;
+
+font-family设置多个字体的意义(尽量保持不同机器表现一致,即使不同机器安装字体不同)：
+font-family:"毛体,宋体,微软雅黑"
+避免浏览器默认行为，若机器没安装毛体，则用宋体，若没有则用微软雅黑，
+若再没有的话就采用浏览器默认方式渲染(不同浏览器可能不同)

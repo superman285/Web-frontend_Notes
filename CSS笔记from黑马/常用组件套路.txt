@@ -1,0 +1,147 @@
+
+◉◉单位选择◉◉
+单位的选用，要有响应式思维！
+对font-size使用rem，对border使用px，对其他的度量方式如padding、margin、border-radius等使用em。
+需要声明容器的宽度的话，可以考虑使用百分比。
+em当前容器字体大小，rem根元素字体大小(即html)
+
+
+◉◉通栏+版心◉◉
+如果某个bar要拖动放大后 仍然栏要占满屏幕带有背景色
+1.给版心内容外面再套一层通栏wrap，宽度设置为100%或者不设置，则占满一栏
+2.通栏内套版心，版心这儿才设定固定宽度。
+3.通栏设置为100%,当缩小窗口出现横向滚动条，拖动滚动条会出现通栏占不满的情况。
+!!!!!因为100%的意思是浏览器视窗宽度(即可以看到的距离)！！！！！
+只要给html设置一个最小宽度，为电脑屏幕宽度就ok！
+html{min-width:1280px;}
+4.可以设置隐藏滚动栏，html{overflow-x:hidden;}
+
+◉◉导航栏◉◉
+ul套li，li套a标签，
+🔷方式一:li设置为浮动，a设置为block，
+a不设置高度，但设置字体大小，上下左右padding把li撑开，也有了宽高。
+li由a撑开，不单独设置宽高；ul设置个高度，否则会被li影响浮动塌陷(宽度会不会塌？)
+🔷方式二:li设置为inline-block，a设置为block，
+a不设置高度，但设置字体大小，上下左右padding把li撑开，也有了宽高。
+li由a撑开，不单独设置宽高；ul也可不设置宽高，由li撑开。
+ul要设置font-size:0;否则li之间有空格，还有可能对不齐之类的问题。
+
+根据具体需求来确认是否需要设置ul的宽高。
+
+◉◉烦人的导航栏右边竖线◉◉
+🔷方式一:直接伪元素走你，伪元素直接调margin来调间距，若本身有间距则可能要在a中加&nbsp;只需要设置a的字体大小，啥内外边距、居中 都不用了，前面的让flex搞定了。
+li:after{
+    content:"|";
+    color: #999999;
+    margin:0 5px;
+}
+🔷方式二:
+给li中的a设置右边框，不如方式一方便，
+🔷方式三:
+要么就直接<span>|</span>
+
+
+◉◉带图标的搜索框◉◉
+对齐问题:父容器设置font-size:0;搜索框和搜索图都设置vertical-align:middle;
+搜索框整体为一个div，设置上边框
+最左侧可用label标签(行内块元素)，中间用input-text(去掉border和outline)，
+最右侧搜索图标:
+·若只是一个没背景的小图，可用i标签配合绝对定位
+·若是有背景的带图标的类似按钮，可用一个标签(a或div或input或label)套上i标签图；
+或直接只用a签(只用a标签就需要将它设为inline-block，设置图标字体，带上类名iconfont,iconfont-sousuo自然就含有图标内容了)
+
+i标签设置宽高，background,background-color等。
+i标签的图标可考虑用iconfont。
+1.用图标字体或者把图标作为background然后居中
+2.用绝对定位把图标定位到框框内(没必要)
+
+◉◉单行/单列布局&多行多列布局◉◉
+一行或一列布局采用flex，多行多列网格状用grid布局。
+flex容器的子元素带宽度则只用justify-content:space-between(最常用)即可
+若子元素不带宽度，想均匀分配且带空隙，则可以
+方法一：设置margin，每个子元素设置flex:1。
+方法二：若想带空隙则设置各元素为小数flex:0.2;
+
+grid布局
+⬛记住一点，一旦某个子元素设了grid-row或grid-column他的位置就比默认不设置的
+会靠前，会乱序，所以为了不乱序，
+即使为最小单位的子元素也设置一下grid-row或grid-column！
+可以给这些最小单位一个通用类名。或者只给特殊元素之前乱序的小元素设置。
+grid-auto-flow可以改排序方向，默认为row，一行从左到右，满了换行，
+换的行肯定为最右边元素的下一行而不会往上顶。
+
+若子元素不带宽度，可设置宽度百分比，百分之百代表父容器宽度。超过100%则出现滚动条
+然后再结合justify-content:space-between，则可以实现带有间距的均匀等宽度布局。
+align相关属性好像要设置了子元素确定高度才生效？
+grid-template-columns:30% 30% 30%;
+grid-template-rows:50%;
+justify-content:space-between;
+一行三列，均匀布局，自适应。
+(此种方法无法用flex布局flex:30%实现(用0.3就可以生效，奇怪了?)，flex-grow是指占剩余空间的30%，还是挤满了)
+flex也可以借助margin
+
+
+多行多列的话稍微复杂，两种方式：
+⬛1.grid-template-areas:
+"a b c"
+"d e f"
+"g h h"
+这种方式适用于总div子元素数量少但是奇形怪状的
+a\b\c\d\e\f\g 都是一种样式 但无法通用 
+还是得配7种area名字，因为同名意味着连在一起。
+⬛2.单独对某个div子元素采取
+grid-column或grid-row:start/end 或者 start/span 跨度number;
+若是占了网格图一个单元格子(即跨度宽度1高度1的)的默认不动即可，不用单独配置
+如上图布局a~g不动
+.h{grid-column:2/4;grid-row:3/4;}
+此法可以用伪类选择器提高效率把同形状元素都选出来，用顺序选择器nth-child()
+切记排布顺序是a,b,c,d,e,f,g,h,h
+从左到右，满了往下换行，再从左到右，一共8个div(.h占了两空位)
+
+
+◉◉滚动栏相关◉◉
+
+html{
+    overflow-x:hidden;  /*隐藏滚动栏*/	
+    min-width: 1280px;
+}
+::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 10px;
+}
+::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+	border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+	background: rgba(65,105,225,0.8);
+}
+::-webkit-scrollbar-track {/*滚动条里面轨道*/
+     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+}
+
+◉◉变相选择父容器方法◉◉
+例如：顶部广告栏右上角的✖(广告区域内)，点击后可以关掉整个广告区域。
+将✖设置为链接，跳转到父容器广告栏处(给父亲设个id #hidden)a href="#hidden"
+然后 div#hidden:target{display:none;}就可以实现点击叉 隐藏广告。
+还有一个方法可以考虑：利用相邻选择器，则✖需要布局与广告栏同级，点击后隐藏广告栏和自己。
+:active只能实现鼠标点击时，松开鼠标就无效了
+模拟点击事件可用:target伪类实现，给a设置href="#target1"
+
+
+◉◉标签i很常用◉◉
+先去掉斜体样式
+1.上标可用，转为display，要设置文字水平垂直居中，圆角，绝对定位，颜色等。
+2.用作图标字体，切记要在开头引用iconfont.css否则无效！！然后加上类名即可
+例如：<i class="iconfont icon-sousuo bold">
+
+◉◉卡片阴影设计◉◉
+鼠标移动过去，会有浮上来或者沉下去的效果，一个常用值
+浮上来：(阴影扩散范围大)
+box-shadow:15px 15px 20px 0 rgba(46,61,73,.15)
+沉下去：(阴影范围小)
+box-shadow:2px 4px 8px 0 rgba(46,61,73,.2)
+
+其中的0是较少用的Spread属性可有可无，而x、y、blur和颜色是不可缺少的。
+
+

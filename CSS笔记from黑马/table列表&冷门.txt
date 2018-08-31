@@ -1,0 +1,74 @@
+垂直居中技巧: 使用table来包裹，这三个连在一起，而且都垂直居中
+
+<table>
+  <tr>
+      <td><input type="text" name="yanzheng"/></td>
+      <td><img src="images/yz.jpg"/></td>
+      <td><a href="#">注册用户</a></td>
+  </tr>
+</table>
+
+table的width宽度写100%可占满整个屏幕
+单元格合并rowspan和colspan记得删除多余单元格，
+否则单元格会被怼出去。
+行列都合并：rowspan="2",colspan="2"
+
+表格的table边框与td边框合并
+table,td{border:1px solid red;}
+tabel本身属性cellspacing是边框间距为0，实际没合并，合起来粗度变成两倍了。
+合并方法:css属性，border-collapse:collapse;
+
+设置table边框颜色，用css当然最好
+只用html的方式：
+围魏救赵法：将table的bgcolor设置为yellow色
+然后把cellspacing设置为1或2，再把所有tr行的bgcolor设置为白色，
+就相当于把边框变为了yellow色！厉害！
+
+table最规范书写结构：
+<table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+</table>
+早期浏览器版本可能出现兼容性问题，不推荐该写法！！
+
+常用技巧：ul列表纵向变横向：例如：ul.menu>li.item*4
+ul的float设为right，是整个列表组向右偏
+```````````
+◈方法一:设置li的float属性，float:left，都要设置，然后会横向排布。
+
+◈方法二:设置li的display属性,display:inline-block，然后li(不是设ul)变为了行内块元素,即可横向排布。
+````````````
+
+
+radio单选框的name属性需要设置成一致，否则就变成可多选了
+checkbox复选框的name属性最好设置成不一致，服务器端可以根据不同name判断选的哪个值
+
+有序列表ol，默认为1、2、3、4，想改成A、B、C、D
+加上type属性，<ol type="A"></ol>
+
+列表ol和ul的亲儿子只能是li，不能是其他标签
+li中可以嵌套其他标签
+
+dl的儿子不只是dt或dd！可以放li，带·点的列表项。
+自定义列表一般在网页结尾处菜单导航使用。
+
+a标签也能设置背景！！
+background:url("");
+ul li也可以设置背景 background:url();
+background也可以设置背景！！

@@ -1,0 +1,78 @@
+从开始状态到结束状态 发生的过渡效果。
+必须具备中间值的属性才有过渡效果。
+
+部分属性若无默认0值，从无属性到有属性，无法过渡，
+例如position，例如width等
+无transform到transform:rotate(10deg)可以生效，
+估计无transform默认值是0？
+
+例如想变换位置。
+错误❌
+初始态{} 结束态{position:relative;top:10px;} 
+正确✔
+初始态{position:relative;top:0px; transition:60ms linear all;} 结束态{position:relative;top:10px;} 
+还要加定位，差评！
+
+更好的实现方法：啥都不用加
+初始态{transform:translateY(0px);}
+结束态{transform:translateY(5px);transition:60ms linear all;}
+
+颜色|位置(position:trbl)|长度|宽度|字体大小|数值(透明度)|transform|阴影
+
+transition
+
+备注：
+
+过渡属性可以在开始状态中或结束状态中设置都可以。
+
+动画效果属性	transition-property 		多个属性值之间用逗号隔开
+动画执行时间	transition-duration
+动画执行速率	transition-timing-function
+linear:匀速 | ease-in:加速 | ease:out:减速 | ease-in-out:加速
+动画执行延时时间	transition-delay  可为正数或负数
+delay为负数时，元素的过渡动作会从该时间点开始显示，之前的动作被截断。
+
+
+动画效果属性和动画执行时间可以对应上：
+transition-property: opacity, left, top, height;
+transition-duration: 3s, 5s, 3s, 5s;
+
+错误❌写法：
+transition:500ms linear width,height;
+两个效果属性对应一个其他的transition属性，错❌
+改正：要么写all，
+要么 
+	 transition:1s linear;
+	 transition-property:width,height;
+	 属性这句必须放在后面，不然会被transition的默认值all覆盖，就全都生效了。
+
+
+例如：
+	transition: width,background-color; /* 不同的property值 */
+	transition-duration: 1s;
+	transition-timing-function: linear;  /* 对应的属性值设置一个 */
+	transition-delay: 1s;
+
+
+transition合写
+
+·必须设置 动画执行时间！
+·出现的第一个一定是执行消耗时间(只写一个代表只有执行时间没有延时时间)
+·合写不写属性，默认值为all(元素任何可过渡（transition）属性值变化时都将执行过渡（transition）效果)
+·多状态写法：
+transition:height 1s linear,
+		   width 2s ease;
+		   
+transition写在开始状态和写在结束状态的区别:
+主要是看transition写在哪个选择器中，如果
+写在:hover中则只有鼠标放上去时有动画，鼠标离开后没有反向动画。
+若写在.box则鼠标放上去和离开都是选中的，所以离开时有反向动画。
+
+
+transfotm-origin旋转点：
+https://www.cnblogs.com/darkterror/p/5308188.html
+
+left top 代表0 0; center center 代表50% 50%
+bottom 相当于 center bottom/50% 100%
+left 相当于left center/0 50%
+向下 向右为正。

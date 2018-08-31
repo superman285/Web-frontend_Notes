@@ -1,0 +1,30 @@
+
+同一个括号里，css属性覆盖，后面的覆盖前面的
+
+background合写(没有顺序要求)，包括
+background-color,background-image,background-position,background-repeat
+合写中即使没写其中某个属性，某个属性也有默认值，
+没写color，默认值是透明
+没写position，默认值是0 0，
+没写repeat，默认是平铺
+background-repeat:no-repeat;
+background:url("");
+默认的平铺会覆盖掉no-repeat
+
+background-repeat:repeat-y;
+background-repeat:repeat-x;
+这两句后效果是横向平铺，而不是完全整个平铺，因为层叠性，下面的覆盖了上面的。
+
+background-position:10px 10px;第一个代表水平 第二个代表垂直
+background-position:10px; 只写一个属性代表水平，垂直默认center
+background-position:center right;(或写right center)
+
+
+text-shadow:1px 1px 10px red;
+第一个代表水平方向(正为向右)
+第二个代表垂直方向(正为向下)
+第三个值代表阴影模糊度(不能负数)
+第四个代表阴影颜色
+
+多阴影写法：
+text-shadow:1px 1px 10px red,1px 1px 10px blue;
