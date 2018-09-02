@@ -26,6 +26,26 @@ input:focus
 伪类选择器：
 p:first-child的意思原来不是p的第一个儿子，而是别人的第一个p儿子
 选中p，而且这个p是别人的第一个儿子
+
+:first-of-type,:last-of-type
+
+两个通用性强的选择器:nth-child(x) ; tag:nth-of-type(x)
+p:nth-child(n),选中p，这个p是父亲的第n个儿子
+:nth-of-type(n) 的作用不是选取子元素,而是选取同类元素 (type of element)。
+
+
+二者区别：
+如果父层内只包含一种元素（比如都是p元素）那两种用法是等效的。
+如果父层包含多种元素（比如 p 元素与同级的其他元素），
+需要选取第几个 p 元素时应该用 p:nth-of-type(n)。
+
+div>p*2+ul*3+div*4
+
+想选中第一个ul，两种方法：
+· ul:nth-child(3)
+· ul:nth-of-type(1)
+
+
 :hover
 默认若不带标签名则视为对a标签生效，(若页面里头没有a，则对所有生效)
 可加上其他标签，也对其他标签生效。

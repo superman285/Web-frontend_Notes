@@ -48,6 +48,10 @@ z-index可设置为负数或者0
 🔲🔲🔲🔲
 trbl值为百分比时，百分比一定是相对父亲而言的，不管是absolute或relative，任何布局方式都是
 
+Tips:不知道父亲高度又想定位在父亲底下时，可以写top:100%
+妙啊！
+
+
 💩flex布局开始学习：
 10个概念：main axis主轴，cross axis侧轴。
 main size;cross size;main axis;cross axis;
@@ -87,6 +91,16 @@ align-self:自身对齐方式(孩子自己选择所需的对齐方式,不管父�
 
 flex-grow:设置自身所占权重，分配剩余空间(若没设置子元素宽度则分配所有，若设置了则分配剩余的)
 设置的值为剩余空间的百分比，权重越大，分配宽高越大。
+
+💩flex-grow用小数可以正常分配空间，用百分数时会可能会一个item占满一行！
+注意：比如4个flex-item，每个item配置flex:0.2，总共会占0.8份空间
+当flex配置大于0.25时，配0.3和配3和配100效果完全一样！
+明白百分比和小数的区别了！！！！
+小数是指剩余空间中的多少份，例如items之间有空隙，0.2指除去空隙剩余空间中的20%，是不会换行的。
+而百分比是完整空间中的多少份，例如items之间有空隙，20%仍会占整个容器宽度的20%，
+多出的大不了换行(前提是配置了flex-wrap:wrap，默认是不换行的，所以默认情况下配百分比无效的，跟配1一样)
+当然如果那一行只有一个item，即使设的是50%也会把那行空间吃掉了。
+
 flex-shrink:子元素超出父元素的量，差值分配权重，权重越大的需要扣除宽高越多。
 flex-basis:可设置具体宽度px值
 flex:grow和basis都存在时以flex-grow为准
@@ -120,5 +134,12 @@ justify-items/align-items:针对grid items网格项里头的内容在各个网�
 这儿的居中
 
 水平居中可考虑text-align，
+
+
+💩💩grid神技，不用媒体查询实现响应式布局💩💩
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+grid-template-rows: repeat(2, 100px);
+auto-fit代表自适应的列数，伸缩屏幕宽度时会自适应地调节列数。
+minmax(100px,1fr)，最小100，最大占剩余空间
 
 

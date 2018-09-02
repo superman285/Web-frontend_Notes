@@ -134,7 +134,7 @@ git push -u origin master
 
   上一步手抖了，可以用这个命令抢救
 
-- git branch    新建分支
+- git branch    查看分支情况
 
 - git merge    合并分支
 

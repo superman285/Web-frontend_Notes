@@ -5,6 +5,16 @@
 需要声明容器的宽度的话，可以考虑使用百分比。
 em当前容器字体大小，rem根元素字体大小(即html)
 
+◉◉高度跟随宽度固定比例变化，响应式布局◉◉
+利用某个易错知识点，padding或margin的百分比值参照对象是父亲。
+所以，padding-top/padding-bottom:xx%,就可以达到想要的效果了，具体数值具体场景中分析。
+特殊注意：
+在grid布局中，grid-item的margin和padding百分比参照的是grid-item的宽度而不是grid容器的宽度。
+而在flex布局中，flex-item的padding百分比参照的是flex容器的宽度而不是flex-item的宽度。
+
+◉◉字体粗细用font-weight的数值来调节
+100~700范围，可以每次增加100来看下字体粗细变化
+可以有很细、普通、中等、粗体等变化，很好用。
 
 ◉◉通栏+版心◉◉
 如果某个bar要拖动放大后 仍然栏要占满屏幕带有背景色
@@ -15,6 +25,7 @@ em当前容器字体大小，rem根元素字体大小(即html)
 只要给html设置一个最小宽度，为电脑屏幕宽度就ok！
 html{min-width:1280px;}
 4.可以设置隐藏滚动栏，html{overflow-x:hidden;}
+自适应布局中需要用百分比
 
 ◉◉导航栏◉◉
 ul套li，li套a标签，
@@ -58,9 +69,16 @@ i标签的图标可考虑用iconfont。
 ◉◉单行/单列布局&多行多列布局◉◉
 一行或一列布局采用flex，多行多列网格状用grid布局。
 flex容器的子元素带宽度则只用justify-content:space-between(最常用)即可
-若子元素不带宽度，想均匀分配且带空隙，则可以
-方法一：设置margin，每个子元素设置flex:1。
-方法二：若想带空隙则设置各元素为小数flex:0.2;
+flex若子元素不带宽度，想均匀分配且带空隙，则可以
+方法一：设置右margin(选择器上剥除最后一个元素)，每个子元素设置flex:1。
+方法二：若想带空隙则设置各元素为小数flex:0.2;然后space-between
+grid带空隙，可用grid-gap或margin
+
+布局中，菜单自适应可用下面方式：
+padding: 1em 0;
+text-align: center;
+不要设置左右padding，而是由flex布局来撑开
+因为左右padding确定无法做到好的自适应。
 
 grid布局
 ⬛记住一点，一旦某个子元素设了grid-row或grid-column他的位置就比默认不设置的
@@ -88,10 +106,15 @@ flex也可以借助margin
 "g h h"
 这种方式适用于总div子元素数量少但是奇形怪状的
 a\b\c\d\e\f\g 都是一种样式 但无法通用 
-还是得配7种area名字，因为同名意味着连在一起。
+还是得配7种area名字，因为同名意味着区域连在一起。
+
+⚫ .(可以一个点号或多个连续点号)：代表一个空的网格单元
+⚫ none：不定义网格区域
+
+
 ⬛2.单独对某个div子元素采取
 grid-column或grid-row:start/end 或者 start/span 跨度number;
-若是占了网格图一个单元格子(即跨度宽度1高度1的)的默认不动即可，不用单独配置
+若是占了网格图一个单元格子(即跨度宽度1高度1的)的默认不动即可，不用单独配置(若想保证排列顺序还是配置下更好？)
 如上图布局a~g不动
 .h{grid-column:2/4;grid-row:3/4;}
 此法可以用伪类选择器提高效率把同形状元素都选出来，用顺序选择器nth-child()
@@ -143,5 +166,12 @@ box-shadow:15px 15px 20px 0 rgba(46,61,73,.15)
 box-shadow:2px 4px 8px 0 rgba(46,61,73,.2)
 
 其中的0是较少用的Spread属性可有可无，而x、y、blur和颜色是不可缺少的。
+
+
+◉◉grid神技，不用媒体查询实现响应式布局◉◉
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+grid-template-rows: repeat(2, 100px);
+auto-fit代表自适应的列数，伸缩屏幕宽度时会自适应地调节列数。
+minmax(100px,1fr)，最小100，最大占剩余空间
 
 
