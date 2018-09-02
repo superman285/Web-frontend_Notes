@@ -115,4 +115,13 @@ border-radius:30px/40px; 椭圆的水平半径和垂直半径，
 outline-style:none; 去掉轮廓线
 
 
+text-decoration也为合写:text-decoration-line,text-decoration-style,text-decoration-color;
+
+text-decoration:underline,wavy,red; 红色下划波浪线
+line-through,dashed,blue; 蓝色虚线删除线
+text-decoration可以含多个，e.g. text-decoration-line:underline overline; 则上下都有线
+underline|overline|line-through
+wavy|solid|double|dotted|dashed|none
+
+
 
