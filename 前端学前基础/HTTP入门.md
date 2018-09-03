@@ -54,6 +54,51 @@ URL：统一资源定位符    唯一确定的位置
 
 URN：统一资源名称	唯一确定的
 
+
+
+最具体的URL会包含以下内容：
+
+- 协议
+- 域名
+- 端口号
+- 路径
+- 查询参数
+- 锚点
+
+(不带协议版本号)
+
+类似
+
+https://localhost:8080/?wd=scss#2
+
+
+
+URL的范围更大，既有URI的标识作用，还有地址定位作用，所以URL可以是URI，但是URI却不是URL。
+
+URN和URL 都可以是URI
+
+
+
+本地host文件：
+
+127.0.0.1	www.163.com
+
+修改域名指向127.0.0.1 ip地址
+
+
+
+> URL是一种具体的URI，它不仅唯一标识资源，而且还提供了定位该资源的信息。URI是一种语义上的抽象概念，可以是绝对的，也可以是相对的，而URL则必须提供足够的信息来定位，所以，是绝对的。
+
+
+
+举个栗子🌰
+
+经验式理解：<span style="color:red;">htt-p://localhost:8080</span><span style="color:green">/myweb/hello.html</span>
+
+以上web地址，红色字体部分+绿色字体部分=URL；绿色字体部分=URI（相对的路径)。这是大部分程序员对两者理解的一个典型代表。
+
+
+
 ![url](C:\Users\SuperX\Pictures\url.png)
 
 
