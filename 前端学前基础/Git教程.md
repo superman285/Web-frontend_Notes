@@ -152,23 +152,32 @@ git push -u origin master
 
 ***
 
-若给你的某个仓库设置了github pages(Source选择master branch)后，可以用published地址后接index.html或readme.md来预览放在仓库一级的html后md文件，用浏览器预览md文件需要更改编码方式为UTF-8。
+若给你的某个仓库设置了github pages(Source选择master branch)后，可以用published地址后接index.html或readme.md来预览放在仓库一级的html或md文件，用浏览器预览md文件需要更改编码方式为UTF-8。
 
 `Your site is published at <https://skr.dog/blog/>`
 
-![1535630847641](C:\Users\SuperX\Desktop\饥人谷前端\blog img\1535630847641.png)
+- 方法一: 以上是一种情况 仓库的published地址不跟html或md打开就可直接预览**名为index的html文件**或**名为readme的md文件**。
+
+  通用方法是published url/+html文件在这个仓库的地址
+
+  e.g. https://skr.dog/HandTraining-S-Demos/Perfect-Grid/
+
+       代表https://skr.dog/HandTraining-S-Demos/Perfect-Grid/index.html
 
 
 
 
+- 方法二: 文件地址前加上`http://htmlpreview.github.io/?`
 
+  例：
 
+  http://htmlpreview.github.io/?https://github.com/superman285/HandTraining-S-Demos/blob/master/Perfect-Grid/index.html
 
 
 
 **git的许可证的选择：**
 
-![git_licenses](C:\Users\SuperX\Desktop\饥人谷前端\学前基础\git_licenses.png)
+![git_licenses](C:\Users\SuperX\Desktop\饥人谷前端\前端学前基础\git_licenses.png)
 
 
 

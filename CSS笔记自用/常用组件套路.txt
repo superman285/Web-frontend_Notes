@@ -158,7 +158,7 @@ html{
 2.用作图标字体，切记要在开头引用iconfont.css否则无效！！然后加上类名即可
 例如：<i class="iconfont icon-sousuo bold">
 
-◉◉卡片阴影设计◉◉
+◉◉卡片阴影设计◉◉ 搜索box-shadow generator即可找到方便的生成器
 鼠标移动过去，会有浮上来或者沉下去的效果，一个常用值
 浮上来：(阴影扩散范围大)
 box-shadow:15px 15px 20px 0 rgba(46,61,73,.15)

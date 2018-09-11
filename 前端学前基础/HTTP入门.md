@@ -60,10 +60,12 @@ URN：统一资源名称	唯一确定的
 
 - 协议
 - 域名
-- 端口号
+- 端口号(不写的话用默认端口)
 - 路径
 - 查询参数
 - 锚点
+
+<span style="color:darkred;font-weight:700" >至少也要包含协议-域名两部分，例如http://www.baidu.com 才能算得上URL，才能正常定位</span>
 
 (不带协议版本号)
 
@@ -112,6 +114,18 @@ baidu 是二级域名
 www 是三级域名
 
 锚点，跳转到对应id设置处，#5即跳转到id为5的元素那儿
+
+
+
+打开html有文件协议和http协议，
+
+从IDE用浏览器打开，http://localhost: , http协议
+
+直接把html文件拖入浏览器打开， file:///C:/Users/SuperX/ , 文件协议
+
+file://  `/c`代表下 最顶层目录下的C盘，
+
+
 
 ***
 
@@ -188,3 +202,6 @@ POST带数据的请求
 
 
 
+💡 找到网页中的图片资源并为我所用:
+
+   Network选项卡，Img标签，选中某个Name点击，可看到Preview预览，选中想要的，双击Name新窗口打开，然后图片另存为即可。

@@ -67,8 +67,12 @@ vertical-align:middle;
 ✴✴居中大法：
 1.flex布局：
 👌法一：display:flex;justify-content:center;/水平 align-items:center;/垂直
-👌法二：display:flex;margin:auto;/ 水平垂直居中,厉害
+👌法二：display:flex;margin:auto;/ 水平垂直居中,厉害！！
 2.grid布局：
 👌法一：justify-content/align-items:center 水平或垂直对齐
-👌法二：margin:auto;/ 水平垂直居中，666
+👌法二：margin:auto;/ 水平垂直居中，666！！
+
+
+
+
 
