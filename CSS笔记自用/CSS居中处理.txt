@@ -20,7 +20,7 @@ margin:0 auto;(只能用于标准流元素，脱标的不可用)
 ✴方法二：用布局position，自己用绝对，父亲用相对(不好，因为导致自己脱标)
 position:absolute;top:50%;transform:translate(0,-50%);或translateY(-50%);
 (transform上挪自身高度的50%)第一个值为水平，第二个值垂直
-或【margin-top:-(元素宽度/2)】;
+或【margin-top:-(元素高度/2)】;
 
 left:50%;margin-left:-宽度/2;
 只能用margin-left,不可用margin-right，
