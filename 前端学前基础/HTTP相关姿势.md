@@ -166,6 +166,12 @@ curl -s -v -H "superman285:666" https://xiedaimala.com/search?keyword=scss&type=
 
 
 
+一般第二部分必须要有
+
+Host(向谁发请求/请求的主机地址)、Accept(接收格式)
+
+
+
 💡 **请求方法动词有：**
 
 ==GET== **|** ==POST== **|** ==PUT== **|** ==PATCH== **|** ==DELETE==
