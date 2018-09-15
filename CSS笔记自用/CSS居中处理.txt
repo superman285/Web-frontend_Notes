@@ -16,7 +16,10 @@ margin:0 auto;(只能用于标准流元素，脱标的不可用)
 或margin-left:auto;margin-right:auto;
 
 块级元素垂直居中：
+✴一般场景下，父亲高度都不固定而是由子元素撑开，
+ 给父亲设置padding-top\padding-bottom一样则可以让子元素居中了。
 ✴方法一：把块放进table>tr>td内(table设置好宽高和原父亲一样inherit)
+
 ✴方法二：用布局position，自己用绝对，父亲用相对(不好，因为导致自己脱标)
 position:absolute;top:50%;transform:translate(0,-50%);或translateY(-50%);
 (transform上挪自身高度的50%)第一个值为水平，第二个值垂直
@@ -46,6 +49,9 @@ margin-left与left一致，所以可以用，带上负值就起到了反向移�
 text-align:center
 
 文字垂直居中：
+👌比较灵活的、实际中用的方法
+固定line-height,然后设置padding-top和padding-bottom相同，就可以达到文字垂直居中效果。
+若固定父元素高度，在多行文字的时候文字会出界，丑！
 👌单行：
 line-height:父亲height值
 行高=文字大小+上间距+下间距
@@ -68,10 +74,11 @@ vertical-align:middle;
 1.flex布局：
 👌法一：display:flex;justify-content:center;/水平 align-items:center;/垂直
 👌法二：display:flex;margin:auto;/ 水平垂直居中,厉害！！
+而且子元素宽度将根据内容自适应，而不是撑开一整行
 2.grid布局：
 👌法一：justify-content/align-items:center 水平或垂直对齐
 👌法二：margin:auto;/ 水平垂直居中，666！！
-
+而且子元素宽度将根据内容自适应，而不是撑开一整行
 
 
 

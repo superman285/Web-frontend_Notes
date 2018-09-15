@@ -41,6 +41,10 @@ a链接加下划线或其他标记 遇上位置变化防抖动的方法：
 宽度100%
 高度100%
 
+切记：
+top和left的优先级要高于bottom和right！！
+
+
 定位问题：
 TRBL为百分比值时，一定是相对父元素的百分比，切记切记！！！！
 absolute：
@@ -173,7 +177,6 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 

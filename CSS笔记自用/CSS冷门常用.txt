@@ -15,7 +15,13 @@ HTML元素之间的空白会显示在页面上，
 如
 修正方法：
 ◉方法一：将第二个标签的开头也写在同一行，不换行
+或者<li>
+   one</li><li>
+或：
+<li>one</li
+  ><li>two</li>
 ◉方法二：在父元素上设置font-size: 0;
+
 
 注意有字被挤到下一行时先别胡思乱想，可能是字体超出设置的宽度了，就这么简单。
 
@@ -114,6 +120,22 @@ flex的布局占位中
 flex-shrink:20%;与flex-shrink:0.2;
 效果不一样，20%和1相当(相当于无效)，
 而0.2是真正的占了整个容器的0.2。
+
+
+🔷🔷🔷🔷
+文字两端对齐的技巧：
+如这个效果：(切忌使用空格，万万不行)
+姓    名
+联系方式
+
+span{text-align:justify;设置固定的高度与行高;overflow:hidden;}
+span::after{content:‘’;display:inline-block;width:100%;}
+
+相当于在文字下方加了一行撑满整行的文字，然后justify就可以生效，设置高度与行高后那一行可能超出范围，再用overflow:hidden隐藏起来。
+
+多行文字两端对齐
+text-align:justify
+一定要多行该属性才能生效
 
 
 
