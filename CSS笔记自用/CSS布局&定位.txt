@@ -53,6 +53,7 @@ Tips:不知道父亲高度又想定位在父亲底下时，可以写top:100%
 
 
 💩flex布局开始学习：
+flex布局中子元素若为inline或inline-block则会自动被转为block，不需要再设置display:block
 10个概念：main axis主轴，cross axis侧轴。
 main size;cross size;main axis;cross axis;
 main start;main end;cross start;cross end;
@@ -115,7 +116,7 @@ flex:grow和basis都存在时以flex-grow为准
 .father{display:flex;} .a-left{margin-right:20px;} .a-right{margin-left:auto;} 搞定！
 
 ❤❤❤❤多行多列布局：grid神技❤❤❤❤
-
+flex布局中子元素若为inline或inline-block则会自动被转为block，不需要再设置display:block
 💩1. 定了容器宽高，子元素就用%或fr 来布局。
 💩2. 定了子元素宽高，用具体px来布局，父元素就不要限制宽高，
 	由子元素加grid-gap来撑开。

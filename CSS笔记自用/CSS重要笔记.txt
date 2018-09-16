@@ -128,11 +128,12 @@ div.one/div.a/div.z; 并集：.one,.a,.z
 
 隐藏：
 display:none;隐藏后不占文档流位置(用的更多)
-visibility:hidden;隐藏后会占文档流位置 
+visibility:hidden;隐藏后会占文档流位置
+overflow:hidden; 隐藏内容 
  
 快捷键：boxsz + tab
 box-sizing:border-box;
-设置了此属性后，padding属性不会再增大整个盒子的长度宽度！非常好
+设置了此属性后，padding属性和border不会再增大整个盒子的长度宽度！非常好
 
 提高效率：
 常用居中版心
@@ -153,6 +154,35 @@ box-sizing:border-box;
 .floatRight{
 	float:right;
 }
+
+
+💡 解决导航栏tab加上底边框后hover抖动技巧：
+
+鼠标hover产生边框时，从无边框到有边框会出现位置的变化，所以会抖动
+提前给元素设置透明边框即可，鸡贼。
+border-bottom: 1px solid transparent;
+
+如果因为border问题文字无法垂直居中，有以下方法：
+- 再补上border-top(更好的方案)
+- 调节line-height让文字再次居中
+
+
+💡 CSS3原生支持变量
+:root {--white:#fff;}
+.div{ background:var(--white);}
+
+
+
+
+💡 媒体查询注意层叠性，如果多个范围，只用max的话，从大到小往下写
+若不放心就用两端限制，更安全
+@media (min-width:321px) and (max-width:375px)
+
+
+
+
+
+
 
 *******************************************************************
 CSS reset 清除浏览器自家的css样式，方便调整，可命名为base.csss

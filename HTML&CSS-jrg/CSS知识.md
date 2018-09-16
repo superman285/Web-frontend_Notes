@@ -42,7 +42,7 @@ CSS中引入 @import url(./style2.css);
 
 
 
-解决hover抖动技巧：
+解决导航栏tab加上底边框后hover抖动技巧：
 
 鼠标hover产生边框时，从无边框到有边框会出现位置的变化，所以会抖动
 
@@ -50,7 +50,10 @@ CSS中引入 @import url(./style2.css);
 
    border-bottom: 1px solid transparent;
 
-如果因为border问题不好对齐，就再补上border-top
+如果因为border问题文字无法垂直居中，有以下方法：
+
+- 再补上border-top(更好的方案)
+- 调节line-height让文字再次居中
 
 
 
