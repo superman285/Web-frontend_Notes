@@ -61,7 +61,7 @@ relative：
 当子元素为relative时，不管父元素有position(不管他是哪种)还是没position，
 trbl值的设置都是相对于原本自己应该所在位置(即没有position时)来做偏移，
 bottom即向上偏移，right即向左偏移。
-r日不管别人(不管父亲)(有没有p、p是什么)只管自己偏自己的。
+r日不管别人(不管父亲)(有没有position、position是什么)只管自己偏自己的。
 r儿子自私，只管自己！
 
 当子元素为absolute时，两种情况来了：这时一般都把父亲设置为relative，否则会脱标。
@@ -165,6 +165,29 @@ border-bottom: 1px solid transparent;
 如果因为border问题文字无法垂直居中，有以下方法：
 - 再补上border-top(更好的方案)
 - 调节line-height让文字再次居中
+
+再来个高端技巧，用伪元素after，还能配合动画做出酷炫效果，也不会抖动，因为是绝对定位
+a标签要加相对定位。要影响谁就要给谁加transition
+如果包含双重动画，在下划线变长的同时字体颜色也要渐变，则需要再在a标签本身处加transition
+.topMenu a::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 0%;
+    background: var(--red);
+    position: absolute;
+    margin-top: 3px;
+    transition: width 0.2s linear;
+}
+.topMenu a:hover::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--red);
+    position: absolute;
+    margin-top: 3px;
+}
 
 
 💡 CSS3原生支持变量

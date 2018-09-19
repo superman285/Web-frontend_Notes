@@ -57,6 +57,32 @@ CSS中引入 @import url(./style2.css);
 
 
 
+💡 再来个高端技巧，用伪元素after，还能配合动画做出酷炫效果，也不会抖动，因为是绝对定位
+a标签要加相对定位。要影响谁就要给谁加transition
+如果包含双重动画，在下划线变长的同时字体颜色也要渐变，则需要再在a标签本身处加transition
+
+```css
+.topMenu a::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 0%;
+    background: var(--red);
+    position: absolute;
+    margin-top: 3px;
+    transition: width 0.2s linear;
+}
+.topMenu a:hover::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--red);
+    position: absolute;
+    margin-top: 3px;
+}
+```
+
 
 
 
@@ -135,3 +161,4 @@ ul
   所以浮动元素只是浮动于块级元素的上方(块级元素会钻到浮动元素下方)，
 
   但是一旦碰到inline或inline-block(内联元素不会钻到下方)，浮动元素不会浮动于他们上方，内联元素会环绕浮动元素
+

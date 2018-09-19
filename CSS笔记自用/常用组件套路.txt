@@ -2,15 +2,28 @@
 ◉◉单位选择◉◉
 单位的选用，要有响应式思维！
 对font-size使用rem，对border使用px，对其他的度量方式如padding、margin、border-radius等使用em。
-需要声明容器的宽度的话，可以考虑使用百分比。
+需要声明容器的宽度的话，可以考虑使用百分比或者vw。
+想要自适应的高度可用百分比或vh甚至vw(这时就和宽度扯上关系了)
 em当前容器字体大小，rem根元素字体大小(即html)
 
-◉◉高度跟随宽度固定比例变化，响应式布局◉◉
-利用某个易错知识点，padding或margin的百分比值参照对象是父亲。
+◉◉高度自适应，跟随宽度固定比例变化，响应式布局◉◉
+方法一:
+设置右margin利用某个易错知识点，padding或margin的百分比值参照对象是父亲。
 所以，padding-top/padding-bottom:xx%,就可以达到想要的效果了，具体数值具体场景中分析。
+此方法空间会被padding占据，若想在其中添加内容可能需要用到绝对定位。
 特殊注意：
 在grid布局中，grid-item的margin和padding百分比参照的是grid-item的宽度而不是grid容器的宽度。
 而在flex布局中，flex-item的padding百分比参照的是flex容器的宽度而不是flex-item的宽度。
+方法二:
+利用特殊单位vw的特性
+若父元素与body有关系，以浏览器宽度作为参考，设计自适应比例，
+然后给个最小高度限制，防止浏览器缩到很窄时高度缩的太小
+height: 30vw;
+min-height: 200px;
+此方法有空间继续添加元素，不用被padding白白占据空间。
+
+
+
 
 ◉◉字体粗细用font-weight的数值来调节
 100~700范围，可以每次增加100来看下字体粗细变化
@@ -175,3 +188,49 @@ auto-fit代表自适应的列数，伸缩屏幕宽度时会自适应地调节列
 minmax(100px,1fr)，最小100，最大占剩余空间
 
 
+
+
+
+
+
+◉◉多重动画◉◉
+如果不想用animation @keyframes，可以借助伪元素或者子元素的帮助
+自身的动画变颜色，自身先出现方边框再变圆边框
+伪元素配好方边框然后隐藏起来，hover后伪元素变圆边框
+自身字体变色的过渡写在自己身上，边框动画的过渡写在伪元素身上，
+然后可以控制两个时间，就实现双重动画  具体参见Project-ITmall例子
+
+.NPContent-item>a>i {
+    font-size: 1.5rem;
+    display: inline-block;
+    transition: all 0.2s linear;
+}
+
+.NPContent-item>a {
+    position: relative;
+}
+
+.NPContent-item>a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0%;
+    /*border: 1px solid red;*/
+    box-sizing: border-box;
+    top:-12.1px;
+    left:-7.4px;
+    background: #eeeeee;
+    z-index: -1;
+    transition: all 0.2s linear;
+    visibility: hidden;
+}
+.NPContent-item>a:hover::after {
+    visibility: visible;
+    border-radius: 50%;
+
+}
+.NPContent-item>a:hover i {
+    color: var(--red);
+}

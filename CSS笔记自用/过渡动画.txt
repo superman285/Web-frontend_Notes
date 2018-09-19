@@ -76,3 +76,13 @@ left top 代表0 0; center center 代表50% 50%
 bottom 相当于 center bottom/50% 100%
 left 相当于left center/0 50%
 向下 向右为正。
+
+
+💡 技巧 💡
+如果一个div有动画，但是他内部的元素没动画，放动画时先显示出了内部元素
+才播完动画显示完整个div，想解决这个问题，让div内部元素不要那么突兀地一下子显示
+使用overflow:hidden，给父亲div增加overflow:hidden即可。看起来子元素的出现就会比较自然了。
+
+
+
+
