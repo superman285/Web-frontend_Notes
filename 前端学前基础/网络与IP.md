@@ -128,6 +128,10 @@ https协议，浏览器默认加上:443
 
 
 
+补充：//判断是http或https 或file(看本地时)
+
+> [//协议](https://blog.csdn.net/jimbowong/article/details/54960244)
+
 ### 浏览器地址栏输入网址按回车
 
 ---

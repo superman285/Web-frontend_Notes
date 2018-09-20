@@ -53,7 +53,12 @@ Tips:不知道父亲高度又想定位在父亲底下时，可以写top:100%
 
 
 💩flex布局开始学习：
-flex布局中子元素若为inline或inline-block则会自动被转为block，不需要再设置display:block
+flex布局中(父元素display为flex)子元素若为inline或inline-block则会自动被转为block，不需要再设置display:block
+父元素自己也变成了block(即使以前是行内或行内块元素)
+
+若不想父亲自己变成block，则用display: inline-flex; 
+则还算是行内元素，浏览器Computed看到的display为inline-flex，  冷
+
 10个概念：main axis主轴，cross axis侧轴。
 main size;cross size;main axis;cross axis;
 main start;main end;cross start;cross end;

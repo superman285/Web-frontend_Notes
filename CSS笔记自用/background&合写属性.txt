@@ -98,10 +98,14 @@ text-shadow:1px 1px 10px red;
 多阴影写法：
 text-shadow:1px 1px 10px red,1px 1px 10px blue;
 
-box-shadow:1px 1px 10px blue;
-【水平方向(正为向右),垂直方向(正为向下)】，模糊度(即阴影大小)，颜色。
-⚔内阴影加个inset，则阴影在内部，方向与外部的相反，右下的内阴影为内部左上。
 
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+box-shadow:1px 1px 10px 10px blue;
+【水平方向(正为向右),垂直方向(正为向下)】，模糊度(即阴影模糊距离)，扩展(阴影尺寸(不模糊)，可选项)，颜色。
+注意：模糊阴影在扩展阴影的外层，先显示扩展再到模糊。{目测效果是这样}
+⚔内阴影 加个inset，则阴影在内部，方向与外部的相反，右下的内阴影为内部左上。
+box-shadow:1px 1px 10px 10px grey inset;
 
 border合写：border-width,border-style,border-color;
 border-style的默认值是none，所以是必须设置的，另外两个属性有默认值，不设置也可显示；
