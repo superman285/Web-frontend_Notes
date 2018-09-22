@@ -1,5 +1,10 @@
 
 
+垂直居中神文：
+
+https://segmentfault.com/a/1190000000381042
+
+
 不能居中的常见原因：
 🎡因为没有设置宽度！
 🎡给元素设置了float，已经不占文档流位置(脱标)，line-height无效化，
@@ -34,6 +39,10 @@ margin-left与left一致，所以可以用，带上负值就起到了反向移�
 只把子元素设置relative即可,margin可继续使用！！.element想居中
 .element{position:relative;top:50%;transform:translate(0,-50%);}
 方法二用margin-top或margin-bottom可能会导致外边距塌陷，最佳还是transform
+
+✴方法2.5：
+自己用绝对定位，父亲用相对定位
+top:0;bottom:0;margin:auto;(一定要设置top0和bottom0,否则无效)
 
 ✴方法三：父亲.father高度450px,后代元素.element400，上下空白各25px，且伪元素不占文档流，可以继续用margin
 .element{height:400px;/或height:90%;}

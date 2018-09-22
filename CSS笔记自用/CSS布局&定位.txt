@@ -4,6 +4,30 @@ div可嵌套span，不可span内嵌套div
 行内元素不可嵌套块状元素
 
 
+margin中auto的妙用
+
+原理：
+两侧auto，则平分剩余空间
+一侧auto，一侧没设置，则设置auto的一侧分配所有剩余空间
+想设置靠右对齐，则margin-left:auto;
+
+标准流中
+垂直方向margin:auto 代表margin-top:0,margin-bottom:0
+标准流宽度
+left + margin-left + border-left-width + padding-left + width + padding-right + border-right-width + margin-right + right = width of containing block
+
+而绝对定位的元素
+垂直方向margin:auto 则margin-top和margin-bottom平分剩余空间
+绝对定位元素高度
+top + margin-top + border-top-width + padding-top + height + padding-bottom + border-bottom-width + margin-bottom + bottom = height of containing block
+
+参考：https://segmentfault.com/q/1010000000689833
+---------------------
+
+
+
+
+
 布局方式：
 🔲 normal flow 正常的块级、行内块
 🔲 float + clear(清除浮动)	
