@@ -64,11 +64,11 @@ a = ‘hello’;
 
 
 
-> **用var重新声明一个已存在的变量是无效的**，例如：
+> **用var重新声明(但不赋值)一个已存在的变量是无效的**，例如：
 
 var x = 1;
 
-var x; //此句无效，等于没写，x等于1
+var x; //此句无效，等于没写，x等于1，x不会等于undefined
 
 
 
@@ -1797,6 +1797,12 @@ console.log(temp.p1 + temp.p2);
 
 
 
+function testf(){console.log(‘666’);}
+
+testf	//输出 f testf(){console.log(‘666’);}
+
+
+
 #### 函数的重复声明
 
 同一个函数被多次声明，后面的声明会覆盖前面的声明。
@@ -1838,7 +1844,7 @@ function方式的函数提升，除了函数名，把函数的定义也给提升
 
 🔯***经典操作***
 
-> **函数会首先被提升，然后再到变量，即函数会提升到变量之前(因为f在v前...)** 到时再确认下
+> **函数会首先被提升，然后再到变量，即函数会提升到变量之前(因为f在v前...function更牛逼)** 
 >
 > 但是变量的声明var a只是定义并不会覆盖变量，不会将前面的a改为undefined。
 >
@@ -1860,3 +1866,458 @@ function foo(){
 var foo = "变量";
 ```
 
+
+
+#### 不能在非函数的代码块中声明函数，例如条件语句中不可声明函数
+
+```js
+if (condition) {
+  function f() {}
+}
+
+f() // 不报错,但是由于函数声明提升，if语句失效了
+```
+
+
+
+#### 函数的属性和方法
+
+##### name属性
+
+返回函数名
+
+```js
+function f1() {}
+f1.name // "f1"
+
+var f2 = function () {};
+f2.name // "f2"，匿名函数返回的是变量名，具名函数则返回function关键字后的函数名
+
+var f3 = function myName() {};
+f3.name // 'myName' 注意:真正的函数名还是f3，myName这个名字只在函数体内部可用。
+myName // 报错，Uncaught ReferenceError: myName is not defined
+```
+
+`name`属性的一个用处，就是获取参数函数的名字。
+
+函数`test`内部通过`name`属性，就可以知道传入的参数是什么函数。
+
+```js
+var myFunc = function () {};
+
+function test(f) {
+  console.log(f.name);
+}
+
+test(myFunc) // myFunc
+```
+
+
+
+##### length属性
+
+函数的`length`属性返回函数预期传入的参数个数，即函数定义之中的参数个数。
+
+```js
+function f(a, b) {}
+f.length // 2
+```
+
+上面代码定义了空函数`f`，它的`length`属性就是==定义时的参数个数==。
+
+**不管调用时输入了多少个参数，`length`属性始终等于2。**
+
+`length`属性提供了一种机制，判断定义时和调用时参数的差异，以便实现面向对象编程的”方法重载“（overload）。
+
+
+
+##### toString()属性
+
+函数的`toString`方法返回一个字符串，内容是函数的源码。
+
+```js
+function f() {
+  a();
+  b();
+  c();
+}
+
+f.toString()
+// function f() {
+//  a();
+//  b();
+//  c();
+// }
+
+function f() {/*
+  这是一个
+  多行注释
+*/}
+
+f.toString()
+// "function f(){/*
+//   这是一个
+//   多行注释
+// */}"
+```
+
+
+
+利用这一点，可以变相实现多行字符串。
+
+```js
+var multiline = function (fn) {
+  var arr = fn.toString().split('\n');
+  return arr.slice(1, arr.length - 1).join('\n');
+};
+
+function f() {/*
+  这是一个
+  多行注释
+*/}
+
+multiline(f);
+// " 这是一个
+//   多行注释"
+```
+
+
+
+#### 函数作用域
+
+##### 定义
+
+- 全局作用域，变量在整个程序中一直存在，所有地方都可以读取
+- 函数作用域，变量只在函数内部存在
+
+
+
+```js
+//局部变量
+function f(){
+  var v = 1;
+}
+
+v // ReferenceError: v is not defined
+```
+
+```js
+var v = 1;
+
+function f(){
+  var v = 2;
+  console.log(v);
+}
+
+f() // 2
+v // 1
+```
+
+上面代码中，变量`v`同时在函数的外部和内部有定义。在函数内部定义时，函数内部的局部变量`v`覆盖了全局变量`v`。
+
+
+
+❗注意：对于`var`命令来说，局部变量只能在函数内部声明，在其他区块中声明，一律都是全局变量。
+
+```js
+if (true) {
+  var x = 5;
+}
+console.log(x);  // 5
+```
+
+
+
+##### 函数内部的变量提升
+
+```js
+function foo(x) {
+  if (x > 100) {
+    var tmp = x - 100;
+  }
+}
+
+// 等同于
+function foo(x) {
+  var tmp;
+  if (x > 100) {
+    tmp = x - 100;
+  };
+}
+```
+
+
+
+##### 函数本身的作用域 ㊙
+
+函数本身也是一个值，也有自己的作用域。它的作用域与变量一样，就是其声明时所在的作用域，与其运行时所在的作用域无关。 函数执行时作用域绑定声明时的作用域。
+
+> **函数执行时所在的作用域，是定义时的作用域，而不是调用时所在的作用域。**
+
+```js
+var a = 1;
+var x = function () {
+  console.log(a);
+};
+
+function f() {
+  var a = 2;
+  x();
+}
+
+f() // 1
+```
+
+上面代码中，函数`x`是在函数`f`的外部声明的，所以它的作用域绑定外层，内部变量`a`不会到函数`f`体内取值，所以输出`1`，而不是`2`。
+
+
+
+==易错==
+
+容易犯错的一点是，如果函数`A`调用函数`B`，却没考虑到函数`B`不会引用函数`A`的内部变量。
+
+```js
+var x = function () {
+  console.log(a);
+};
+
+function y(f) {
+  var a = 2;
+  f();
+}
+
+y(x)
+// ReferenceError: a is not defined
+```
+
+上面代码将函数`x`作为参数，传入函数`y`。但是，函数`x`是在函数`y`体外声明的，作用域绑定外层，因此找不到函数`y`的内部变量`a`，导致报错。
+
+
+
+```js
+function foo() {
+  var x = 1;
+  function bar() {
+    console.log(x);
+  }
+  return bar;
+}
+
+var x = 2;
+var f = foo();
+f() // 1
+```
+
+上面代码中，函数`foo`内部声明了一个函数`bar`，`bar`的作用域绑定`foo`。当我们在`foo`外部取出`bar`执行时，变量`x`指向的是`foo`内部的`x`，而不是`foo`外部的`x`。正是这种机制，构成了下文要讲解的“闭包”现象。
+
+
+
+#### 参数
+
+##### 参数的省略
+
+```js
+function f(a, b) {
+  return a;
+}
+
+f(1, 2, 3) // 1
+f(1) // 1
+f() // undefined
+
+f.length // 2
+```
+
+上面代码的函数`f`定义了两个参数，但是运行时无论提供多少个参数（或者不提供参数），JavaScript 都不会报错。
+
+==省略的参数的值就变为`undefined`。==
+
+需要注意的是，函数的`length`属性与实际传入的参数个数无关，只反映函数预期传入的参数个数(定义时候的参数个数)。
+
+
+
+可以省略靠后的参数，但没办法只省略靠后的参数。如果一定要省略靠前的参数，只有显式传入`undefined`。
+
+```js
+function f(a, b) {
+  return a;
+}
+
+f( , 1) // SyntaxError: Unexpected token ,(…)
+f(undefined, 1) // undefined
+```
+
+
+
+> ##### 💡传递方式
+
+如果是原始类型的值（数值、字符串、布尔值），传递方式是传值传递（passes by value）。这意味着，在函数体内修改参数值，不会影响到函数外部。
+
+```js
+var p = 2;
+
+function f(p) {
+  p = 3;
+}
+f(p);
+
+p // 2
+```
+
+
+
+But，如果函数参数是复合类型的值（数组、对象、其他函数），传递方式是传址传递（pass by reference）。也就是说，传入函数的原始值的地址，因此在函数内部修改参数，将会影响到原始值。
+
+```js
+var obj = { p: 1 };
+
+function f(o) {
+  o.p = 2;
+}
+f(obj);
+
+obj.p // 2
+```
+
+上面代码中，传入函数`f`的是参数对象`obj`的地址。因此，在函数内部修改`obj`的属性`p`，会影响到原始值。
+
+
+
+==特殊地，==如果函数内部修改的，不是参数对象的某个属性，而是替换掉整个参数，这时不会影响到原始值。
+
+```js
+var obj = [1, 2, 3];
+
+function f(o) {
+  o = [2, 3, 4];
+}
+f(obj);
+
+obj // [1, 2, 3]
+```
+
+上面代码中，在函数`f`内部，参数对象`obj`被整个替换成另一个值。这时不会影响到原始值。这是因为，形式参数（`o`）的值实际是参数`obj`的地址，重新对`o`赋值导致`o`指向另一个地址，保存在原地址上的值当然不受影响。
+
+
+
+#### 同名参数
+
+```js
+//有同名的参数，则取最后出现的那个值。
+function f(a, a) {
+  console.log(a);
+}
+
+f(1, 2) // 2
+f(1) // undefined
+```
+
+调用函数`f`的时候，没有提供第二个参数，`a`的取值就变成了`undefined`。这时，如果要获得第一个`a`的值，可以使用`arguments`对象。如下：
+
+```js
+function f(a, a) {
+  console.log(arguments[0]);
+}
+
+f(1) // 1
+```
+
+
+
+#### arguments对象
+
+`arguments`对象包含了函数运行时的所有参数，`arguments[0]`就是第一个参数，`arguments[1]`就是第二个参数，以此类推。这个对象==只有在函数体内部，才可以使用。==
+
+```js
+var f = function (one) {
+  console.log(arguments[0]);
+  console.log(arguments[1]);
+  console.log(arguments[2]);
+}
+
+f(1, 2, 3)
+// 1
+// 2
+// 3
+```
+
+正常模式下，`arguments`对象可以在运行时修改。
+
+```js
+var f = function(a, b) {
+  arguments[0] = 3;
+  arguments[1] = 2;
+  return a + b;
+}
+
+f(1, 1) // 5
+```
+
+上面代码中，函数`f`调用时传入的参数，在函数内部被修改成`3`和`2`。
+
+```js
+var f = function(a, b) {
+  'use strict'; // 开启严格模式
+  arguments[0] = 3; // 无效
+  arguments[1] = 2; // 无效
+  return a + b;
+}
+
+f(1, 1) // 2
+```
+
+上面代码中，函数体内是严格模式，这时修改`arguments`对象就是无效的。
+
+
+
+💡技巧：通过`arguments`对象的`length`属性，可以判断函数调用时到底带几个参数。
+
+```js
+function f() {
+  return arguments.length;
+}
+
+f(1, 2, 3) // 3
+f(1) // 1
+f() // 0
+```
+
+
+
+##### arguments和数组的关系
+
+虽然`arguments`很像数组，但==它是一个对象==。数组专有的方法（比如`slice`和`forEach`），不能在`arguments`对象上直接使用。
+
+如果要让`arguments`对象使用数组方法，真正的解决方法是将`arguments`转为真正的数组。下面是两种常用的转换方法：`slice`方法和逐一填入新数组。
+
+```js
+var args = Array.prototype.slice.call(arguments);
+
+// 或者
+var args = [];
+for (var i = 0; i < arguments.length; i++) {
+  args.push(arguments[i]);
+}
+```
+
+
+
+##### calee属性
+
+`arguments`对象带有一个`callee`属性，返回它所对应的原函数。
+
+```js
+var f = function () {
+  console.log(arguments.callee === f);
+}
+
+f() // true
+```
+
+可以通过`arguments.callee`，达到调用函数自身的目的。这个属性在严格模式里面是禁用的，因此不建议使用。
+
+
+
+#### 函数的其他知识点
+
+> ##### 闭包
