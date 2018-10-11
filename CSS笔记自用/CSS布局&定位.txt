@@ -171,6 +171,8 @@ grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 grid-template-rows: repeat(2, 100px);
 auto-fit代表自适应的列数，伸缩屏幕宽度时会自适应地调节列数。
 minmax(100px,1fr)，最小100，最大占剩余空间
+minmax中 1fr、50vw这种单位只能作为max不能作为min，因为他们是不固定的，无上限的。
+
 
 💩💩响应式布局思维💩💩min-width使用
 不要试图用css或js能控制浏览器可以伸缩的最小宽高，权限就不对。不该操心用户对浏览器的操作行为。
