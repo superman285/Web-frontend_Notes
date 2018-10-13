@@ -46,3 +46,41 @@ var usingEraser = false;
 
 
 function(){ usingEraser = !usingEraser;}
+
+
+
+线的粗细
+
+lineWidth
+
+
+
+判断对象中是否有某个键：
+
+‘ontouchstart’ in document.body
+
+返回值为true或false
+
+
+
+
+
+手机连局域网调试，启动httpserver，查出局域网地址
+
+然后手机打开局域网地址，一般8080端口。
+
+
+
+想获取html文档根元素(\<html\>元素)，方法：
+
+- document.documentElement 
+
+- document.querySelector(‘html’)
+
+- document.getElementsByTag(‘html’)[0]
+
+
+
+
+
+clientWidth获取元素宽度，包括padding，不包括滚动条、margin、border。
