@@ -116,6 +116,8 @@ ECMA一看大家都支持了，就把他纳入规范。
 
 ##### string字符串
 
+> 由于发布在unicode和utf-8之前的历史原因，JS只能支持到两个字节的unicode字符
+
 空字符串：‘’ | “” 长度为0
 
 空格字符串：‘ ’ | “ ” 长度为1
@@ -194,7 +196,78 @@ a||b 两个为假则为假，其中一个为真则为真
 
 ##### 对象object
 
+对象是复杂类型，由基本类型组成。
+
+简单类型的组合。
+
+###### 创建对象方式
+
+- var ob = {};
+- var ob2 = new Object();
+- var ob3 = Object.create(Object.prototype);
+
+###### 使用
+
+person[‘name’]  **一定要有单引号，否则被视为变量名**
+
+person.name  **key符合标识符规范的时候才可以这么用，切记!**
+
+❗ **注意**
+
+空字符串也可以作为对象的key，使用方式为person[‘’]=‘superman’
+
+如果key不加单引号，就必须遵循标识符规则(不可以数字开头，中间无空格，必须符合变量名规则)
+
+>- 第一个字符，可以是任意 Unicode 字母（包括英文字母和其他语言的字母），以及美元符号（`$`）和下划线（`_`）。
+>- 第二个字符及后面的字符，除了 Unicode 字母、美元符号和下划线，还可以用数字`0-9`。
+
+所以9a不可以作为key，但是‘9a’可以作为key。使用person[‘9a’]
+
+> 对象的键为字符串类型，将其他类型作为key，会转为字符串类型。
 
 
 
+对象自己可以作为某个key的value，例如：
 
+var person = {age:18,self:person}，但是第一次定义后打印person是{age:18,self:undefined}
+
+再定义一次var person = {age:18,self:person}，
+
+然后打印就成了{age:18,self:{age:18,self:undefined}}，一次次的递归。
+
+
+
+对象中的方法
+
+delete person[‘name’] //把key和value都删除了，返回true说明删除成功
+
+‘name’ in person //成false了
+
+person.name = undefined //相当于只是把’name’对应的value删除了，key还在。
+
+
+
+> for...in...
+>
+> 可以遍历对象中的key，但注意输出的key是随即顺序不是固定顺序
+>
+> for(var key in person){console.log(key);}
+>
+> 遍历对象中的value则用以下写法：
+>
+> for(var key in person){console.log(person[key]);}
+>
+> //注意不是person.key，因为key是获取到的字符串，person.key相当于person[‘key’]肯定是错误的
+>
+> 一起打印使用:
+>
+> console.log(key,person[key])
+
+
+
+typeof 返回类型名字符串
+
+缺陷：
+
+1. typeof null //‘object’
+2. typeof function //‘function’
