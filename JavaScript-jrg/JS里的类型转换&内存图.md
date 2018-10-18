@@ -1,4 +1,4 @@
-## JS里的类型
+## JS里的类型转换&内存图&垃圾回收&深拷贝
 
 
 
@@ -189,20 +189,6 @@ obj[undefined]==obj[‘undefined’]\==obj.undefined//都打出0，undefined自�
 
 
 
-### 各类型的API
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 内存图
 
 
@@ -221,9 +207,21 @@ js引擎将内存分成两大块
 
 栈内存(stack)和堆内存(heap)
 
+栈内存可以存基本类型的值或者对应堆内存的地址
+
+堆内存可以存复杂类型的值(如对象)，对象属性的值又可以是地址，这个地址再对应heap中的地址所对应的内容。
 
 
-js中数据是以64位浮点数存的
+
+js中数字是以64位浮点数存的
+
+64位(2^64^)可以表示目前市面上任意大小内存的任一个地址
+
+js存字符，每个字符16位
+
+数字64，字符16(后来更新了)
+
+
 
 var a = 2
 
@@ -231,10 +229,217 @@ var a = 2
 
 
 
+若用栈内存按顺序存对象object，一旦要改对象的属性或者新增属性，就需要把之前对象后面的数据往后挪，特别的麻烦。所以只存一个地址，例如是100，100对应堆内存中的100号内存位置，这儿存着整个对象。
+
+然后如果要改对象属性或者给对象加属性，直接根据地址100找到堆内存对应位置，然后修改或添加即可。
+
+新加对象的话，就在栈内存新存一个地址，例如是200。则地址100对应对象obj1，地址200对应对象obj2。
+
+
+
+> 若写一个对象赋值语句obj2 = obj1
+>
+> 然后对象的赋值实际上是将obj1对应的地址赋到了obj2那个位置，然后两个栈内存位置存的地址都是100了，obj1和obj2都指向了100。并没有多出的拷贝。见下图：
+>
+> ![memorypic](jsTypePic/memorypic.png)
+
+
+
+不同数据类型的存储
+
+- 简单数据类型
+  - 直接存在Stack栈内存  num|str|symbol|bool|null|undefined
+- 复杂数据类型
+  - 把Heap堆内存地址存到Stack栈，内容存在Heap堆内存中  object对象
+
+
+
+> 变量跟对象的关系是引用关系，没有直接存你，而是存的你的地址。
+>
+> var obj={name:frank}  //变量obj是对象的引用，obj存的是对象的地址而不是对象的值本身
+
+
+
+❗ **切记**
+
+赋值，等于号只做一件事情，就是把等于号右边的东西存到等于号左边的东西里头。
+
+赋值必须先确定等号右边的值，然后再开始赋值。
+
+
+
+例子：
+
+var a = {name:‘a’};
+
+b = a;
+
+b = {name:‘b’};
+
+console.log(a.name); //画内存图
+
+
+
+将新对象赋给b 改的是b存的地址，而不会改heap中原有的内容
+
+将新数字(或其他基本类型)赋给b 则b位置存的地址会被新的值覆盖掉
+
+
+
+> 几个题目例子，用内存图弄清对象的赋值
+>
+> `基本类型之间的赋值`
+>
+> ![copy1](jsTypePic/copy1.png)
+>
+> `直接赋值给对象`
+>
+> ![copy2](jsTypePic/copy2.png)
+>
+> `赋值给对象的属性`
+>
+> ![copy3](jsTypePic/copy3.png)
+>
+> `将基本类型值赋值给原来的对象`
+>
+> ![copy4](jsTypePic/copy4.png)
 
 
 
 
 
+var a ={};a.self=a; a.self.self.self.self可以取到么？ //可以
 
-### 深复制(深拷贝)
+其实heap里头只有一个对象，从stack找到heap，然后self的值addr33又找到了heap中33号地址位置的东西(就是自己)，然后不停地调自己。
+
+![objself](jsTypePic/objself.png)
+
+
+
+若是var a = {self:a};a.self.self.self //就会报错，
+
+因为赋值操作必须先确定右边的值，而第一次右边的值中的a是undefined 所以 a = {self:undefined};
+
+再来一次a = {self:a};就会变成 a = {self:{self:undefined}},再打一次就会再嵌套一层，不打就停在那一层。
+
+
+
+❗ **坑**🕳
+
+alert会调用toString()方法
+
+a.x = a ={n:2};
+
+先确定a，而不是从右往左算到最后才确定a，一开始就确定好了a，然后a={n:2}时会再把a存的地址改了
+
+
+
+> 多复习回顾几次:
+>
+> https://xiedaimala.com/tasks/61db0dcc-71d4-4f0c-822d-5f24ff0dd128/video_tutorials/22579fe7-206c-411f-a8e1-5786501bf481
+>
+>
+
+
+
+---
+
+
+
+### GC垃圾回收
+
+##### GC:Garbage Collecation
+
+> **🖊核心**
+>
+> 如果一个对象没有被引用，他就是垃圾，将会被回收。
+
+有人罩着就不回收，没人罩着就回收。
+
+
+
+![trash](jsTypePic/trash.png)
+
+
+
+若页面关闭了，document的click事件对应的function全成了垃圾。
+
+但ie有bug，不会回收，可加以下代码解决
+
+window.onunload = function(){document.body.onclick = null;}
+
+
+
+题目1
+
+hard1
+
+![hard1](jsTypePic/hard1.png)
+
+题目2
+
+var fn = function(){}
+
+document.body.onclick = fn
+
+fn = null
+
+问function是不是垃圾
+
+![hard2](jsTypePic/hard2.png)
+
+
+
+var fn = function(){}
+
+document.body.onclick = fn
+
+fn = null
+
+document.body.onclick = null
+
+问function是不是垃圾
+
+![hard3](jsTypePic/hard3.png)
+
+
+
+
+
+### 深拷贝 VS 浅拷贝
+
+
+
+> 深拷贝
+
+var a = 1;
+
+var b = a;
+
+b变不影响a，深拷贝
+
+基本类型的赋值，为深拷贝
+
+
+
+> 浅拷贝
+
+var a = {name:‘a’}
+
+var b = a
+
+b.name = ‘b’
+
+a.name //也是b
+
+b变a也变，浅拷贝
+
+
+
+对象的深拷贝，见下图
+
+![deepcopy](jsTypePic/deepcopy.png)
+
+
+
+深拷贝如何实现，请听下回分解

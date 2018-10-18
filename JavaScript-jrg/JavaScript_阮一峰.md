@@ -94,6 +94,18 @@ function py(){
 }
 py();
 
+==**注意**==
+
+> 重新声明一个函数是有效的，即使重新声明的函数没有函数体！则什么东西都不输出。例：
+
+foo();	//啥都不打印，空空如也，显示一个undefined是因为函数无返回值，默认返回undefined
+
+function foo(){console.log(1);}
+
+function foo(){}
+
+
+
 
 
 #### 变量提升(hoisting)
