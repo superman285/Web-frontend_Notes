@@ -69,3 +69,53 @@ id名最好不要中括号，不方便访问，
 锚链接跳转实现平滑滚动效果，一般用jq，.animate(scrollTo) ...
 
 纯css实现方式：scroll-behavior
+
+
+
+> 阻止默认动作
+>
+> 例如阻止a链接的默认跳转行为：
+>
+> ```
+> xx.onclick = function(event){
+> 	event.preventDefault();
+> }
+> ```
+>
+>
+
+
+
+a.href是带http协议的，含浏览器自动补充的http地址
+
+
+
+a.getAttribute(‘href’) 不带http协议，html中写了什么就显示什么
+
+
+
+代码中写debugger，即在这个位置打断点
+
+
+
+
+
+window.scrollY, 滚动条向下滑动了多少距离
+
+
+
+找元素相关API：
+
+.parentElement	找父亲节点
+
+.children	找孩子节点
+
+用childNodes会出现空格回车等乱七八糟东西，不用
+
+
+
+一个console.log的问题一定注意：
+
+console.log(xx.parentElement)可以正常打出一个元素，
+
+但是 console.log(‘父元素’+xx.parentElement)可就出问题了，这时候会把parentElement自动转换类型成string，这时就会打出奇怪东西了
