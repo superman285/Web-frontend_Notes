@@ -298,3 +298,132 @@ for (var key in person) {
 
 
 
+全局对象 global
+
+在浏览器中，global为window
+
+
+
+==**window的属性分为两类**==
+
+- ECMAScript规定 (标准化) parseInt | parseFloat
+- 私有的(只有某些浏览器有，没有标准) 
+  - alert 弹框提示
+  - prompt 用户填写
+  - confirm 确认
+  - console 开发者
+  - document （文档） DOM
+  - history （浏览器） BOM
+
+
+
+window的属性或方法，使用时可以省略window
+
+window常用API
+
+Window.Number() | String() | Boolean() | Object()
+
+setTimeout (控制台打出的数字是指计时器序号)
+
+
+
+#### 常用API
+
+> **Number()**
+
+直接声明1和new Number的区别
+
+var n1 = 1;	         数字1  栈内存
+
+var n2 = new Number(1);  对象1  栈内存存地址，堆内存有各种属性方法和值
+
+
+
+temp = new Number(n1); temp.toString();
+
+然后把temp干掉，把temp.toString()返回表达式n1.toString()
+
+js之父上述后 让n1简单数字 也可以用对象的属性和方法了
+
+
+
+切记：临时对象temp会对抹杀，普通类型.xxx时 是引入了一个临时对象temp，这次用完立马抹杀
+
+
+
+把简单类型当成对象使用时，都是转成了临时对象temp，用完立刻抹杀。
+
+
+
+charAt(index) 获取index索引的字符
+
+charCodeAt(index) index索引字符对应的Unicode编码
+
+Var s = “abcd”; s0 = s.charAt(0); s1 = s.charCodeAt(0);
+
+则s0为“a”,s1为97,s2=s.charCodeAt(0).toString(16),为97的十六进制数61
+
+
+
+> **String()**
+
+
+
+> **trim**
+
+**裁剪左右两边的多余空格**
+
+s1 = ‘ heell  ’
+
+s1.trim() - s1 = ‘heell’
+
+> **concat**
+
+**连接两个字符串**
+
+s1 = ‘hello’; s2 = ‘world’;
+
+console.log(s1.concat(s2));‘helloworld’
+
+> **slice**
+
+**切片**
+
+slice(start,num)，从索引start号开始，切出num片
+
+s1 = “hello”
+
+s1.slice(1,2) - “el”
+
+> **replace**
+
+**替换**
+
+s1.replace(‘e’,‘o’) - s1 = hollo (替换第一个？)
+
+
+
+substr 
+
+具体常用API可见MDN useful string methods
+
+
+
+> **Boolean()**
+
+5个falsy值，0 | NaN | “” | null | undefined 
+
+其他全都是true，==所有对象均为true==，包括false对象
+
+
+
+
+
+⚠️注意：
+
+对象和对象一般都不相等，因为他们地址不一样。即使指向的东西的值一样。
+
+
+
+#### 公用属性——原型
+

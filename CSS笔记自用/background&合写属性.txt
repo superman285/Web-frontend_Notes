@@ -1,4 +1,8 @@
-﻿
+﻿切记如果先声明background-size再声明background合写，可能会导致出现空隙，cover无效
+所以一定先声明background合写声明之后，再声明background-size属性，
+再scss中容易出错，使用嵌套时嵌套中写background，嵌套外写background-size，即使在
+background之后，也会导致background-size无效化，
+所以最好紧跟在background合写后以保证正确。
 🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮🐮
 终于弄清background-position位置px值奥秘，太容易记混乱了！！
 
@@ -8,6 +12,7 @@
 第一个值代表水平方向，第二个值代表垂直方向，与box-shadow\text-shadow同
 然后切记切记这个位置是指移动图片背景，元素A不动，相对A的位置来移动图片B！
 所以水平正值指将图片向右移动x的px；垂直正值指将图片向下移动y的px。
+所以平时使用精灵图多为负值
 
 区分开left,right,bottom,top; 和百分比
 0% 0% == left top
@@ -80,10 +85,14 @@ auto:原大小
 100% 100%：父元素的百分比设置(即所在的标签内？)一个100%意思好像一样
 contain:容器包含整个图，可能有留白，宽高比不动，等比放大缩小到整个被含进去
 cover:容器把图盖住，多余部分裁剪掉，宽高比不动
-cover会等比缩小或放大到宽等于容器的宽或者高等于容器的高。铺满
+cover会等比缩小或放大到宽等于容器的宽或者高等于容器的高。铺满，最常用
 
 
-background-size:
+切记如果先声明background-size再声明background合写，可能会导致出现空隙，cover无效
+所以一定先声明background合写声明之后，再声明background-size属性，
+再scss中容易出错，使用嵌套时嵌套中写background，嵌套外写background-size，即使在
+background之后，也会导致background-size无效化，
+所以最好紧跟在background合写后以保证正确。
 
 
 💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨

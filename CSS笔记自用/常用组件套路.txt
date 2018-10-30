@@ -188,10 +188,26 @@ auto-fit代表自适应的列数，伸缩屏幕宽度时会自适应地调节列
 minmax(100px,1fr)，最小100，最大占剩余空间
 
 
-
-
-
-
+◉◉背景图放大动画效果◉◉
+法一：使用background，挺麻烦的，因为要处理background-size
+位置一定要center变center不然会有奇怪的位置变化
+.blogPic {
+  height: 345px;
+  width: 685px;
+  transition: all .3s linear;
+  //background: url("../img/b1.jpg") no-repeat;
+   &.bp1 {
+     background: url("../img/b1.jpg") no-repeat center center;
+     background-size: 101%;
+     &:hover {
+       background: url("../img/b1.jpg") no-repeat center center;
+       background-size: 110%;
+     }
+   }
+}
+法二：直接使用img
+外面的div固定大小，scale控制img即可 
+transform: scale(1.1); 即可
 
 ◉◉多重动画◉◉
 如果不想用animation @keyframes，可以借助伪元素或者子元素的帮助

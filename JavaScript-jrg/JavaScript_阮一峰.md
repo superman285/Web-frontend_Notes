@@ -572,6 +572,7 @@ String(kv) // "function kv(){console.log(1)}"
 > - `-0`或`+0`
 > - `NaN`
 > - `''`（空字符串）
+> - `false`
 
 `附:` if(xxx)其实就是if(Boolean())，判断if句式中条件的真假即可。
 
