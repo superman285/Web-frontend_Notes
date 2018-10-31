@@ -586,6 +586,8 @@ Boolean(null) // false
 Boolean(0) // false
 Boolean(NaN) // false
 Boolean('') // false
+Boolean() //输出啥
+window.Boolean() //输出啥
 
 //对象的转换
 Boolean({}) // true
@@ -1005,9 +1007,9 @@ obj + 2 // "hello2"
 
 两个原始类型的值的比较，***除了相等运算符（`==`）和严格相等运算符（`===`）***，其他比较运算符都是先转成数值再比较。
 
-`特殊情况`即任何值（包括`NaN`本身）与`NaN`比较，返回的都是`false`。
+`特殊情况` 任何值（包括`NaN`本身）与`NaN`比较，返回的都是`false`。
 
-六亲不认，凶起来连自己都翻脸。
+**NaN**六亲不认，凶起来连自己都翻脸。
 
 > **对象比较**
 
@@ -2460,3 +2462,20 @@ f() // true
 #### 函数的其他知识点
 
 > ##### 闭包
+
+
+
+> ###### JavaScript 终极指南之执行上下文、变量提升、作用域和闭包
+>
+> [必看学习链接](https://blog.hhking.cn/2018/10/24/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript/?utm_source=tuicool&utm_medium=referral)
+
+
+
+函数有执行上下文，有调用栈，在运行阶段结束后，就会从调用栈中弹出，函数中的局部变量自然也没了。
+
+
+
+
+
+　
+

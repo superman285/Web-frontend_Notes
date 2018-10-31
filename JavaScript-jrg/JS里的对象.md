@@ -327,6 +327,8 @@ setTimeout (控制台打出的数字是指计时器序号)
 
 
 
+var a = new Number(1); 这时 a的类型为object对象，而不是数字
+
 #### 常用API
 
 > **Number()**
@@ -427,3 +429,76 @@ substr
 
 #### 公用属性——原型
 
+
+
+[懵的话再看一次视频](https://xiedaimala.com/tasks/893dfa96-fba7-4c87-b791-aa691e48620e/video_tutorials/89f9d6de-63c0-4ffb-ab2e-7f4a2c1deb9d)JS中的对象
+
+
+
+共用属性 toString | valueOf
+
+减少内存浪费，不用每个对象里头都存一个toString
+
+
+
+对象不存 toString和valueOf,但是可以调
+
+但有一个隐藏的key，\_\_proto\_\_
+
+
+
+\_\_proto\_\_ 存的是一个地址，指向那一堆共用属性 toString | 
+
+
+
+var o1 = new Object();
+
+o1 addr201  共用属性 toString valueOf
+
+
+
+⚠️注意：
+
+Number更复杂，\_\_proto\_\_中还套了一层\_\_proto\_\_，第二层\_\_proto\_\_才是指向的所有对象共有的属性，第一层\_\_proto\_\_是含有Number独有的属性
+
+String和Boolean与Number类似，\_\_proto\_\_中还套了一层\_\_proto\_\_
+
+
+
+结构像一棵树，Object的共有属性(Object.prototype)相当于树根，
+
+
+
+Object.prototype -> 对象的共有属性，也就是对象的\_\_proto\_\_对应的值
+
+原型即共有属性的意思
+
+var o1 = new Object();
+
+o1.\_\_proto\_\_ === Object.prototype ✅ 
+
+其实对象也有两层\_\_proto\_\_,第二层\_\_proto\_\_为null(注意不是undefined)
+
+o1.\_\_proto\_\_.\_\_proto\_\_ === null
+
+
+
+var n1 = new Number(1);
+
+n1.\_\_proto\_\_ === Number.prototype
+
+n1.\_\_proto\_\_.\_\_proto\_\_ === Object.prototype
+
+
+
+==某种类型调用方法，如果该类型的prototype没有这个方法，就会往更下一层的\_\_proto\_\_(即对象的共有属性)去找，有的话就可调用成功，如果还是没有就返回undefined。==
+
+
+
+例如 n1.hasOwnProperty就是往下一层的\_\_proto\_\_中找的属性，是对象才有的公共熟属性。
+
+
+
+浏览器会给类型加上一个prototype，不然没有prototype指向类型的共有属性，这些共有属性是孤立的话就会被垃圾回收掉了
+
+String.prototype是String的公用属性的引用
