@@ -502,3 +502,42 @@ n1.\_\_proto\_\_.\_\_proto\_\_ === Object.prototype
 浏览器会给类型加上一个prototype，不然没有prototype指向类型的共有属性，这些共有属性是孤立的话就会被垃圾回收掉了
 
 String.prototype是String的公用属性的引用
+
+
+
+var \_\_ = new \_\_
+
+var后的为对象，new后面的为函数对象
+
+\_\_proto\_\_是对象的属性，prototype是函数的属性
+
+对象.\_\_proto\_\_ === 函数.prototype
+
+
+
+
+
+Function特殊，
+
+Function.\_\_proto\_\_ === Function.prototype
+
+Function.prototype.\_\_proto\_\_ === Object.prototype
+
+
+
+> **总结**
+>
+>
+>
+> prototype是函数的属性
+>
+> `Object`| `String`| `Number`| `Boolean`| `Function`都是构造函数
+>
+> 否
+>
+> Object.\_\_proto\_\_ === Function.\_\_proto\_\_
+>
+> 原型对象prototype的所有属性和方法，都能被实例对象共享。
+>
+> 原型对象的作用，就是定义所有实例对象共享的属性和方法。
+
