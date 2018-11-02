@@ -2,8 +2,6 @@
 
 
 
-
-
 from JS标准参考教程 阮一峰
 
 ### 对象
@@ -323,6 +321,16 @@ var a = new Number(1); 这时 a的类型为object对象，而不是数字
 
 #### 常用API
 
+var s = new Object("1")
+
+var n = new Object(2)
+
+var b = new Object(true)
+
+得到的是string对象、number对象和boolean对象
+
+
+
 > **Number()**
 
 直接声明1和new Number的区别
@@ -416,6 +424,8 @@ s1.replace(‘e’,‘o’) - s1 = hollo (替换第一个？)
 对象和对象一般都不相等，因为他们地址不一样。即使指向的东西的值一样。
 
 
+
+## JS里的原型
 
 #### 公用属性——原型
 
@@ -561,6 +571,10 @@ Function.prototype也是一个对象，对象的\_\_proto\_\_属性即对象的�
 
 
 
+🌀函数对象实例有prototype属性，里头包含constructor和\_\_proto\_\_，而其他对象实例的prototype为undefined。
+
+
+
 ⚠️注意：
 
 <font color=dared>**Object是所有所有对象的构造函数，而Function是所有所有函数对象(typeof xx为function)的构造函数。**</font>
@@ -569,6 +583,42 @@ Function.prototype也是一个对象，对象的\_\_proto\_\_属性即对象的�
 
 > Object.\_\_proto\_\_ \=\=\= Function.prototype
 > Object.\_\_proto\_\_ \=\=\= Function.\_\_proto\_\_
+
+
+
+Object.prototype === Object.\_\_proto\_\_.\_\_proto\_\_
+
+因为Object.\_\_proto\_\_ === Function.prototype
+
+Function.prototype.\_\_proto\_\_ === Object.prototype
+
+所以：
+
+Function.prototype.\_\_proto\_\_===Object.\_\_proto\_\_.\_\_proto\_\_ 
+
+则Object.prototype === Object.\_\_proto\_\_.\_\_proto\_\_
+
+
+
+> **判断一下以下哪些是true哪些是false：**
+>
+> Object.\_\_proto\_\_ === Function.\_\_proto\_\_
+>
+> Function.\_\_proto\_\_ === Function.prototype
+>
+> Object.prototype.\_\_proto\_\_ === null
+>
+> Object.\_\_proto\_\_.\_\_proto\_\_.proto\_\_ ===null
+>
+> Function.prototype.\_\_proto\_\_ === Object.prototype
+>
+> Object.\_\_proto\_\_ === Object.prototype
+>
+> Function.constructor === Function
+>
+> Object.constructor === Function
+
+
 
 
 
