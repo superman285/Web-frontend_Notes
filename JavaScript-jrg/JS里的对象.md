@@ -2,17 +2,9 @@
 
 
 
-全局对象window
-
-全局函数
-
-公用的属性
-
-toString哪来的——原型链
 
 
-
-from JS标准参考教程 ryf
+from JS标准参考教程 阮一峰
 
 ### 对象
 
@@ -405,9 +397,7 @@ s1.replace(‘e’,‘o’) - s1 = hollo (替换第一个？)
 
 
 
-substr 
-
-具体常用API可见MDN useful string methods
+常用API可见MDN useful string methods
 
 
 
@@ -437,23 +427,17 @@ substr
 
 共用属性 toString | valueOf
 
-减少内存浪费，不用每个对象里头都存一个toString
+为了减少内存浪费，不用每个对象里头都存一个toString
 
 
 
-对象不存 toString和valueOf,但是可以调
+对象不存 toString和valueOf,但是可以调用
 
-但有一个隐藏的key，\_\_proto\_\_
-
-
-
-\_\_proto\_\_ 存的是一个地址，指向那一堆共用属性 toString | 
+有一个隐藏的key，\_\_proto\_\_
 
 
 
-var o1 = new Object();
-
-o1 addr201  共用属性 toString valueOf
+\_\_proto\_\_ 存的是一个地址,指向那些共用属性 toString|valueOf 
 
 
 
@@ -469,7 +453,7 @@ String和Boolean与Number类似，\_\_proto\_\_中还套了一层\_\_proto\_\_
 
 
 
-Object.prototype -> 对象的共有属性，也就是对象的\_\_proto\_\_对应的值
+Object.prototype-> 对象的共有属性，也就是实例对象的\_\_proto\_\_对应的值
 
 原型即共有属性的意思
 
@@ -491,17 +475,9 @@ n1.\_\_proto\_\_.\_\_proto\_\_ === Object.prototype
 
 
 
-==某种类型调用方法，如果该类型的prototype没有这个方法，就会往更下一层的\_\_proto\_\_(即对象的共有属性)去找，有的话就可调用成功，如果还是没有就返回undefined。==
+==某个实例访问属性，如果该实例的构造函数的prototype没有这个属性，就会往更下一层的\_\_proto\_\_(即Object的共有属性)去找，有的话就可调用成功，如果还是没有就返回undefined。==
 
-
-
-例如 n1.hasOwnProperty就是往下一层的\_\_proto\_\_中找的属性，是对象才有的公共熟属性。
-
-
-
-浏览器会给类型加上一个prototype，不然没有prototype指向类型的共有属性，这些共有属性是孤立的话就会被垃圾回收掉了
-
-String.prototype是String的公用属性的引用
+例如上文的 n1.hasOwnProperty就是往下一层的\_\_proto\_\_中找的属性，是对象才有的公共属性。
 
 
 
@@ -515,21 +491,15 @@ var后的为对象，new后面的为函数对象
 
 
 
-
-
-Function特殊，
-
-Function.\_\_proto\_\_ === Function.prototype
-
-Function.prototype.\_\_proto\_\_ === Object.prototype
-
-
-
 > **总结**
 >
 >
 >
-> prototype是函数的属性
+> **<font color=dared>对象.\_\_proto\_\_ == 该对象的构造函数.prototype</font>**
+>
+>
+>
+> \_\_proto\_\_是对象的属性，prototype是函数的属性
 >
 > `Object`| `String`| `Number`| `Boolean`| `Function`都是构造函数
 >
@@ -540,4 +510,72 @@ Function.prototype.\_\_proto\_\_ === Object.prototype
 > 原型对象prototype的所有属性和方法，都能被实例对象共享。
 >
 > 原型对象的作用，就是定义所有实例对象共享的属性和方法。
+>
+>
+>
+> 实例对象的\_\_proto\_\_指向原型对象；
+>
+> 构造函数的prototype指向原型对象；
+>
+> 原型对象的constructor指向构造函数
+>
+> (即Object===Object.prototype.constructor)
+>
+>
+>
+> 将一个东西当成函数，则用xx.prototype去获取他的原型
+>
+> 将一个东西当成对象，则用xx.\_\_proto\_\_去获取他的原型。
+>
+> (functionxx.prototype是一个对象,obj.\_\_proto\_\_也是一个对象)
+>
+> 使用\_\_proto\_\_相当于使用一个访问器，
+>
+> e.g. obj.\_\_proto\_\_ 相当于 Object.getPrototypeOf(obj)
 
+
+
+==**特殊的Function**==
+
+Fuction的构造函数也是Function，
+
+Function.constructor === Function
+
+> 所以Function.\_\_proto\_\_ === Function.prototype
+>
+> 即Object.getPrototypeOf(Function)===Function.prototype
+
+全等号左侧的Function被当成对象，而右侧的Function被当做函数。
+
+Function是Function的构造函数，
+
+相当于var obj = new Object();
+
+obj.\_\_proto\_\_===Object.prototype
+
+Object是obj的构造函数
+
+> Function.prototype.\_\_proto\_\_ = Object.prototype
+
+Function.prototype也是一个对象，对象的\_\_proto\_\_属性即对象的构造函数Object的prototype。
+
+
+
+⚠️注意：
+
+<font color=dared>**Object是所有所有对象的构造函数，而Function是所有所有函数对象(typeof xx为function)的构造函数。**</font>
+
+所以Object(Object是一个函数对象)的构造函数也是Function，则
+
+> Object.\_\_proto\_\_ \=\=\= Function.prototype
+> Object.\_\_proto\_\_ \=\=\= Function.\_\_proto\_\_
+
+
+
+附上一张图总结：
+
+![prototype](./jsTypePic/prototype.jpg)
+
+
+
+引自思否https://segmentfault.com/a/1190000014717972
