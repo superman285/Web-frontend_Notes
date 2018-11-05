@@ -46,7 +46,11 @@ function fn(){}; f.name //“fn”
 
 var f1 = function(){}; f1.name //“f1”
 
-var f1 = function f2(){}; f1.name //“f2”
+var f1 = function f2(){}; f1.name //“f2” | 
+
+f2.name会报错，因为作用域外访问不到
+
+
 
 var f3 = new Function(); f3.name //“anonymous”
 
@@ -130,9 +134,9 @@ call的第一个之后的参数可以用arguments获取
 
 
 
-➕tips：当传入call的第一个参数是undefined或null时，它们会被转换为全局对象window(浏览器中为window，其他环境为global)
+➕tips：当传入call的第一个参数是undefined或null或不传参数时，它们会被转换为全局对象window(浏览器中为window，其他环境为global)
 
-[非严格模式下才如此，若在严格模式会输出undefined或null]
+[非严格模式下才如此，若在严格模式会输出undefined或null(不传参输出undefined)]
 
 console.log(this===window)
 
