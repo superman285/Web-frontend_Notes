@@ -1,4 +1,7 @@
 
+◉◉不想让用户点击多次后自动选中文本◉◉
+给body设置一个user-select:none;即可 666
+
 ◉◉单位选择◉◉
 单位的选用，要有响应式思维！
 对font-size使用rem，对border使用px，对其他的度量方式如padding、margin、border-radius等使用em。
