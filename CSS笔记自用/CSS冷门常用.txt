@@ -145,6 +145,11 @@ scroll-behavior  值: auto | smooth
 
 overscroll-behavior也可以了解下
 
+🔷🔷🔷🔷
+让元素呈现想要的标签样式
+-webkit-appearance: button;
+-moz-appearance: button;
+appearance: button;
 
 
 

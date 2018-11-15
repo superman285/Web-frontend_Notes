@@ -177,7 +177,7 @@ html{
 ◉◉卡片阴影设计◉◉ 搜索box-shadow generator即可找到方便的生成器
 鼠标移动过去，会有浮上来或者沉下去的效果，一个常用值
 浮上来：(阴影扩散范围大)
-box-shadow:15px 15px 20px 0 rgba(46,61,73,.15)
+c
 沉下去：(阴影范围小)
 box-shadow:2px 4px 8px 0 rgba(46,61,73,.2)
 

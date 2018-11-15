@@ -617,6 +617,8 @@ Function.prototype.\_\_proto\_\_===Object.\_\_proto\_\_.\_\_proto\_\_
 > Function.constructor === Function
 >
 > Object.constructor === Function
+>
+> Array.\_\_proto\_\_ === Function.prototype
 
 
 
