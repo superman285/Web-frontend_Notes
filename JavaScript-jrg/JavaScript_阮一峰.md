@@ -497,7 +497,7 @@ var x = y ? 1 : 'a';
 
 > 强制转换：Number() | String() | Boolean()
 
-#### **Number()转换返回值: 数值 | NaN | 0**  
+#### **Number()转换返回值: 数值 | NaN | 0 | Infinity** 
 
 ⌛思考下：[]/{}/[5]/null/undefined 分别转换成什么
 

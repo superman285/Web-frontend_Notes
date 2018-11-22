@@ -2,6 +2,16 @@
 ◉◉不想让用户点击多次后自动选中文本◉◉
 给body设置一个user-select:none;即可 666
 
+
+💡💡带标题的下拉菜单的动画：缓缓滑出来💡💡
+第一个思路：给子元素ul设置top值或者translate，给这些属性设置transition，
+但是这样后面的标题和元素要一起下滑，处理起来很麻烦。
+第二个思路：给ul的父元素设置高度，分别是只显示标题的高度和包裹整个完整下拉菜单的高度，transition来过渡
+这个并不会导致菜单内容的变形(由小放到大),因为ul已经固定在那儿了，变的是父亲的高度
+这个很好的思路，UL菜单固定，改变包裹它的父元素的属性 来制作动画即可！
+具体Demo：
+/Users/superman285/Programmer/WebProject/JS-Demo/QQ-dropdownMenu
+
 ◉◉单位选择◉◉
 单位的选用，要有响应式思维！
 对font-size使用rem，对border使用px，对其他的度量方式如padding、margin、border-radius等使用em。
