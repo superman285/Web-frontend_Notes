@@ -6,7 +6,7 @@ console.dir(xxx)
 
 可以打出函数对象的所有包含内容，包括prototype，\_\_proto\_\_等属性。
 
-log做不到 太弱了
+log做不到 很弱吗？
 
 
 
