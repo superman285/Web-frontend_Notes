@@ -96,6 +96,12 @@ New pull request -> Create pull request
 
 
 
+切记切记
+
+==base fork 是自己的==
+
+==head fork 是别人的==
+
 
 
 
