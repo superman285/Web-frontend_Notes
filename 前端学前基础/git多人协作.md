@@ -116,7 +116,9 @@ New pull request -> Create pull request
 
 clone是把远程仓库给同步到本地，会生成一个与远程同步的本地仓库 remote->local
 
-而fork呢 是将别人的仓库复制一份作为自己的远程仓库 remote->remote
+而fork呢 是将别人的仓库复制一份作为自己的远程仓库 remote->remote，想直接操作的话要先clone到本地
+
+即fork+clone
 
 
 
