@@ -449,6 +449,8 @@ s1.replace(‘e’,‘o’) - s1 = hollo (替换第一个？)
 
 \_\_proto\_\_ 存的是一个地址,指向那些共用属性 toString|valueOf 
 
+xx.prototype也是一个对象
+
 
 
 ⚠️注意：
@@ -474,6 +476,8 @@ o1.\_\_proto\_\_ === Object.prototype ✅
 其实对象也有两层\_\_proto\_\_,第二层\_\_proto\_\_为null(注意不是undefined)
 
 o1.\_\_proto\_\_.\_\_proto\_\_ === null
+
+Object.\_\_proto\_\_.\_\_proto\_\_.\_\_proto\_\_ === null
 
 
 
@@ -612,7 +616,7 @@ Function.prototype.\_\_proto\_\_===Object.\_\_proto\_\_.\_\_proto\_\_
 >
 > Function.prototype.\_\_proto\_\_ === Object.prototype
 >
-> Object.\_\_proto\_\_ === Object.prototype
+> Object.\_\_proto\_\_ === Object.prototype 好好想想
 >
 > Function.constructor === Function
 >

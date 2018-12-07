@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            反向引用
+        */
+
+        let str = 'abcddd';
+
+        // \1 表示的是必须和第一个子项的内容保持一致，当然还有\2\3，意思雷同
+        console.log(str.replace(/(\w)\1+/g, '*'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            ()：分组
+        */
+
+        let str = '我有三个变量：$name、$age、$gender';
+
+        // let re1 = /\$(\w+)/;
+
+        // 0 : 数组中的第0个表示整个正则当前这次匹配内容
+        // 1 : 数组中的第1个表示整个正则当前这次匹配内容中的第1个子项中的内容
+        // let r1 = str.match(re1);
+        // console.log( r1[0], r1[1] );
+
+
+        // let r2 = str.match(/\$(?<a>\w+)/);  // ecmascript2018新增特性
+        // console.log( r2[0], r2.groups.a );
+
+
+        // /a(?:b|c)/
+
+        // console.log( str.match(/\$(?:\w+)/) );
+
+
+        // console.log( 'winnerwin7win10'.replace(/win(?=\d+)/g, '瘟都死') );
+
+        // console.log( 'winnerwin7win10'.replace(/win(?!\d+)/g, '瘟都死') );
+
+
+        // 负向断言 ES2018新增
+        // console.log( '10pxipx20px'.replace(/(?<=\d+)px/g, '皮克斯'));
+        // console.log( '10pxipx20px'.replace(/(?<!\d+)px/g, '皮克斯'));
+    </script>
+</body>
+</html>

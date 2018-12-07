@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            模式
+        */
+        
+        // console.log('jh213h23jh4j3h'.match(/\d/));
+        // console.log('jh213h23jh4j3h'.match(/\d/g));
+
+
+        // console.log('jH213h23jh4J3h'.match(/[a-z]/gi));
+
+        // console.log('jH213\nh23\njh4J3h'.replace(/$/gm, '<br />'));
+        
+
+        // console.log('jH213\nh23\njh4J3h'.replace(/./gs, '*'));
+
+        // console.log(/^.$/.test("\uD842\uDFB7"));
+
+        // console.log(/^.$/u.test("\uD842\uDFB7"));
+
+        let str1 = '2jHh3jh4Jh';
+
+        let re1 = /\d/gy;
+
+        // exec方法只会执行一次
+
+        console.log(re1.exec(str1));
+
+        console.log(re1.exec(str1));
+
+        console.log(re1.exec(str1));
+
+        console.log(re1.exec(str1));
+    </script>
+</body>
+</html>

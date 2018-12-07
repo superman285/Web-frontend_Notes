@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            正则：一种用于描述某种字符串规则的表达式，内置提供了很多种规则
+            我们根据这些内置的规则进行组合
+
+            在js中正则是通过一个对象来创建
+                new RegExp()
+                new Array()
+            还可以通过字面量的形式创建
+                //
+                []
+        */
+        
+        let re1 = /a/;   // 字符串a
+        console.log(re1);
+
+        // 第一个参数是字符串，内部会根据这个字符串
+        // 得到一个正则对象
+        let re2 = new RegExp('a');
+        console.log(re2);
+
+        // new的方式虽然麻烦，但是很有用，如果正则中的规则我们希望是一个变量的时候
+
+        let name = 'kimoo';
+        // let re3 = /name/;   // 字面量写不会解析变量
+        re3 = new RegExp(name);
+        console.log(re3);
+
+        // 正则的组成：普通字符+特殊字符（元字符）+修饰符（模式）
+        
+        let re4 = /abc\d\s\w/g;
+        console.log(re4);
+
+    </script>
+</body>
+</html>

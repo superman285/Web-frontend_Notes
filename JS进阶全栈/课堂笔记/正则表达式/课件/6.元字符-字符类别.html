@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            字符类别（Character Classes）
+
+            g : 修饰符，全局
+
+            默认情况下，正则的匹配是一种懒惰模式，当满足一次匹配以后就不在继续了
+        */
+
+        // console.log( 'ab2c71d'.replace(/\d\d/g, '*') );
+
+        // console.log( 'ab2c71d'.replace(/\D/g, '*') );
+
+
+        // console.log( 'ab2c71d_$^^$%^'.replace(/\w/g, '*') );
+        // console.log( 'ab2c71d_$^^$%^'.replace(/\W/g, '*') );
+
+        // console.log( 'ab2 c71d _$^^$%^'.replace(/\s/g, '*') );
+        // console.log( 'ab2 c71d _$^^$%^'.replace(/\S/g, '*') );
+
+        // 在计算机中有很多的一些不可描述的内容，会用一些定义好的特殊符号去表示
+        // 那这些特殊符号就是 转义字符：\r\n\t\b\a
+        // console.log('abc\t123');
+        // console.log('abc\n123');
+
+        // console.log( 'ab2c71d_$\t^^$%^'.replace(/\t/g, '*') );
+
+
+        // console.log( 'ab2c71d_\n$^^$%^'.replace(/./g, '*') );
+
+        // console.log( 'ab2c7.1d_\n$^^$%^'.replace(/\./g, '点') );
+
+        // console.log( 'ab2c7.1d_\n$^^$%^'.replace(/\c/g, '点') );
+    </script>
+</body>
+</html>

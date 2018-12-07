@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+            有一组随机的字符串 'sdfsd23487jkfhsdf'
+            把这组随机字符串中的数字内容找出来，并保存到一个数组中
+        */
+
+        let str = 'sd9f12s d2jkfh342sdf';
+        let result = [];
+
+        /**
+            根据字符串的长度（个数），循环字符串，在循环中得到每一个字符，判断当前
+            字符是否是数字，如果是，则保存到result中
+        */
+        for (let i=0; i<str.length; i++) {
+            let v = parseInt(str.charAt(i));
+            if (!isNaN(v)) {// 如果不是NaN，则说明v是一个数字
+                result.push(v);
+            }
+        }
+        console.log(result);
+    </script>
+</body>
+</html>

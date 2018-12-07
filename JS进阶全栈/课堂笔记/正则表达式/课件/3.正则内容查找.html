@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 如果我们要检索或匹配是一个精确的需求，那么就比较简单
+        // 但是有的时候一些需求是模糊，比如一个数字
+        let str1 = 'sd9f12s d2jkfh342sdf';
+        let result1 = str1.match(/\d/g);
+        console.log(result1);
+
+        let str2 = 'sd9f12s d2jkfh342sdf56';
+        let result2 = str1.match(/\d+/g);
+        console.log(result2);
+    </script>
+</body>
+</html>

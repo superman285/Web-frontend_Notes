@@ -125,3 +125,8 @@ if val.trim()===“” 提示用户输入内容
 
 
 
+新方法：
+
+xxx.repeat(arr.length);
+
+重复xxx字符重复n次，这样就不用循环和变量了，666

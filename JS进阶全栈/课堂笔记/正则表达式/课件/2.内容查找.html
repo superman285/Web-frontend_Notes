@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+            有一组随机的字符串 'sd9f12s d2jkfh342sdf'
+        */
+
+        let str = 'sd9f12s d2jkfh342sdf56';
+        let result = [];    //[9,12,2,342]
+
+        /**
+            数字我们需要是连续的，但是我们判断的时候还是只能一个一个的看
+            但是，在看完一个值的，并不能急着把这个值立即添加到数组，因为我们还要
+            后面是否还是数字
+
+            当我们判断一个值是数字的，把这个值临时存储到一个位置（变量），当我们判断
+            了一个值不是数字的，则把这个内容累加到临时变量中，这个时候我们就要去看一下那个临时的变量中是否有内容
+            如果有，则把临时变量中的内容添加数组
+        */
+        let temp = '';
+        for (let i=0; i<str.length; i++) {
+            let v = parseInt(str.charAt(i));
+            if (!isNaN(v)) {
+                temp += v;
+            } else {
+                if (temp != '') {
+                    result.push(temp);
+                    temp = '';
+                }
+            }
+        }
+        if (temp != '') {
+            result.push(temp);
+            temp = '';
+        }
+        console.log(result);
+    </script>
+</body>
+</html>
