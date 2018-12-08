@@ -4,7 +4,15 @@
 - 事件调用，.onclick = function(){};this为事件左侧的元素，若里头还嵌套函数 
 - 定时器调用，相当于window调的；this为window或global
 
+```javascript
+var a={b:function(){setTimeout(function(){console.log(this)},100)}}
+```
 
+this为window
+
+
+
+特殊的箭头函数，不会改变this指向，仍为当前上下文this
 
 
 

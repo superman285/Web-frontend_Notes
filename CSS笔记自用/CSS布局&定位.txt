@@ -75,6 +75,10 @@ trbl值为百分比时，百分比一定是相对父亲而言的，不管是abso
 Tips:不知道父亲高度又想定位在父亲底下时，可以写top:100%
 妙啊！
 
+flex布局融合多列栅格思想：
+https://www.jb51.net/css/585500.html
+
+bootstrap4看来必学了
 
 💩flex布局开始学习：
 flex布局中(父元素display为flex)子元素若为inline或inline-block则会自动被转为block，不需要再设置display:block
@@ -132,6 +136,10 @@ flex-grow:设置自身所占权重，分配剩余空间(若没设置子元素宽
 当然如果那一行只有一个item，即使设的是50%也会把那行空间吃掉了。
 
 flex-shrink:子元素超出父元素的量，差值分配权重，权重越大的需要扣除宽高越多。
+比如abcde 
+a,b,c flex-shrink:2;d,e flex-shrink:7
+父容器宽度500,子元素flex-basis:120,一共挤掉了100,子元素一共要减去100；根据shrink比例，一共分成3(abc)*2+2(de)*7=20份，
+100/20=5，abc各占2份,要减5*2(120-10=110);de各占7份,要减5*7(120-35=85)
 flex-basis:可设置具体宽度px值
 flex:grow和basis都存在时以flex-grow为准
 
