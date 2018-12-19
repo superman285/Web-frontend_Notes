@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // function mAlert(str) {
+        //     alert(str);
+        //     console.log('miaov.com');
+        // }
+
+        // mAlert('abc');
+
+
+        // function miaovDecorator(fn) {
+        //     return (str) => {
+        //         fn(str);
+        //         console.log('miaov.com');
+        //     }
+        // }
+
+        // miaovDecorator(alert('abc'));
+
+        // let mAlert = miaovDecorator(alert);
+        // mAlert('abc');
+
+        // alert('abc');
+
+        // let mRandom = miaovDecorator(Math.random);
+
+        // mRandom();
+
+
+
+        function fn() {
+            console.log(this);
+        }
+
+        function bind(fn, _this) {
+            return () => {
+                fn.call(_this);
+            }
+        }
+
+        // fn();
+        // document.onclick = fn;
+
+        let f = bind(fn, [1,2,3]);
+
+        f();
+        document.onclick = f;
+    </script>
+</body>
+</html>

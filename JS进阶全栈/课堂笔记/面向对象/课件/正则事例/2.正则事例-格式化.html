@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+        let d1 = '2018-12-7';
+        let d2 = '2018.12.7';
+        let d3 = '2018/12/7';
+        let d4 = '2018.12-7';
+
+        /**
+            统一上面的日期个是：2018年12月7日
+        */
+
+        function format(str) {
+            // let result = str.match(/(\d+)\D+(\d+)\D+(\d+)/);
+            // console.log(result);
+            // return result[1] + '年' + result[2] + '月' + result[3] + '日';
+
+            let result = str.match(/(?<year>\d+)\D+(?<month>\d+)\D+(?<date>\d+)/);
+            // console.log(result);
+            return result.groups.year + '年' + result.groups.month + '月' + result.groups.date + '日';
+        }
+
+        console.log(format(d1));
+        console.log(format(d2));
+        console.log(format(d3));
+        console.log(format(d4));
+
+    </script>
+
+</body>
+</html>

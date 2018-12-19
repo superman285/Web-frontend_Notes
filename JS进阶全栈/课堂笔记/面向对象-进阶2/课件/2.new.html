@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+            new : 一元运算符，
+                元：运算数
+                类似的一元运算符还有：+,-,typeof
+                new的运算数是一个函数（作用：实例化对象）
+                    - 调用函数
+                    - 创建对象（执行完成这个函数返回一个对象）
+                        - new 执行的函数返回的值一定是一个对象
+                            - 没有return以及return的不是一个对象的时候，返回默认对象（内部构建的）
+                            - 有return且return的值也是对象，那么结果就是这个return的对象
+
+            constructor:
+                构造器（用来创建对象的函数）
+                如果一个函数返回的是对象，它就是一个构造函数
+
+            new 执行过程：查看61行的注释
+            
+        */
+
+        // new 1;
+
+        // function fn() {
+        //     console.log('....');
+        // }
+
+        // 如果不使用new运算符，那么函数需要使用 () 来执行
+        // ()：运算符，函数调用运算符
+        // fn;
+        // fn();   // 没有new就需要使用()来调用
+
+        // 如果使用new，那么new可以作为 () 来使用
+        // new fn;
+        // 使用new运算符也可以带上()
+        // new fn();
+
+        // 如果该函数不需要传入参数的话，那么可以new的时候不带()，如果有参数了，那么
+        // new的时候就需要带()
+
+
+
+        function fn1() {
+
+        }
+
+        // 非new执行的函数，其结果看是否有return语句以及return的值
+        // 如果有return，结果就是return后面的具体值，如果没有return，结果就是undefined
+        // let f1 = fn1();
+        // console.log(f1);    //结果：undefined
+        
+
+        function fn2(){
+            // 如果通过new调用，js解析器会自动在这里创建一个空对象
+            // 类似下面的代码
+            // let obj = new Object();
+            // let obj = {};
+
+            // 当函数调用完成以后，又会把这个内部自动创建的对象return出去
+            // return obj;
+        }
+        let f2 = new fn2;
+        console.log('f2', typeof f2, f2);    // 结果：对象
+
+
+        function fn3() {
+            return 1;
+        }
+        let f3 = new fn3;
+        console.log('f3', typeof f3, f3);   // 结果：还是一个对象
+
+        function fn4() {
+            return {x: 1};
+        }
+        let f4 = new fn4;
+        console.log('f4', typeof f4, f4);   // 结果：还是一个对象，但是是return后面的对象
+
+
+        /////////////////////////////////
+        let _this;
+        function fn5() {
+            console.log(this);
+            this.x = 10;
+            _this = this;
+        }
+
+        fn5();  //this -> window
+        let f5 = new fn5;    //this -> 通过new执行的函数，该函数执行过程中的this也指向了一个空对象
+        console.log(f5 == _this);   // new执行的函数内部的this与执行完成以后返回的对象是同一个
+        // 通过上述方式，我们就可以得到一个对象，且通过这个函数可以给这个对象添加一些数据，并且指向完成以后就会返回这个对象，而且还不需要我们手动去创建对象和返回
+        // 所以：new 就是用来构建我们想要的某种格式的对象，能够使用new的函数，我们称为构造函数
+        // 一个函数是否是构造函数，其实是看能够使用new
+
+        // 注意：在js中有的函数是不能使用new的
+        // console.log(typeof Symbol);
+        // new Symbol();
+
+        //console.log(new 'abc'.substring);
+
+        // let obj = {
+        //     x: function() {}
+        // }
+
+        // console.log(new obj.x);
+    </script>
+</body>
+</html>

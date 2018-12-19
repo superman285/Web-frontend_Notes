@@ -1,0 +1,6 @@
+1. 官网：https://github.com/tonsky/FiraCode
+2. 下载字体：https://github.com/tonsky/FiraCode/releases/download/1.206/FiraCode_1.206.zip
+3. 安装下载的字体
+4. 设置编辑器：https://github.com/tonsky/FiraCode/wiki
+
+具体下面有，可以在上面那个wiki页面中ctrl+f搜索：How to enable ligatures，然后就会看到不同的编辑器的设置，点进去看一下就应该清楚了

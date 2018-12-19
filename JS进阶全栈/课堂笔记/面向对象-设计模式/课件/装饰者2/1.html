@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .modal {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            padding: 10px;
+            width: 420px;
+            border: 1px solid #000;
+            background: white;
+        }
+        .modal .header h4 {
+            margin: 2px 0;
+        }
+        .modal .header button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        .modal .content {
+            margin: 10px 0;
+        }
+        .modal .footer {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- <div class="modal">
+        <div class="header">
+            <h4>标题</h4>
+            <button>X</button>
+        </div>
+        <div class="content">
+            内容
+        </div>
+        <div class="footer">
+            <button>确定</button>
+        </div>
+    </div> -->
+
+    <button id="btn1">按钮1</button>
+    <button id="btn2">按钮2</button>
+
+    <script src="./js/Modal.js"></script>
+
+    <script src="./js/Alert.js"></script>
+    <script src="./js/AlertSingleton.js"></script>
+
+    <script src="./js/Confirm.js"></script>
+    <script src="./js/ConfirmSingleton.js"></script>
+
+
+    <script src="./js/Factory.js"></script>
+
+    <script src="./js/DecoratorDrag.js"></script>
+
+    <script src="./js/config.js"></script>
+    <script>
+
+        let factory = new Factory();
+        
+        let btn1 = document.querySelector('#btn1');
+        btn1.onclick = function() {
+            let mAlert = factory.getInstance('alert');
+            // console.log(mAlert);
+            //mAlert.open();
+
+            // let newAlert = new DecoratorDrag(mAlert);
+            // newAlert.obj.open();
+            // newAlert.open();
+
+            factory.getInstance('alert').open();
+        }
+
+
+        
+        let btn2 = document.querySelector('#btn2');
+        btn2.onclick = function() {
+            // factory.getInstance('alertDrag').open();
+
+            let mAlert = factory.getInstance('alert');
+
+            mAlert = new DecoratorDrag(mAlert);
+
+            // mAlert = new DecoratorMask(mAlert);
+
+            mAlert.open();
+        }
+    </script>
+
+</body>
+</html>

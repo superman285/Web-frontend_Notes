@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            当一个对象被创建的时候，js会自动的给当前这个对象添加一个属性：__proto__
+            这个属性是也是一个对象
+        */
+
+        // let obj1 = {};   //字面量，字面量写法是某种完整写法的一种简写形式
+        // console.log(obj1);
+
+        // let obj2 = new Object();    // Object是一个函数，且能被构造
+        // console.log(obj2);
+
+        /*
+            在js中，函数本质（类型）其实也是一个对象，函数下面就也可以有属性和方法
+            其中有一个属性：prototype，这个属性的值是一个对象
+        */
+        // console.dir(Object);
+
+        // function fn1(){
+        //     //内部创建一个对象 let obj = {}
+        //     //把this绑定到这个对象中 this = obj; 这段代码是给大家理解的，不能直接执行的,因为我们不能直接给this去赋值
+
+        //     //除了上面和最后的return，new的时候内部还做了很多其他的是事情
+        //     // this.__proto__ = fn1.prototype;
+
+        //     // 我们可以在这里给this添加数据
+        //     this.x = 1;
+        //     this.hello = function() {
+        //         console.log('hello world');
+        //     }
+
+        //     //返回this：return this 
+        // }
+        // console.dir(fn1);
+
+        // let f1 = new fn1();
+        // console.dir(f1);
+        // console.dir(f1.__proto__);
+        // console.dir(fn1.prototype);
+        // console.log(f1.__proto__ == fn1.prototype);
+        
+        // let f2 = new fn1();
+        // console.dir(f2);
+        
+        // 每次new构造函数得到的对象虽然初始化的时候看起来一个，但是其实只是长得一样
+        // 如果创建出来的对象数据比较多（有很多的属性和方法），通过创建很多这样的对象，假设这些对象中有一些一模一样的操作，那么这个时候就会照成内存浪费
+
+        /*
+            同一类型的对象如果某个属性或方法是每一个具体对象独立拥有的，那么我们就把
+            这个属性或方法直接赋值给每一个对象
+            如果某个属性或方法是这种类型的对象所共有的，那么就把这个属性或方法放在一个地方
+        */
+
+        // function Cat() {
+        //     this.name = '';
+        //     this.color = '';
+
+        //     // type属性是Cat共有的一种属性
+        //     this.type = '猫';
+        // }
+
+        // let xiaohua = new Cat('🔅', 'yellow');
+        // let xiaohei = new Cat('小黑', 'black');
+
+        // xiaohua.type = '猫咪';
+        // console.log(xiaohua.type);
+        // console.log(xiaohei.type);
+
+
+
+        // let g = {
+        //     type: '猫'
+        // };
+        // function Cat() {
+        //     this.name = '';
+        //     this.color = '';
+
+        //     // type属性是Cat共有的一种属性
+        //     this.global = g;
+        // }
+
+        // let xiaohua = new Cat('🔅', 'yellow');
+        // let xiaohei = new Cat('小黑', 'black');
+
+        // g.type = '猫咪';
+        // console.log(xiaohua.global.type);
+        // console.log(xiaohei.global.type);
+
+
+        // 为了解决上面的共有属性问题
+        function Cat(name, color) {
+            this.name = name;
+            this.color = '';
+        }
+        Cat.prototype = {
+            type: '猫'
+        }; //放所有Cat对象的共有值
+
+        let xiaohua = new Cat('🔅', 'yellow');
+        let xiaohei = new Cat('小黑', 'black');
+
+        // console.log(xiaohua.type);
+        // console.log(xiaohei.type);
+
+        // 虽然每个对象上面并没有直接的type属性，但是也可以调用Cat.prototype.type
+        // 这是因为：原型链，类似作用域链，原型对象查找的一种规则
+        
+        // xiaohua.__proto__ => Cat.prototype
+
+        /*
+            当我们去调用对象的属性或方法的时候 
+                1. js会首先在该对象自身上查找是否存在该属性或方法，如果有则返回或调用
+                2. 当该对象自身上不存在该属性或方法的时候，js会自动去该对象的__proto__属性去查找是否存在对应的属性或方法
+        */
+        // console.log(xiaohua.name);
+
+        // xiaohua.type => xiaohua.__proto__.type == Cat.prototype.type
+        console.log(xiaohua.type);
+        console.log(xiaohei.type);
+
+        xiaohua.type = '小猫咪';
+
+        console.log(xiaohua.type);
+        console.log(xiaohei.type);
+        
+    </script>
+</body>
+</html>

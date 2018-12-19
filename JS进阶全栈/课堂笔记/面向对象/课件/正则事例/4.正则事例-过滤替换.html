@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <textarea rows="10" cols="100"></textarea>
+    <button>提交</button>
+
+    <ul></ul>
+
+    <!-- &lt;div&gt;&lt;/div&gt; -->
+    
+    <script>
+        
+        let textarea = document.querySelector('textarea');
+        let button = document.querySelector('button');
+        let ul = document.querySelector('ul');
+
+        // xss : 跨站脚本攻击 => 不对一些数据进行过滤的话，会导致该数据被执行（如果该数据是一段可被浏览器执行的脚本）
+
+        button.onclick = function() {
+            let content = textarea.value.replace(/<|>/g, function(a) {
+                // html实体字符
+                if (a == '<') {
+                    return '&lt;'
+                } else {
+                    return '&gt;'
+                }
+            });
+
+            let li = document.createElement('li');
+            li.innerHTML = content;
+
+            ul.appendChild(li);
+        }
+
+    </script>
+
+</body>
+</html>

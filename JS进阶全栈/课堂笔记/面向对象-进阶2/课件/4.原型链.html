@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // function Cat() {
+            // this.__proto__ = Cat.prototype;
+        // }
+        // Cat.prototype.x = 10;
+
+        // prototype => Cat
+        // __proto__ => new Cat
+
+        // let xiaohua = new Cat;
+
+        // xiaohua.__proto__ = Cat.prototype;
+
+        // console.log(xiaohua.__proto__.x);
+        // console.log(xiaohua.x);
+
+
+        
+
+        function Cat(name, color) {
+            this.name = name;
+            this.color = color;
+        }
+        // 函数一创建自动添加prototype属性，值是一个对象
+        // Cat.prototype = {
+        //     constructor: Cat
+        // };
+
+        // 所以我们在给一个对象添加共有属性，也就是给构造函数prototype添加新的属性或方法的时候
+        // 注意不要覆盖默认的一些值
+        Cat.prototype.x = 10;
+
+        
+
+        // Object.assign(Cat.prototype, {
+        //     x: 10
+        // });
+
+        // Cat.prototype = {
+        //     constructor: Cat,
+        //     x: 10
+        // };
+
+        console.dir(Cat);
+
+        let xiaohua = new Cat('小花', 'yellow');
+
+        // console.log(xiaohua.constructor);
+
+        // console.log([].constructor);
+        
+        console.log(xiaohua.x);
+
+        // xiaohua.y => xiaohua.__proto__.y = Cat.prototype.y => Cat.prototype.__proto__.y = Object.prototype.y
+
+        // Cat.prototype也是一个对象，如果Cat.prototype找不到y，那么也继续在Cat.prototype的__proto__下继续查找，Cat.prototype.__proto__等同与Cat.prototype的构造是？Object.prototype
+
+        // 注意：Object.prototype.__proto__ = null
+
+        Object.prototype.y = 1000;
+        console.log(xiaohua.y);
+
+    </script>
+</body>
+</html>

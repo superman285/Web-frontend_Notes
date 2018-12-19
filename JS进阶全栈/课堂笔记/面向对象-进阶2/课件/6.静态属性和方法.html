@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+       /*
+        类特征：类（构造函数）上属性和方法
+        对象特征：对象上的属性和方法
+
+            静态属性/静态方法：类或构造函数上的方法，而不是对象或原型上的方法
+            调用的时候，直接通过类或构造函数进行调用
+       */
+
+    //    class Cat {
+    //        constructor(name) {
+    //            this.name = name;
+    //        }
+    //    }
+    //    Cat.type = '猫'; //属于Cat这个类下的属性，跟对象没有任何关系，直接通过lei来调用的
+
+    //    let xiaohua = new Cat('小花');
+    //    console.log(xiaohua.name);   //name就是对象上的属性
+
+       // xiaohua.type => xiaohua.__proto__.type
+       // xiaohua.__proto__ = Cat.prototype
+       // Cat.type ? Cat.prototype.type
+    //    console.log(xiaohua.type);   //undefined
+
+        // 直接在类或者构造函数下（不是构造函数prototype）添加的属性和方法，我们称为类属性，类方法，也叫静态属性或静态方法
+    //    console.log(Cat.type);
+
+
+       // 后期会有static关键字和public，private修饰符，目前浏览器还不支持
+
+        // class Cat {
+
+        //     static type = '猫';
+
+        //     name = '';
+            
+        //     constructor(name) {
+        //         this.name = name;
+        //     }
+        // }
+   </script> 
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .modal {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            padding: 10px;
+            width: 420px;
+            border: 1px solid #000;
+            background: white;
+        }
+        .modal .header h4 {
+            margin: 2px 0;
+        }
+        .modal .header button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        .modal .content {
+            margin: 10px 0;
+        }
+        .modal .footer {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- <div class="modal">
+        <div class="header">
+            <h4>标题</h4>
+            <button>X</button>
+        </div>
+        <div class="content">
+            内容
+        </div>
+        <div class="footer">
+            <button>确定</button>
+        </div>
+    </div> -->
+
+    <button id="btn1">按钮</button>
+
+    <script>
+        
+        class Alert {
+            constructor(options) {
+
+                this.options = Object.assign({
+                    title: '标题',
+                    content: ''
+                }, options);
+
+                // console.log(this.options);
+
+                this.elements = {
+                    container: null,
+                    header: null,
+                    h4: null,
+                    content: null,
+                    footer: null,
+                    buttons:  {
+                        close: null,
+                        ok: null
+                    }
+                }
+
+                this.render();
+            }
+
+            render() {
+                this.elements.container = document.createElement('div');
+                this.elements.container.classList.add('modal');
+
+                this.elements.header = document.createElement('div');
+                this.elements.header.classList.add('header');
+
+                this.elements.h4 = document.createElement('h4');
+                this.elements.h4.innerHTML = this.options.title;
+
+                this.elements.buttons.close = document.createElement('button');
+                this.elements.buttons.close.innerHTML = 'X';
+                this.elements.buttons.close.onclick = this.close.bind(this);
+
+                this.elements.content = document.createElement('div');
+                this.elements.content.innerHTML = this.options.content;
+
+                this.elements.footer = document.createElement('div');
+                this.elements.footer.classList.add('footer');
+
+                this.elements.buttons.ok = document.createElement('button');
+                this.elements.buttons.ok.innerHTML = '确定';
+                this.elements.buttons.ok.onclick = this.close.bind(this);
+
+                document.body.appendChild(this.elements.container);
+                this.elements.container.appendChild(this.elements.header);
+                this.elements.header.appendChild(this.elements.h4);
+                this.elements.header.appendChild(this.elements.buttons.close);
+                this.elements.container.appendChild(this.elements.content);
+                this.elements.container.appendChild(this.elements.footer);
+                this.elements.footer.appendChild(this.elements.buttons.ok);
+            }
+
+            close() {
+                this.elements.container.remove();
+            }
+        }
+
+        let btn1 = document.querySelector('#btn1');
+        btn1.onclick = function() {
+            new Alert({
+                content: '内容'
+            });
+        }
+    </script>
+
+</body>
+</html>

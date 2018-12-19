@@ -1,0 +1,3 @@
+class Alert extends Modal {
+    
+}

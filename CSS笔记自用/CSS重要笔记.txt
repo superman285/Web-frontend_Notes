@@ -47,6 +47,11 @@ a链接加下划线或其他标记 遇上位置变化防抖动的方法：
 · 元素脱标之后可能就不再具有本身元素所具特性了，例如div脱标后宽度就不再撑满父容器，需要设置宽度才可以。
 
 
+行内块inline-block的margin,padding均完全生效
+
+行内元素inline的margin-top/padding-top|bottom不生效
+但是margin-left/padding-left|right 可以生效
+
 宽高问题：
 用百分比的意思是相对父元素的百分比
 宽度100%

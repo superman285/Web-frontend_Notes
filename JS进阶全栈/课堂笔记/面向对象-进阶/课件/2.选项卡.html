@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tabs {
+            display: block;
+        }
+        .tabs button.active {
+            background-color: yellow;
+        }
+        .tabs div.content {
+            display: none;
+        }
+        .tabs div.content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="div1"></div>
+
+    <script>
+        
+        class Tabs {
+            constructor(container=document.body, tabs=[], contents=[]) {
+                this.container = container;
+                this.tabs = [];
+                this.contents = [];
+                this.n = 0;
+
+                // 构建结构
+                this.container.classList.add('tabs');
+                tabs.forEach( (item, index) => {
+                    let button = document.createElement('button');
+                    button.classList.add('tab');
+                    if (index == this.n) {
+                        button.classList.add('active');
+                    }
+                    button.innerHTML = item;
+                    button.onclick = () => {
+                        this.n = index;
+                        this.setActive();
+                    }
+                    this.container.appendChild(button);
+
+                    this.tabs.push(button);
+                } );
+                contents.forEach( (item, index) => {
+                    let content = document.createElement('div');
+                    content.classList.add('content');
+                    if (index == this.n) {
+                        content.classList.add('active');
+                    }
+                    content.innerHTML = item;
+                    this.container.appendChild(content);
+
+                    this.contents.push(content);
+                } );
+            }
+
+            setActive() {
+                this.tabs.forEach( tab => {
+                    tab.classList.remove('active');
+                } );
+                this.contents.forEach( content => {
+                    content.classList.remove('active');
+                } );
+
+                this.tabs[this.n].classList.add('active');
+                this.contents[this.n].classList.add('active');
+            }
+        }
+
+        let tab1 = new Tabs(
+            document.querySelector('#div1'),
+            ['选项一','选项二','选项三'],
+            ['内容一','内容二', '<div>内容三</div>']
+        );
+
+        let tab2 = new Tabs(
+            // document.querySelector('#div1'),
+            tab1.contents[2],
+            ['AAA','BBB','CCC'],
+            ['aaa','bbb', 'ccc']
+        );
+
+    </script>
+
+</body>
+</html>

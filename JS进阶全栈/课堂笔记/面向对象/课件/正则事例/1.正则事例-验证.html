@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>
+        <input type="text" _reg="qq" /><span></span>
+    </p>
+    <p>
+        <input type="text" _reg="email" /><span></span>
+    </p>
+
+    <script>
+        let ps = document.querySelectorAll('p');
+
+        let domains = ['com','net','org','com.cn','net.cn'];
+
+        let re = {
+            qq: /^[1-9]\d{4,11}$/,
+            //email: /^\w{1,20}@[a-z0-9\-]+\.(com|net|org)$/i,
+            email: new RegExp('^\\w{1,20}@[a-z0-9\\-]+\\.('+ domains.join('|') +')$', 'i')
+        };
+
+        // zmouse@miaov.com   miaov.com.cn miaov.org
+
+        ps.forEach( p => {
+
+            let input = p.querySelector('input');
+            let span = p.querySelector('span');
+
+            input.oninput = function(e) {
+                // e.preventDefault()
+                // console.log('a');
+                //验证是否满足需求
+
+                // 正则：弄清楚我们要验证的或其他的内容的规则
+                // 比如qq：最少5个最多12个纯数字，并且第一位不能是0
+
+                if (re[ this.getAttribute('_reg') ].test(this.value)) {
+                    span.style.color = 'green';
+                    span.innerHTML = '验证通过';
+                } else {
+                    span.style.color = 'red';
+                    span.innerHTML = '格式不正确';
+                };
+            }
+
+        } );
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tabs>.h>button.active {
+            background-color: yellow;
+        }
+        .tabs>.c>div.content {
+            display: none;
+        }
+        .tabs>.c>div.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="div1">
+
+        <div class="tabs">
+            <div class="h">
+                <button class="active">选项一</button>
+                <button>选项二</button>
+                <button>选项三</button>
+            </div>
+            <div class="c">
+                <div class="content active">内容一</div>
+                <div class="content">内容二</div>
+                <div class="content">
+                    <div class="tabs">
+                        <p>内容三</p>
+                        <div class="h">
+                            <button class="active">选项A</button>
+                            <button>选项B</button>
+                            <button>选项C</button>
+                        </div>
+                        <div class="c">
+                            <div class="content active">内容A</div>
+                            <div class="content">内容B</div>
+                            <div class="content">内容C</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        /**
+            抽象
+                描述-属性
+                    容器
+                    选项组
+                    内容组
+                    当前激活选项
+
+                描述-功能
+                    激活
+        */
+
+        // 创建属于自己的类型
+        class Tab {
+            // 对抽象出来的内容进行封装
+
+            // 构造函数：创建对象并对对象进行初始化的
+            constructor(container, tabs, contents) {
+                // 当一个类被new的时候，这个类的构造将会被执行
+                // console.log('我被执行类');
+                // 当构造函数被执行的时候，会在构造函数内部自动创建一个空的对象
+                // 相当于：this = {}，这个是给你们看的，this实际是不能被我们赋值
+                // console.log(this);
+                // 当构造函数执行完成以后会返回这个this，不需要我们手动返回，new
+                // 方法会自动返回
+                // return this;
+
+                // 我们就可以在构造函数给this添加各种属性
+                this.container = container;
+                this.tabs = tabs;
+                this.contents = contents;
+                this.n = 0;
+
+                this.tabs.forEach( (tab, index) => {
+                    
+                    tab.onclick = () => {
+                        // 因为事件我也用了箭头函数，所以这里的this指的最外面的对象
+                        // console.log('...');
+
+                        this.setActive(index);
+                    }
+                } );
+            }
+        
+            setActive(n) {
+                this.n = n;
+                // console.log(this);
+                // 把所有的按钮的active删除
+                this.tabs.forEach( t => {
+                    t.classList.remove('active');
+                } );
+                // // 把所有的内容隐藏起来
+                this.contents.forEach( c => {
+                    c.classList.remove('active');
+                } );
+
+                this.tabs[this.n].classList.add('active');
+                this.contents[this.n].classList.add('active');
+            }
+        }
+
+        let tabsElements = document.querySelectorAll('.tabs');
+        let hs = document.querySelectorAll('.h button');
+        let cs = document.querySelectorAll('.c>div');
+
+        // console.log(cs)
+
+        let t1 = new Tab(tabsElements[0], [
+            hs[0],
+            hs[1],
+            hs[2]
+        ], [
+            cs[0],
+            cs[1],
+            cs[2]
+        ]);
+        console.dir(t1);
+
+
+        let t2 = new Tab(tabsElements[1], [
+            hs[3],
+            hs[4],
+            hs[5]
+        ], [
+            cs[3],
+            cs[4],
+            cs[5]
+        ]);
+        console.dir(t2);
+    </script>
+
+</body>
+</html>

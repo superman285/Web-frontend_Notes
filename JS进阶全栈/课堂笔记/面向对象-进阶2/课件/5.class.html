@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 一般情况下，我们会把可以new的函数（需要new的函数）首字母大写
+        // 这样别人在使用的时候就可以一眼看出来是否可以new了
+        // 这不是规定，是约定
+        class Animal {
+            eat() {
+                console.log('吃');
+            }
+        }
+
+        
+        class Cat extends Animal {
+            constructor(name) {
+                super();
+                this.name = name;
+            }
+
+            // class中所有方法都会被转化共有属性
+            miao() {
+                console.log('喵');
+            }
+        }
+        console.dir(Cat);
+
+        let xiaohua = new Cat('小花');
+        console.dir(xiaohua);
+
+        xiaohua.miao();
+        xiaohua.eat();
+
+        // xiaohua.__proto__ => Cat.prototype
+        // Cat.prototype.__proto__ => Animal.prototype
+        // Animal.prototype.__proto__ => Object.prototype
+        // Object.prototype.__proto__ => null
+
+
+        // function Cat(name) {
+        //     this.name = name;
+        // }
+        // Cat.prototype.miao = function() {}
+    </script>
+</body>
+</html>

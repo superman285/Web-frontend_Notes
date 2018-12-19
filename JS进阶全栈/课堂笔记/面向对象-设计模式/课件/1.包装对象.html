@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            包装对象
+
+            数据类型
+                基础（简单）数据类型
+                复合（复杂）数据类型
+
+            基础数据类型：不能在细分的类型
+            对象是由其他简单数据类型综合而成的一种复合型数据
+                所以：只有对象这样的数据才有（属性、方法），像字符串、数字等是没有属性和方法的
+        */
+
+        // let str1 = 'abc';
+
+        // str1.length;
+        // str1.substring();
+
+        /*
+            虽然简单数据类型是没有属性和方法的，不能像对象一样的去操作他们
+            但是对这些数据进行一些操作又是很常见的一种需求
+            我们会把这些操作封装成函数
+
+            一些语言是创建了一些内置的全局函数去实现对这些数据操作的封装
+            substring(str, 0, 1)
+            在js中也有类似的一些全局方法
+            parseInt()、parseFloat()
+            但是全局函数在使用的时候，和维护等方面不太方便
+
+            所以为了更方便的去使用这些方法，很多的语言对这样的一种需求进行一些特殊
+            的处理
+
+            比如js：
+                在js中内置构建了三个构造函数（类）
+                    Number
+                    String
+                    Boolean
+                这三个构造函数分别对应这三个简单类型
+                    number类型
+                    string类型
+                    boolean类型
+                我们可以通过上面三个构造函数，创建出来与三个对应的简单类型的数据类似的一种值
+        
+
+        */
+
+        // let str1 = 'abc';
+        // console.log(str1, typeof str1);
+        // let str2 = new String('abc');
+        // console.log(str2, typeof str2);
+
+        // console.log( str1.length );
+        // console.log( str2.length );
+
+        /*
+            为了能够使普通的类型也能通过调用属性和方法这样的方式来操作
+            js会有这样的一个默认行为：
+                当我们 **调用** 一个普通数据类型的某个属性或方法的时候
+                js会根据这普通数据所拥有的类型对实例化对应的构造函数，并以
+                这个普通数据的值作为参数，实例化一个与之对应的对象，并调用
+                这个对象对应的属性或方法，且返回这个属性或方法的值
+
+            如：
+                str1.length
+                str1 => string类型 => (new String(str1)).length
+
+            那上面我们说的三个构造函数（对象）又称为包装对象
+        */
+
+        // let str3 = 'abc';
+        // let str4 = new String('abc');
+
+        // str3.a = 10;    // 其实str3根本就没有添加属性a，因为添加不了
+        // str4.a = 10;
+
+        // console.log(str3.a);    // undefined (new String(str3)).a
+        // console.log(str4.a);    // 10
+
+        let str5 = 'miaov';
+        let arr = ['m', 'i', 'a', 'o', 'v'];
+
+        // 字符串的方法都有一个特点：无论什么操作都改变不了字符串本身的值
+        // str5.substring('');
+        // 所以字符串、数字等简单值在js中，又称为 常量
+        str5 = 'abc';   // 这个不叫把 miaov 改成 abc，而只是用一个新的 abc 常量
+        // 替换了 str5 中原有 字符串常量
+    </script>
+</body>
+</html>

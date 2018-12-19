@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        /**
+         在js中，面向对象并不是基于类的，es6以后有class，这个class只是一个障眼法（语法糖），js引擎在解析的时候还是会把class解析成es6之前的构造函数
+        */
+        
+        // class Person {
+        //     constructor() {
+        //         console.log('这是constructor');
+        //     }
+        // }
+
+        // console.log(typeof Person); // function
+
+        /**
+        
+        class Person => function Person
+        class中的constructor函数的内容就是转换后Person函数的内容
+        */
+
+
+
+        class Person1 {
+            constructor() {
+                console.log('1111');
+            }
+        }
+
+        function Person2() {
+            console.log('2222');
+        }
+
+        new Person1();
+        new Person2();
+    </script>
+</body>
+</html>

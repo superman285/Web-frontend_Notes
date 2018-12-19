@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="input" />
+    <button>按钮</button>
+
+    <script>
+        
+        // Object：因为Object是所有对象的顶层对象，所以在js中任意数据的属性或
+        // 方法调用都能找到Object的原型上
+
+        // console.dir(Object);
+
+        // Object.assign()
+
+        // const object1 = {
+        //     a: 1,
+        //     b: 2,
+        //     c: 3
+        // };
+
+        // const object2 = Object.assign({c: 4, d: 5}, object1);
+
+        // console.log(object2);
+        // console.log(object1);
+
+        // const object3 = Object.assign(object1, {a: 10, d: 100});
+        // console.log(object1, object3, object3==object1);
+
+
+        /*
+            Object.defineProperty(obj, prop, descriptor)
+
+            说直白一点，这个方法就是给指定的对象来定义属性的
+
+            属性描述符
+                对象的属性是用来描述对象的某种特征的
+                那么属性描述符其实就是用来描述一个属性的特征
+                一个对象的某个属性除了我们常用的值这种特征以外，还有其他特征
+
+                configurable
+                enumerable
+                value
+                writable
+
+            当我们使用 . 或者 [] 来定义某个属性的时候，属性描述符的
+                configurable、enumerable、writable默认都为true
+            但是通过defineProperty方法定义某个属性的时候，属性描述符的
+                configurable、enumerable、writable默认都为false
+        */
+        const object1 = {
+            a: 1,
+            b: 2,
+            c: 3
+        };
+
+        // 可以通过 . 来操作属性
+        object1.d = 4;
+
+        // 还可以通过 [] 来操作
+        object1['e'] = 5;
+
+        // defineProperty
+        Object.defineProperty(object1, 'f', {
+            value: 6,
+            configurable: false,
+            enumerable: false,
+            writable: true
+        });
+
+        // console.log( delete object1.f );    // delete 删除某个属性
+
+        // console.dir(object1);
+
+        // for (let attr in object1) {
+        //     console.log(attr, object1[attr]);
+        // }
+
+        // object1.f = 60;
+
+        // Object.defineProperty(object1, 'g', {
+        //     value: 7
+        // });
+        // object1.g = 7;
+
+        // console.dir(object1);
+
+        /*
+            属性描述符还有两个重要特征
+                get
+                set
+            这两个是一个方法，我们通常又称为：getter、setter方法
+            getter、setter方法不能与其他4个特征同时存在
+
+            get
+                当属性被调用的时候执行的函数，且该函数的返回值就是value特征
+            set
+                当属性被赋值的时候执行的函数，且该函数会接收一个参数，这个参数
+                就是被赋予的值
+        */
+
+        // Object.defineProperty(object1, 'h', {
+        //     // value: 6,
+        //     // configurable: false,
+        //     // enumerable: false,
+        //     // writable: true,
+        //     get() {
+        //         return 6;
+        //     },
+        //     set(newValue) {
+        //         console.log('我被赋值了', newValue);
+        //         // object1.h = newValue;    // 死循环了
+        //     }
+        // });
+
+        // // console.log(object1.h);   //object1.n => get()
+        // object1.h = 100;
+
+
+        // (function() {
+        //     let v = 6;
+        //     Object.defineProperty(object1, 'i', {
+        //         get() {
+        //             return v;
+        //         },
+        //         set(newValue) {
+        //             if (newValue > 0 && newValue < 200) {
+        //                 v = newValue;
+        //             }
+        //         }
+        //     });
+        // })();
+
+        // object1.i = 100;
+        // console.log( object1.i );
+
+
+        let data = {};
+
+        var input = document.querySelector('#input');
+        var button = document.querySelector('button');
+
+        (function() {
+            let v = 1;
+            Object.defineProperty(data, 'v', {
+                get() {
+                    return v;
+                },
+                set(newValue) {
+                    v = newValue;
+
+                    input.value = v;
+                }
+            })
+        })();
+        
+        button.onclick = function() {
+            data.v = data.v + 1;
+        }
+
+
+        // constructor属性：返回某个对象的constructor（构造函数）
+
+        // console.log([].constructor);
+
+        // instanceof 运算符 ，判断前面的对象是不是后面构造函数的实例对象
+        // console.log( [] instanceof Array );
+        // console.log( [] instanceof Date );
+
+        // hasOwnproperty方法：返回一个属性是否是前面对象的自有属性
+        // console.log([].hasOwnProperty('length'));   //true
+        // console.log([].hasOwnProperty('push')); //false
+    </script>
+</body>
+</html>

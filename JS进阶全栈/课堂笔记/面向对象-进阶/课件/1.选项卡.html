@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tabs {
+            display: block;
+        }
+        .tabs button.active {
+            background-color: yellow;
+        }
+        .tabs div.content {
+            display: none;
+        }
+        .tabs div.content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="div1" class="tabs">
+        <button class="tab active">选项一</button>
+        <button class="tab">选项二</button>
+        <button class="tab">选项三</button>
+        <div class="content active">内容一</div>
+        <div class="content">内容二</div>
+        <div class="content">
+            内容三
+
+            <div id="div2" class="tabs">
+                <button class="tab active">选项一</button>
+                <button class="tab">选项二</button>
+                <button class="tab">选项三</button>
+                <div class="content active">内容一</div>
+                <div class="content">内容二</div>
+                <div class="content">
+                    内容三
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        
+        class Tabs {
+            constructor(container, tabs, contents) {
+                this.container = container;
+                this.tabs = tabs;
+                this.contents = contents;
+                
+                // 设置当前要显示的内容的下标
+                this.n = 0;
+
+                // 循环当前选项卡对象的所有按钮，给它们绑定click事件
+                this.tabs.forEach( (tab, index) => {
+                    tab.onclick = () => {
+                    // 设置n的值，调用setActive方法
+                        this.n = index;
+                        this.setActive();
+                    }
+                } );
+            }
+
+            // 根据当前选项卡对象的n属性的值来设置当前显示的内容组
+            setActive() {
+                this.tabs.forEach( tab => {
+                    tab.classList.remove('active');
+                } );
+                this.contents.forEach( content => {
+                    content.classList.remove('active');
+                } );
+
+                this.tabs[this.n].classList.add('active');
+                this.contents[this.n].classList.add('active');
+            }
+        }
+
+        let tab1 = new Tabs(
+            document.querySelector('#div1'),
+            document.querySelectorAll('#div1>button.tab'),
+            document.querySelectorAll('#div1>div.content')
+        );
+
+        let tab2 = new Tabs(
+            document.querySelector('#div2'),
+            document.querySelectorAll('#div2>button.tab'),
+            document.querySelectorAll('#div2>div.content')
+        );
+
+    </script>
+
+</body>
+</html>

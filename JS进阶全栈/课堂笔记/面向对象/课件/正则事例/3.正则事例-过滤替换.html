@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+        let str = '我们知道法轮功是邪教';
+
+        // console.log( str.replace(/法轮功|邪教/g, '*') );
+
+        console.log( str.replace(/法轮功|邪教/g, function(a) {
+            // 每次匹配都会执行这个函数
+            // console.log(1);
+
+            // 回调函数值每次执行的时候，会传入一些参数
+            // 第一个参数是当前这次匹配的完整内容
+            // 后面的参数是当前这次匹配的子项目，第一个子项对应第1（参数从0计算）个参数，第二个子项对应第2（参数从0计算）个参数……
+            // console.log(a);
+
+            // 函数的返回值，将作为新的内容
+            // return '*';
+            // let s = '';
+            // for (let i=0; i<a.length; i++) {
+            //     s += '*';
+            // }
+            // return s;
+
+            return '*'.repeat(a.length);
+        }) );
+
+        // console.log( '*'.repeat(10) );
+
+    </script>
+
+</body>
+</html>
