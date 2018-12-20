@@ -39,12 +39,102 @@ www.npmjs.cn
 
 
 
+==npm安装模式==
+
+默认npm i 模块名 | 本地模式  => 信息记录到package.json的dependencies
+
+npm i -D 模块名 | 本地开发模式=> 信息记录到package.json的devDependenies
+
+npm i -g 模块名 | 全局安装 
+
+全局安装后在 AppData\Roaming\npm\node_modules windows
+
+或/usr/local/lib/node_modules unix或linux
+
+项目代码中要使用的包使用本地模式
+
+
+
+在项目开发过程中使用的而且非代码本身使用的包使用的模式为开发模式，比如各种辅助工具(例如babel、webpack、eslint等)
+
+
+
+dependencies会随模块一起下载，而devDependencies不会随模块一起下载
+
+
+
+npm run xxx
+
+
+
+xxx是package.json中的scripts字段中的某个对象，是一些较长命令的缩写，可以简洁地运行命令又避免了麻烦地书写一长串带参数的命令。
+
+相当于运行script中的命令
+
 
 
 ##### package-lock.json 和 package.json
 
-package-lock.json 
+###### package-lock.json 
 
 加速已安装过的包的安装速度
 
 锁定安装版本，避免直接改package.json，利于包管理
+
+
+
+###### package.json
+
+该文件是用来描述目录类型的模块或第三方模块(第三方模块也是按照目录进行组织的)
+
+如果一个模块下有package.json文件，首先读取package.json的文件，读取这个文件中的main字段对应的文件路径，
+
+如果没有package.json文件，则默认读取该文件夹路径下的index.js
+
+
+
+安装或卸载完第三方模块，会同时更新package.json的dependencies项中的内容，增加或删除。
+
+
+
+```json
+{
+    "name":
+    "version":
+    "main":
+    "dependencies":{
+        "jquery": "^3.3.1"
+    }
+    
+    
+}
+```
+
+
+
+创建方式：
+
+- 手动创建
+- npm init(交互式) | npm init -y(直接生成)
+
+
+
+name和version两个字段是==必须必须有的==
+
+
+
+
+
+##### 发布一个npm包
+
+==package.json是必须的==
+
+npm官网注册账号
+
+npm login | 输入用户名 密码
+
+定位到当前目录然后 npm publish
+
+在官网就可以搜索到啦
+
+npm unpublish 下架指定的包

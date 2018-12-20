@@ -24,6 +24,12 @@ nginx -c conf/myselfconf.conf
 
 ###### 模块化
 
+require方法返回的是module.exports对象(与exports是一样的，全等，相当于省略了module的写法)
+
+如果不给module.exports添加内容，那返回的就是{} 空对象
+
+
+
 ==module.\_\_dirname(目录)== | ==module.\_\_filename(目录及文件名)== | module.require
 
 模块内的module就相当于浏览器中的window，可以省略
@@ -46,9 +52,29 @@ exports.a = a; 这时返回值就是{a:2}(exports对象)
 
 
 
+require
+
+
+
+每个模块下都有一个模块对象module，同时该模块下有一些属性和方法：
+
+exports: 导出模块私有数据
+
+require: 加载模块
+
+
+
+commonJS 模块化
+
+
+
 ##### ==模块加载==
 
 require(‘./2’)或require(‘./2.js’) 会执行2.js,同时会返回一个值,
+
+
+
+
 
 
 
@@ -74,9 +100,25 @@ name 模块名称 | version 模块版本 | main 模块入口文件
 
 
 
+###### 使用require时导入模块的顺序
+
+如果一个模块下有package.json文件，首先读取package.json的文件，读取这个文件中的main字段对应的文件路径，
+
+如果没有package.json文件，则默认读取该文件夹路径下的index.js
+
+💡注意：如果既没有index.js也没有package.json(或main字段),则会报错:cannot find module
+
+
+
+==两种路径的方式==
+
 自己的文件/文件夹模块 require形式为./|../之类打头 let my = require(‘./mydir’)
 
 第三方模块 require形式不以./|../之类路径符号打头 let jquery = require(‘jquery’)
+
+./导入的是本地文件/文件夹模块
+
+不带./导入的是核心模块(例如require(‘fs’))或第三方模块(在node_modules)
 
 
 
@@ -92,4 +134,4 @@ name 模块名称 | version 模块版本 | main 模块入口文件
 >
 > 最终会找到 /users/superman285/.node_modules目录下
 >
-> 如果还找不到就要找node源码了
+> 如果还找不到就要找node源码了(即核心模块)

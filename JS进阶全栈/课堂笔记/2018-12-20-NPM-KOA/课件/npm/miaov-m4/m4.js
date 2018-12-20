@@ -1,0 +1,1 @@
+module.exports.a = '这是m4';

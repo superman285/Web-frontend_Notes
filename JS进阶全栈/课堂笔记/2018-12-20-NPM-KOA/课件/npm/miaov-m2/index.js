@@ -1,0 +1,1 @@
+module.exports.a = '妙味的第二个模块';
