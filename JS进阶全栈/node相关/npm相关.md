@@ -41,9 +41,11 @@ www.npmjs.cn
 
 ==npm安装模式==
 
-默认npm i 模块名 | 本地模式  => 信息记录到package.json的dependencies
+默认npm i 模块名 等同于 npm -save|-S 模块名
 
-npm i -D 模块名 | 本地开发模式=> 信息记录到package.json的devDependenies
+ | 本地模式  => 信息记录到package.json的dependencies
+
+npm i -D|-develop 模块名 | 本地开发模式=> 信息记录到package.json的devDependenies
 
 npm i -g 模块名 | 全局安装 
 
@@ -59,7 +61,48 @@ npm i -g 模块名 | 全局安装
 
 
 
-dependencies会随模块一起下载，而devDependencies不会随模块一起下载
+> 💡注意事项
+>
+> npm i 模块xx (-S);
+>
+> 对模块xx而言
+>
+> - 模块xx的dependencies会随模块一起下载，模块xx的devDependencies不会随模块一起下载
+>
+> 对自身项目所在文件夹而言
+>
+> - 自身项目的packagejson中会将模块xx加入dependencies
+>
+>
+>
+> ---
+>
+>
+>
+> npm i 模块yy -D
+>
+> 对模块xx而言
+>
+> - 模块xx的dependencies会随模块一起下载，模块xx的devDependencies不会随模块一起下载
+>
+> 对自身项目所在文件夹而言
+>
+> - 自身项目的packagejson中会将模块xx加入devDependencies
+>
+>
+> ---
+>
+>
+>
+> npm i
+>
+> ==当前所在项目文件夹下的packagejson中的无论dependencies或devDependencies全都一股脑下载下来==
+>
+> 所以，如果平时下载的第三方模块没有包含依赖的工具库内容时，你可以直接到第三方模块目录底下打命令npm i ,所有的依赖包括dependencies和devDependencies都会被下载下来，供你学习或使用。
+>
+>
+
+
 
 
 
@@ -109,6 +152,16 @@ xxx是package.json中的scripts字段中的某个对象，是一些较长命令�
     
 }
 ```
+
+
+
+npm run xxx
+
+
+
+xxx是package.json中的scripts字段中的某个对象，是一些较长命令的缩写，可以简洁地运行命令又避免了麻烦地书写一长串带参数的命令。
+
+相当于运行script中的命令
 
 
 
