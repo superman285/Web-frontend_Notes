@@ -1,0 +1,63 @@
+##### mysql
+
+npm安装mysql,是安装的mysql操作模块，而不是装mysql本身，本身还是要通过下载程序包来安装使用。
+
+
+
+可视化数据库操作gui 可用navicat
+
+
+
+
+
+
+
+不推荐拼字符串(可有两种方式，模板字符串方式 sql中本身的``就要转义了)
+
+推荐使用预处理参数，更安全地防止sql注入攻击
+
+‘insert into \`user\` \`username\` values ? ’,
+
+[xxx.yyy],
+
+
+
+limit ? offset ?
+
+[limit,offset]
+
+相当于 
+
+?,?
+
+[offset,limit]
+
+
+
+可通过循环将json中的数据批量导入数据库 可用forEach
+
+
+
+
+
+ctx.body 不要写在db.query外面，因为query是异步的，db.query刚执行就立马ctx.body可能还没拿到结果呢，所以要用回调函数查询到结果后再处理
+
+
+
+后面可以用promise或async来处理回调地狱问题啦
+
+
+
+
+
+
+
+异步函数前面加上async
+
+
+
+能返回结果的函数前加上await
+
+
+
+通过==解构赋值==去除第0个数组
