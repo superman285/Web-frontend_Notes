@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        // let arr = ['a', 'b', 'c'];
+
+        // $.each(arr, (index, val) => {
+        //     console.log(index, val);
+        // });
+
+        // arr.forEach( (val, index) => {
+        //     console.log(val, index);
+        // })
+
+
+        // 验证qq
+        $.extend({
+            qq(str) {
+                return /^[1-9]\d{4,11}$/g.test(str);
+            }
+        });
+
+       console.log( $.qq('a123sd') );
+       console.log( $.qq('12343354') );
+    </script>
+</body>
+</html>

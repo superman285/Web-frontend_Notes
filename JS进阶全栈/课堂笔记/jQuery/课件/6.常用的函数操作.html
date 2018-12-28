@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="div1">111</div>
+    <div id="div2">222</div>
+    <div id="div3">333</div>
+    
+    <script>
+        
+        // let div1 = document.querySelector('#div1');
+
+        // let divs = document.querySelectorAll('div');
+
+        
+        /*
+            我们有这样的一种类型的对象
+
+                - 获取的元素就是这个对象下属性（数据）
+                - 提供了一些操作这些数据的方法
+        */
+        class Miaov {
+            constructor(selector) {
+                // this.data = document.querySelectorAll(selector);
+
+                // this[0] = 'a'
+
+                let els = document.querySelectorAll(selector);
+
+                els.forEach( (el, index) => {
+                    this[index] = el;
+                });
+
+                this.length = els.length;
+            }
+
+            css(attr, value) {
+                for (let i=0; i<this.length; i++) {
+                    this[i].style[attr] = value;
+                }
+                return this;
+            }
+
+            attr(key, value) {
+
+            }
+        }
+
+        function $(selector) {
+            return new Miaov(selector);
+        }
+
+        
+        // let m1 = new Miaov('div');
+        // // m1.css('background', 'black');
+        // // m1.css('color', 'white');
+
+        // m1.css('background', 'black').css('color', 'white');
+        // console.dir(m1);
+
+
+        $('div').css('background', 'black').css('color', 'white');
+    </script>
+
+</body>
+</html>

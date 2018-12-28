@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button.active {
+            background: yellow;
+        }
+        p {
+            display: none;
+        }
+        p.active {
+          display: block;  
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <button class="active">选项一</button>
+        <button>选项二</button>
+        <button>选项三</button>
+        <p class="active">内容一</p>
+        <p>内容二</p>
+        <p>内容三</p>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script>
+
+        let buttons = document.querySelectorAll('button');
+        let ps = document.querySelectorAll('p');
+
+        // console.log(buttons);
+
+        // buttons.forEach( (button, index) => {
+        //     button.onclick = function() {
+        //         // console.log('...');
+
+        //         buttons.forEach(button=>button.classList.remove('active'));
+        //         ps.forEach(p=>p.classList.remove('active'));
+
+        //         this.classList.add('active');
+        //         ps[index].classList.add('active');
+
+        //     }
+        // } );
+
+
+        // console.log( $(1).css );
+
+        // $(document.body).css('background', 'red');
+
+        let $buttons = $('button');
+        let $ps = $('p');
+
+        // 获取某个元素在另外一组元素中的位置
+        // console.log( $('button.active').index('*') );
+
+        $buttons.on('click', function() {
+            // console.log('...');
+
+            $buttons.removeClass('active');
+            $ps.removeClass('active');
+
+            // jq中事件函数的this是原生的对象，可以 $(this)
+            // console.log(this);
+
+            // 这里直接使用原生的操作是没有任何问题，不存在冲突
+            // 重点：能使用什么方法，有什么属性取决于前面的数据的类型
+            // this.classList.add('active');
+
+            // console.log($(this));
+            $(this).addClass('active');
+
+            // eq和get方法都是返回前面指定位置的元素，但是
+            // get返回的是内容，eq返回的是重新被jq包装后的内容
+            $ps.eq( $(this).index('button') ).addClass('active');
+
+        });
+
+
+
+        // let arr = ['a','b','c'];
+
+        // console.log(get(1));
+        // console.log(eq(1));
+
+        // function get(i) {
+        //     return arr[i];
+        // }
+        // function eq(i) {
+        //     return [arr[i]];
+        // }
+
+    </script>
+</body>
+</html>

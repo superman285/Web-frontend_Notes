@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="./js/jquery.min.js"></script>
+
+    <script>
+        
+        // document.addEventListener('click', function() {
+        //     console.log('...');
+        // });
+
+        // setTimeout(() => {
+        //     document.removeEventListener('click', function() {
+        //         console.log('...');
+        //     });
+        // }, 3000);
+
+
+        // function fn() {
+        //     console.log('...');
+        // }
+
+        // document.addEventListener('click', fn);
+
+        // setTimeout(() => {
+        //     document.removeEventListener('click', fn);
+        // }, 3000);
+
+        // on => 自定义事件系统： {'click': []}
+        // $(document).on('click', function() {
+        //     console.log('...');
+        // });
+
+        // setTimeout(() => {
+        //     // 取消所有的click观察者数组的中函数
+        //     $(document).off('click');
+        // }, 3000);
+
+        
+        /**
+         * {
+         *  click: {
+         *      observes: [],
+         *      a: {
+         *          observes: []
+         *      },
+         *      b: {
+         *          observes: []
+         *      }
+         *  }
+         * }
+         */
+
+        $(document).on('click.a', function() {
+            console.log('1111');
+        });
+        $(document).on('click.b', function() {
+            console.log('222');
+        });
+
+        setTimeout(() => {
+            $(document).off('click.a');
+        }, 3000);
+    </script>
+
+</body>
+</html>

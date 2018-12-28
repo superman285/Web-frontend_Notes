@@ -1,0 +1,39 @@
+.detail_header {
+    margin-bottom: 50px;
+    height: 250px;
+    overflow: hidden;
+}
+.detail_cover, .detail_cover img {
+    float: left;
+    width: 250px;
+    height: 250px;
+    border-radius: 126px;
+}
+.detail_con {
+    float: left;
+    margin-left: 50px;
+    width: 900px;
+}
+.detail_con h1 {
+    font-size: 38px;
+    font-weight: 400;
+    height: 50px;
+    line-height: 50px;
+}
+.detail_desc {
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 4px;
+}
+.detail_statistic a {
+    margin-left: 50px;
+}
+.detail_statistic a:nth-of-type(1) {
+    margin-left: 0;
+}
+.detail_statistic strong {
+    font-size: 25px;
+    font-weight: 400;
+    margin-left: 10px;
+}

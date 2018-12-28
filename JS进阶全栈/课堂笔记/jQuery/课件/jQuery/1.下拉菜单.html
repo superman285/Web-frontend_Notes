@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 200px;
+            border: 1px solid #000;
+            padding: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <button>按钮</button>
+    <div>
+        这是内容
+    </div>
+
+    <script src="./jquery.min.js"></script>
+    <script>
+        
+        // let $btn = $('button');
+        // console.log($btn);
+
+        /*
+            jq 的动画使用的是一种队列的形式来实现的
+
+            jq内部会维护一个动画队列，当我们调用与动画有关的一些方法的时候
+
+            并不是立即就会执行这个动画，而是会把这个东西添加到 动画 队列中
+
+            当队列中某个动画执行完成以后，该动画就会从队列中删除，并从队列取出一下动画
+
+
+        */
+
+        $('button').hover( function() {
+            // $('div').show();
+            $('div').stop(true).slideDown();
+        }, function() {
+            // $('div').hide();
+            $('div').stop(true).slideUp();
+        } );
+    </script>
+</body>
+</html>

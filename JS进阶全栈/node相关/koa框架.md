@@ -186,6 +186,24 @@ accept-encoding为支持的编码(gzip更常用)
 
 
 
+==Koa框架帮我们处理了请求，处理了输出==
+
+
+
+向客户端返回数据是通过 http=> end()方法来实现的
+
+把ctx.body作为返回值， 相当于.end(ctx.body)
+
+所以不需要在中间件中手动调用end方法，只需要给ctx.body赋值
+
+
+
+然而中间件很多都是异步操作，如果不做特殊操作 .end方法不会等异步操作完成才调用，所以那时调用会是 not found (那时ctx.body是undefined)
+
+
+
+如果 await fn(); .end(ctx.body);  这样就会等fn执行有结果后 才会调end
+
 
 
 ###### 路由 koa-router

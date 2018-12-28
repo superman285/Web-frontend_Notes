@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+    
+    <script>
+        /*
+            在我们日常编码过程中，经常会对一些常用的操作进行一个封装
+
+            原来我们会通过一些简单的函数的形式封装这些常用操作
+        */
+
+        let div1 = document.querySelector('#div1');
+
+        // div1.style.width = '100px';
+        // div1.style.height = '100px';
+        // div1.style.backgroundColor = 'red';
+
+        // css(div1, 'width', '100px');
+        // css(div1, 'height', '100px');
+        // css(div1, 'backgroundColor', 'red');
+
+        // function css(el, attr, value) {
+        //     el.style[attr] = value;
+        // }
+
+
+        // css(div1, 'width', '100px');
+        // css(div1, 'height', '100px');
+        // css(div1, 'backgroundColor', 'red');
+
+        // css(div1, {
+        //     width: '100px',
+        //     height: '200px',
+        //     backgroundColor: 'red'
+        // });
+        // attr(div1, '_miaov', '妙味');
+
+        function css(el, attr, value) {
+            if (arguments.length > 2) {
+                el.style[attr] = value;
+            } else {
+                // {width: '100px', height: '100px'}
+                // 这里最好做个判断，我这里不做了
+                for (let a in attr) {
+                    el.style[a] = attr[a];
+                }
+            }
+        }
+
+        function attr(el, key, value) {
+            if (arguments.length == 2) {
+                return el.getAttribute(key);
+            }
+            if (arguments.length == 3) {
+                el.setAttribute(key, value);
+            }
+        }
+
+
+
+        let divs = document.querySelectorAll('div');
+
+        // 给所有的div添加一个同一个样式
+        // for (let i=0; i<divs.length; i++) {
+        //     css(divs[i], {
+        //         width: '100px',
+        //         height: '100px',
+        //         backgroundColor: 'red',
+        //         marginBottom: '10px'
+        //     });
+        // }
+
+        css2(divs, {
+            width: '100px',
+            height: '100px',
+            backgroundColor: 'red',
+            marginBottom: '10px'
+        });
+
+
+        function css2(els, attr, value) {
+            if (arguments.length > 2) {
+                for (let i = 0; i<els.length; i++) {
+                    els[i].style[attr] = value;
+                }
+            } else {
+                // {width: '100px', height: '100px'}
+                // 这里最好做个判断，我这里不做了
+                for (let a in attr) {
+                    for (let i = 0; i<els.length; i++) {
+                        els[i].style[a] = attr[a];
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

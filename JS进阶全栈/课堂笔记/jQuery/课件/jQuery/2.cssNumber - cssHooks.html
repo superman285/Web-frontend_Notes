@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div></div>
+
+    <script src="./jquery.min.js"></script>
+
+    <script>
+        // $('div').css({
+        //     width: '100px',
+        //     height: '100px',
+        //     background: 'red'
+        // });
+
+        /*
+            在jQuery对象下面有一些静态属性：jQuery.cssNumber
+
+            里面保存了一些设置好的属性，每一个属性都是布尔值
+
+            当jq中要给元素的样式添加数字类型的值的时候，jq先会在
+            jQuery.cssNumber
+            中，查找要添加属性是否存在，如果存在且值为true，那么
+            添加的属性处理成不带单位数字值
+        */
+
+        // $.cssNumber.opacity = true;
+
+        // console.log($.cssNumber);
+
+        // $('div').css({
+        //     width: 100,
+        //     height: 100,
+        //     background: 'red',
+        //     opacity: .5
+        // });
+
+        /*
+            $.cssHooks：当我们通过jq去给css设置属性的时候会执行的钩子函数
+
+            $.cssHooks.某css属性 = {
+                get(){},
+                set(){}
+            }
+
+            当我们设置 某css属性 ，对应的set方法会被调用
+        */
+
+        $.cssHooks.miaov = {
+            set(elem, value) {
+                $(elem).css({
+                    width: value[0],
+                    height: value[1],
+                    background: value[2]
+                });
+            }
+        }
+
+        console.log($.cssHooks);
+
+        $('div').css({
+            miaov: [100, 100, 'red']
+        });
+    </script>
+</body>
+</html>

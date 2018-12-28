@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+        class Teacher {
+            constructor(name) {
+                this.name = name;
+
+                // 如果一个主体对象有多个事件列表需要维护
+                this.observers = {
+                    teach: [],
+                    say: []
+                };
+            }
+
+            teach() {
+                console.log('开始上课');
+
+                // 当主体对象的某个行为发生的时候，就会执行所有的事件函数列表中的函数
+                this.observers.teach.forEach( observer => {
+                    // observer.update();
+                    observer();
+                } );
+            }
+
+            say() {
+                console.log('老师说话了');
+
+                this.observers.say.forEach( observer => {
+                    // observer.update();
+                    observer();
+                } );
+            }
+
+            // 添加事件函数
+            addEventListener(type, observer) {
+                this.observers[type].push(observer);
+            }
+
+        }
+
+        
+        let t1 = new Teacher('zMouse');
+        let t2 = new Teacher('Reci');
+
+        t1.addEventListener( 'teach', function() {
+            console.log('老师好');
+        } );
+
+        t1.addEventListener( 'say', function() {
+            console.log('好好听课');
+        } );
+
+    </script>
+</body>
+</html>

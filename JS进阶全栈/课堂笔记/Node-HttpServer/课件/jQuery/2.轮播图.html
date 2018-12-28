@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .slider {
+            position: relative;
+            margin: 100px auto;
+            border: 1px solid #000;
+            width: 590px;
+            height: 470px;
+        }
+        ul {
+            position: absolute;
+            bottom: 0;
+            padding: 10px 0;
+            /* background: green; */
+            width: 100%;
+            text-align: center;
+        }
+        ul li {
+            display: inline-block;
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        ul li.active {
+            background: green;
+        }
+        .slider span {
+            position: absolute;
+            top: 0;
+            width: 50px;
+            height: 100%;
+            line-height: 470px;
+            background: rgba(0,0,0,.2);
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            font-size: 40px;
+        }
+        .slider span.prev {
+            left: 0;
+        }
+        .slider span.next {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="div1" class="slider">
+        <img src="" />
+        <ul>
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <span class="prev">&lt;</span>
+        <span class="next">&gt;</span>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script>
+
+        let arr = [
+            './images/1.jpg',
+            './images/2.jpg',
+            './images/3.jpg',
+            './images/4.jpg',
+            './images/5.jpg'
+        ];
+        let n = 0;
+
+        // $('img').get(0).src = arr[n];
+
+        $('img').attr('src', arr[n]);
+        
+        $('li').on('click', function() {
+            n = $(this).index('li');
+
+            show();
+
+            // $('img').attr('src', arr[n]);
+            // // $(this).addClass('active');
+            // $('li').removeClass('active').eq(n).addClass('active');
+
+        });
+
+        $('.prev').on('click', function() {
+            n--;
+            show();
+        });
+
+        $('.next').on('click', function() {
+            n++;
+            show();
+        });
+
+        function show() {
+            if ( n < 0 ) {
+                n = arr.length - 1;
+            }
+            if ( n == arr.length ) {
+                n = 0;
+            }
+            $('img').attr('src', arr[n]);
+            $('li').removeClass('active').eq(n).addClass('active');
+        }
+
+    </script>
+
+    <script>
+        
+        // class Slider {
+        //     constructor(container, images=[]) {
+        //         this.container = container;
+        //         this.images = images;
+        //         this.lis = [];
+        //         this.n = 0;
+
+        //         this.img = document.createElement('img');
+        //         if (images.length) {
+        //             this.img.src = images[this.n];
+        //         }
+
+        //         let ul = document.createElement('ul');
+
+        //         images.forEach((item, index) => {
+        //             let li = document.createElement('li');
+        //             if (index == this.n) {
+        //                 li.classList.add('active');
+        //             }
+        //             li.onclick = () => {
+        //                 this.n = index;
+        //                 this.setActive();
+        //             }
+        //             ul.appendChild(li);
+
+        //             this.lis.push(li);
+        //         });
+
+        //         let prevElement = document.createElement('span');
+        //         prevElement.classList.add('prev');
+        //         prevElement.onclick = this.prev.bind(this);
+
+        //         let nextElement = document.createElement('span');
+        //         nextElement.classList.add('next');
+        //         // 下面这个是有问题的，this.next方法中的this就会指向nextElement
+        //         // nextElement.onclick = this.next;
+
+        //         nextElement.onclick = this.next.bind(this);
+
+        //         this.container.appendChild(this.img);
+        //         this.container.appendChild(ul);
+        //         this.container.appendChild(prevElement);
+        //         this.container.appendChild(nextElement);
+
+        //     }
+
+        //     setActive() {
+        //         if (this.n < 0) {
+        //             this.n = this.images.length - 1;
+        //         }
+        //         if (this.n >= this.images.length) {
+        //             this.n = 0;
+        //         }
+
+        //         this.img.src = this.images[this.n];
+
+        //         this.lis.forEach(li => {
+        //             li.classList.remove('active');
+        //         });
+        //         this.lis[this.n].classList.add('active');
+        //     }
+
+        //     prev() {
+        //         this.n--;
+        //         this.setActive();
+        //     }
+
+        //     next() {
+        //         this.n++;
+        //         this.setActive();
+        //     }
+        // }
+
+        // let slider1 = new Slider(
+        //     document.querySelector('#div1'),
+        //     [
+        //         './images/1.jpg',
+        //         './images/2.jpg',
+        //         './images/3.jpg',
+        //         './images/4.jpg',
+        //         './images/5.jpg'
+        //     ]
+        // );
+
+    </script>
+
+</body>
+</html>

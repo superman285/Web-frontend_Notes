@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+        class Teacher {
+            constructor(name) {
+                this.name = name;
+
+                // 存储依赖（观察者）的列表
+                this.observers = [];
+            }
+
+            teach() {
+                console.log('开始上课');
+
+                this.observers.forEach( observer => {
+                    observer.update();
+                } );
+            }
+
+            push(observer) {
+                this.observers.push(observer);
+            }
+
+        }
+
+        class Student {
+            constructor(name) {
+                this.name = name;
+            }
+
+            update() {
+                console.log(this.name + '说：老师好');
+            }
+        }
+
+        
+        let t1 = new Teacher('zMouse');
+        let t2 = new Teacher('Reci');
+
+        let s1 = new Student('张三');
+        let s2 = new Student('李四');
+        let s3 = new Student('小明');
+
+        t1.push(s1);
+        t1.push(s2);
+        t2.push(s3);
+
+
+
+
+    </script>
+</body>
+</html>
