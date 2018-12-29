@@ -158,7 +158,7 @@ curl -s -v -H "superman285:666" https://xiedaimala.com/search?keyword=scss&type=
 
 ###### HTTP请求
 
-1. 请求方法 路径 协议/版本号
+1. 请求方法 路径 协议/版本号 (请求行)
 2. 请求头
 3. 空行
 4. 请求数据正文
