@@ -24,6 +24,8 @@ koa-router 路由
 
 nunjucks 模板引擎
 
+koa2-cors 解决跨域问题
+
 
 
 ```javascript
