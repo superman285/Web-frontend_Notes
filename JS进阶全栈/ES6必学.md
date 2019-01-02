@@ -62,3 +62,28 @@ var ar = arr.find(elem=>elem>5)
 
 
 ##### import和export
+
+
+
+
+
+##### 箭头函数
+
+返回值为对象时，如果不写return，要加个小括号以区分
+
+以下两种写法是一样的
+
+```javascript
+name => ( { 'user' : name } );
+name => {return { 'user' : name } };
+```
+
+
+
+data(){return {user:name}}
+
+data: ()=>({user:name})
+
+data: ()=>{return {user:name}}
+
+==这几种写法是一样的==
