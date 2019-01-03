@@ -134,6 +134,8 @@ app.use(function(){
 
 
 
+中间件的next方法是异步的，需要加上await
+
 
 
 ##### Koa框架应用
