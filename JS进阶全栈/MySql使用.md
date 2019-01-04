@@ -1,4 +1,4 @@
-##### 安装MySQL(mac版)
+安装MySQL(mac版)
 
 两种方式
 
@@ -24,6 +24,14 @@
 > mysql.server stop
 
 
+
+连接数据库
+
+> mysql -u root -p
+>
+> 回车后跳过输入密码 直接连接
+>
+> show databases; 可以查看所有数据库
 
 
 
