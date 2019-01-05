@@ -36,3 +36,33 @@
 
 
 可视化工具推荐Navicat for MySQL
+
+
+
+###### 一些坑
+
+node index启动时报错
+
+
+
+<font color="dark">**Client does not support authentication protocol requested by server;**</font>
+
+是数据库的问题
+
+设置个初始密码可以搞定
+
+https://www.cnblogs.com/zichuan/p/9203129.html
+
+
+
+sequelize库的坑
+
+
+
+如果报Data too long for column ‘xxx’ at row 1
+
+
+
+如果是数据库的问题，就给数据库表设置text或longtext类型而不是varchar
+
+如果是sequelize的问题，就不要设置sequelize.STRING，而是设置sequelize.TEXT

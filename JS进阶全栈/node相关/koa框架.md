@@ -82,7 +82,13 @@ context.request.header === context.header
 
 
 
+==注意==
 
+ctx.body是ctx.response.body 是响应的正文，是服务器发给客户端的！
+
+
+
+ctx.request.body 并不一样 这是请求的正文，是客户端发给服务器的！
 
 
 
