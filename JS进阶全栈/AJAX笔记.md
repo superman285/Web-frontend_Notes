@@ -46,6 +46,17 @@ username为表单内标签的name
 
 
 
+
+
+==提交==
+
+
+
+1. 使用form表单，表单中的button(需要唯一?)或input(submit)自带提交功能
+2. 不适用form表单，使用ajax提交，或者使用form表单但是给button或input(submit)取消默认行为 preventDefault
+
+
+
 ##### 代码示例 创 开 发 载
 
 //创建
@@ -227,3 +238,99 @@ koa框架自动会将对象转为json格式(当把对象赋给body时)
 同步/异步
 
 事情的通知方式，自己主动观察(同步) | 自动通知(异步)
+
+
+
+
+
+##### ajax框架
+
+- jQuery
+- axios | 在vue中很常用
+
+
+
+###### jQuery
+
+格式:
+
+```javascript
+$.ajax({
+                type: "GET",
+                url: '/checkUserName_login',
+                data: {
+                  username: this.value
+                },
+    			//url: '/checkUserName_login?username='+this.value,
+    		   contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+    		   dataType: "text", //可不写，jq根据MIME信息智能判断
+                success: function(data,status,jqxhr){
+                    console.log('data:');
+                    console.log(data);
+                    /*console.log('status:');
+                    console.log(status);
+                    console.log('xhr:');
+                    console.log(xhr);*/
+                }
+            })
+```
+
+https://www.jquery123.com/jQuery.ajax/
+
+可写在对象中的属性
+
+
+
+success的回调函数有三个参数
+
+服务器返回的数据，状态，xhr对象
+
+xhr对象有很多可用属性和方法，可借助这儿的参数获得
+
+
+
+==注意点==
+
+data为对象，内容为键值对形式
+
+在get请求中，data将作为queryString附加到url之后(例如?username=‘superman’)
+
+或者这种写法: url: ‘/api?username=’+this.value
+
+data写法更好
+
+
+
+###### axios框架
+
+这个框架功能比之jQ的ajax更简单
+
+使用说明: https://www.kancloud.cn/yunye/axios/234845
+
+
+
+格式:
+
+axios({
+
+​    url: ‘’,
+
+​    method: ‘’,
+
+​    data:{
+
+​    },
+
+​    timeout: 1000
+
+})
+
+
+
+这儿的data没有jQ的智能，只能适用于post|put|patch，没有jq的作为get的queryString功能
+
+想使用get+查询参数 只能用url方式
+
+```javascript
+url: '/checkUserName?username='+this.value,
+```
