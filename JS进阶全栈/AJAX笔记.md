@@ -34,7 +34,7 @@ username为表单内标签的name
 
 > 发请求的方式
 >
-> - 通过url
+> - 通过url (path,例如localhost/login这种)
 >
 > - 通过url的queryString (?xxx=yyy) 受长度限制不能传大数据,只能传字符串,
 >
@@ -42,9 +42,13 @@ username为表单内标签的name
 >
 > - 通过请求头信息传 例如发content-type 发cookie等
 >
-> - 通过请求正文传
+> - 通过请求正文传 不支持get 要用post
 
 
+
+path和queryString都基于url，会受到url长度限制
+
+大数据可以用正文传
 
 
 
@@ -221,6 +225,69 @@ koa框架自动会将对象转为json格式(当把对象赋给body时)
 
 
 
+
+
+xhr.send()
+
+get方式不支持正文提交 所以send后面不写参数
+
+post方式支持正文提交，send后可加参数 (提交的内容)
+
+post提交一般需要设置头信息
+
+xhr.setRequestHeader(‘content-type’,‘application/json’)
+
+
+
+map相当于开了个循环
+
+keys.map((key,index)=>{
+
+​    return key+‘=’+values[index]
+
+})
+
+
+
+==知识点==
+
+前端处理后端传来的各种类型的数据
+
+如果是json，需要
+
+let data = JSON.parse(xhr.response); //转成对象格式，方便使用
+
+如果是string，就这么用
+
+如果是xxx
+
+
+
+根据content-type来判断数据类型，从而使用不同处理方法，可借助MIME来处理不同类型
+
+
+
+xhr.getAllResponseHeaders() 把整个响应头返回
+
+xhr.getResponseHeader(‘content-type’) 返回响应头指定的某个属性
+
+
+
+整个响应头包括：connection,content-length,content-type
+
+
+
+urlencoded格式发data写法：
+
+使用&来连接
+
+```javascript
+xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+xhr.send('content=' + content.value+"&singerid="+window.location.href.split('/')[4]);
+```
+
+
+
 ##### 通识:同步 | 异步
 
 有些操作是需要花费时间去完成，比如下载电影->看电影
@@ -250,7 +317,19 @@ koa框架自动会将对象转为json格式(当把对象赋给body时)
 
 
 
+自己封装一个ajax框架
+
+
+
+let opts = Object.assign({method:‘get’,url:‘’,data:‘’})
+
 ###### jQuery
+
+jq头信息默认是urlencoded，有时返回的是json，但是一看头信息还是urlencoded(不匹配)
+
+可以用contentType字段指定发给服务器的头信息的content-type (请求头)
+
+
 
 格式:
 
@@ -299,13 +378,33 @@ data为对象，内容为键值对形式
 
 data写法更好
 
+queryString采用以下两种写法都行，jq做了智能的封装，能判断各种类型，很聪明
+
+```
+data: 'username='+this.value,
+//对象写法或string写法都可以，因为jq做了智能的处理，支持各种格式
+data: {
+  username: this.value
+},
+```
+
 
 
 ###### axios框架
 
-这个框架功能比之jQ的ajax更简单
+这个框架功能比之jQ的ajax更简单简洁 明晰 专一为ajax而生
 
 使用说明: https://www.kancloud.cn/yunye/axios/234845
+
+
+
+里头借用了一个很好的框架 qs
+
+url解析，queryString和对象互转
+
+
+
+request header 的content-type默认为json，与jq不同
 
 
 
@@ -321,6 +420,8 @@ axios({
 
 ​    },
 
+​    headers: {‘content-type’:‘application/json’}
+
 ​    timeout: 1000
 
 })
@@ -334,3 +435,20 @@ axios({
 ```javascript
 url: '/checkUserName?username='+this.value,
 ```
+
+
+
+axios中想使用queryString也可以，但是不是放在data中，而是放在params字段
+
+params: {username:‘wzc’,password:‘123’}
+
+其实axios区分更合理，axios把正文和queryString区分开了，
+
+分为data和params
+
+
+
+跨域相关的配置
+
+- withCredentials
+- proxy
