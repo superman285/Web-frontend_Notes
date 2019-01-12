@@ -1,0 +1,14 @@
+##### 动手封装jQuery
+jQuery其实揭开神秘的面纱也就是把函数进行了一个封装，我们也可以手动来实现这件事儿。
+
+借助es6中的class，可以方便的封装一个类，利用构造函数实现选择器，两个API addClass和setText添加到类中。
+
+class中的this指一个利用jqinit函数构造出来的实例
+借助原生的querySelectorAll，用forEach循环把选取到的元素 放入数组对应索引位置，并设置this.length
+
+addClass方法和setText方法 都利用循环来实现 
+为了能够链式调用，在末尾加上return this 这样就可以连续地调用API了
+
+class类本质是构造函数，构造时需要使用new操作符，给外面再套一层函数jQuery，return new jqinit(selector)，实现无new操作
+
+将jQuery函数赋值给window.jQuery和window.$ 就可以借助$来进行操作了。
