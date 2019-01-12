@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+
+    <script>
+        let button = document.querySelector('button');
+
+        button.onclick = function() {
+            /**
+             * 如果我们要找一个东西去替代ajax发送跨域请求
+             *  - 能发送http请求
+             *  - 不受跨域影响
+             *  - 能够处理接收到的数据
+             * 
+             * 除了浏览器，ajax对象以外在js中有很多的东西都可以满足上面要求
+             *  img对象，link对象，script对象
+             * 在这里，我们希望数据被获取到以后能够被js进行后续处理
+            */
+
+            let scriptElement = document.createElement('script');
+            /**
+             * 因为script对象加载完数据以后，会被浏览器的js引擎自动执行
+             * 所以返回的内容最好是一段合法的js代码字符串
+            */
+            scriptElement.src = 'http://localhost:8080/getData2';
+
+            scriptElement.onload = function() {
+                console.log(a);
+            }
+
+            document.body.appendChild(scriptElement);
+
+            // 通过dom动态添加的script标签加载的内容是异步的
+            // console.log(a);
+        }
+    </script>
+
+    <!-- <script>
+        这是app2返回的另外一个数据
+    </script> -->
+</body>
+</html>

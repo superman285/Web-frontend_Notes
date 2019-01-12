@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>数据提交</h2>
+    <button>通过url的path（params）提交数据</button>
+    <button>通过url的queryString提交数据</button>
+    <button>通过body提交数据</button>
+    <hr />
+    <h2>数据提交</h2>
+    <button>通过url的path（params）提交数据</button>
+    <button>通过url的queryString提交数据</button>
+    <button>通过body提交数据</button>
+
+
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+
+        buttons[0].onclick = function() {
+            ajax({
+                url: '/getUser',
+                success(data) {
+                    console.log('请求完成');
+                    console.log(data);
+                }
+            });
+        }
+
+        let data = {username: 'zmouse', height: 170, weight: 178}
+
+        buttons[4].onclick = function() {
+            ajax({
+                url: '/putUser',
+                data: 'username=zmouse&height=170&weight=178'
+            });
+        }
+
+        buttons[5].onclick = function() {
+            ajax({
+                method: 'post',
+                url: '/putUser',
+                // data: 'username=zmouse&height=170&weight=178'
+                data: data,
+                success: function() {
+                    console.log('ok了');
+                }
+            });
+        }
+
+        
+        // buttons[5].onclick = function() {
+        //     ajax({
+        //         method: 'post',
+        //         url: '/putUser',
+        //         headers: {
+        //             'content-type': 'application/json'
+        //         },
+        //         data: data
+        //     });
+        // }
+
+        function ajax(options) {
+
+            let opts = Object.assign({
+                method: 'get',
+                url: '',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                data: '',
+                success: function() {}
+            }, options);
+
+            let xhr = new XMLHttpRequest();
+
+            if (opts.method == 'get') {
+                opts.url += '?' + opts.data;
+            }
+
+            xhr.open( opts.method , opts.url, true);
+
+            xhr.onload = function() {
+                let data = xhr.response;
+                let contentType = xhr.getResponseHeader('content-type');
+
+                if ( contentType.includes('json') ) {
+                    data = JSON.parse(data);
+                }
+                if ( contentType.includes('xml') ) {
+                    data = xhr.responseXML;
+                }
+
+                opts.success(data, xhr);
+            }
+
+            if (opts.method == 'get') {
+                xhr.send(null);
+            } else {
+                for (let key in opts.headers) {
+                    xhr.setRequestHeader(key, opts.headers[key]);
+                }
+
+                if (typeof opts.data == 'object') {
+                    switch(opts.headers['content-type']) {
+                        case 'application/x-www-form-urlencoded':
+                            opts.data = o2u(opts.data);
+                            break;
+                        case 'application/json':
+                            opts.data = JSON.stringify(opts.data);
+                            break;
+                    }
+                }
+
+                xhr.send(opts.data);
+            }
+        }
+
+        function o2u(obj) {
+
+            // console.log(Object.keys(obj));
+            // console.log(Object.values(obj));
+
+            let keys = Object.keys(obj);
+            let values = Object.values(obj);
+            
+            return keys.map( (k, i) => {
+                return k + '=' + values[i];
+            } ).join('&');
+        }
+
+        // console.log(o2u(data));
+    </script>
+</body>
+</html>

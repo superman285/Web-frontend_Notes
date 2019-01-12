@@ -156,6 +156,30 @@ app.use(function(){
 
 
 
+> 需要访问静态资源时(例如html啊 图片啊之类)使用静态资源代理 否则打开服务器它不知道读哪个目录 想把目录当成一个服务器 访问里头的静态资源 就需要做这一步
+>
+> 否则读不到静态资源
+>
+> 切记: 访问时要正确路径/xxx.html 千万别漏了(动态路由不需要，这儿静态的千万别弄错)
+>
+>
+>
+> dir设置静态资源所在目录 要加.
+>
+> prefix设置你想要加的前缀 不设置也行的 不加.
+>
+> 访问动态资源可使用路由koa-router 配合前端的get请求的url
+>
+>
+
+
+
+
+
+
+
+
+
 KoaStaticCache(dir\[,options]\[,files]) 包装函数写法 返回一个函数
 
 dir:指定要处理的静态文件(html)存放目录，当用户访问某个url时
@@ -168,7 +192,7 @@ max-age 最长缓存时间| 是否压缩(gzip) | 前缀(prefix,设置url前缀) 
 
 例如prefix:/public 则需要请求/public/index.html才可以访问
 
-prefix的作用是 可以区分开静态资源和需要动态处理的资源
+prefix的作用是 可以区分开静态资源和需要动态处理的资源 加上前缀才可以正常访问
 
 dynamic 是否动态读取，默认为false
 
@@ -319,3 +343,15 @@ let str = tpl.renderString(‘<h1>Hello {{username}}</h1>’,{username:xxxx})
 
 
 管道符|  管道符前的内容作为参数传给管道符后的函数 例如{{var|upper}}
+
+
+
+
+
+##### 文件上传模块 koa-multer
+
+storage配置
+
+
+
+封装的file属性 fieldname | originalname | encoding | mimetype

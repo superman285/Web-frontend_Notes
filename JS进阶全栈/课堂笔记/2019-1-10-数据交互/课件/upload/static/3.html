@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .progress {
+            margin: 10px 0;
+            width: 300px;
+            height: 30px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        .progress .txt {
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .progress .bg {
+            width: 0;
+            height: 30px;
+            background: rgba(0,0,0,.3);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <input type="file" id="file1" />
+    <button>提交上传</button>
+
+    <div class="progress">
+        <div class="txt">0%</div>
+        <div class="bg"></div>
+    </div>
+
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+        let file1 = document.querySelector('#file1');
+        let txt = document.querySelector('.txt');
+        let bg = document.querySelector('.bg');
+
+
+
+        buttons[0].onclick = function() {
+
+            /**
+             * XMLHttpRequest
+             *      onload
+             *      onloaded
+             *      onprogress
+             * 
+             *      .upload对象 - 上传对应的一些事件
+             *          onload
+             *          onloaded
+             *          onprogress
+            */
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('post', '/upload2', true);
+
+
+            xhr.onload = function() {
+                console.log('响应完成');
+                console.log(xhr.response);
+
+                bg.style.width = '300px';
+                txt.innerHTML = '100%';
+            }
+
+            // XMLHttpRequest对象下面还有一个子对象：upload
+            // progress：请求数据上传过程中不断触发的
+            xhr.upload.addEventListener('progress', e => {
+                // e.total: 总的上传大小
+                // e.loaded: 已上传的大小
+                let v = e.loaded / e.total;
+                bg.style.width = 300 * v + 'px';
+                txt.innerHTML = (v * 100).toFixed(2) + '%';
+            });
+            // xhr.upload.onload = function() {
+            //     console.log('请求完成');
+            // }
+            
+
+          
+            let fd = new FormData();
+           
+            fd.append('file1', file1.files[0]);
+
+            xhr.send( fd );
+
+        }
+    
+    </script>
+
+</body>
+</html>

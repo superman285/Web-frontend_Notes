@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <script>
+        let button = document.querySelector('button');
+
+        /**
+         * 跨域请求
+         *  跨域：域
+         *      域：协议+主机（IP，域名）+端口
+         *  当从某一个域发送一个请求的时候，如果请求方所在域与被请求方所在的与不一样
+         *  那么就会是一个跨域的请求
+         *  同源策略
+         * 
+         *  http
+         *      当一个源请求另外一个源下的数据，请求是没有问题的，但是当响应以后
+         *      浏览器会去做同源验证，如果浏览器发现被请求的源与当前接收数据的源不一样
+         *      那么浏览器会拒绝接收数据
+         * 
+         * 
+         * Access-Control-Allow-Origin：头信息，该头信息是服务端响应的时候设置的，表示该内容是否允许指定的源进行访问，当浏览器发送了一个请求以后，如果该请求跨域了，但是在响应头中包含当前请求的域，那么该数据会被浏览器所接收
+        */
+
+        button.onclick = function() {
+            let xhr = new XMLHttpRequest();
+
+            // xhr.open('get', '/getData', true);
+            xhr.open('get', 'http://localhost:8080/getData', true);
+
+            xhr.onload = function() {
+                console.log(xhr.response);
+            }
+
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

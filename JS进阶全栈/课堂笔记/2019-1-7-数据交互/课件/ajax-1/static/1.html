@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>数据获取</h2>
+    <button>获取数据的基本流程</button>
+    <button>获取复杂一些数据</button>
+    <button>获取xml数据</button>
+
+
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+
+        buttons[0].onclick = function() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/getBaseData', true);
+
+            xhr.onload = function() {
+                /**
+                 * 后端会返回一些数据，我们前端接收到的数据都是字符
+                 * 有些返回的数据可能会比较复杂，所以会对这些字符内容数据进行的格式组织
+                 * 我们前端会根据不同的格式去处理这些数据
+                */
+                console.log(xhr.response);
+            }
+
+            xhr.send();
+
+        }
+
+        buttons[1].onclick = function() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/getUser', true);
+
+            xhr.onload = function() {
+                /**
+                 * 如果前端接收到的是一种json格式的字符串，那么我们就把他
+                 * 转成对象进行操作
+                 * 
+                 * 那么后端到底返回什么类型给我们，是否还需要用肉眼，或者根据某种
+                 * 特性来看一下这个数据是什么类型吗？
+                 * 通常情况下，我们可以根据后端返回的头信息来判断返回的内容是什么类型的
+                 * 从而让程序可以根据这些信息来自动处理内容
+                */
+                // console.log(typeof xhr.response);
+
+                /**
+                 * getAllResponseHeaders()
+                 * getResponseHeader(头信息名称)
+                */
+                // console.log( xhr.getResponseHeader('content-type') );
+
+                let data = JSON.parse(xhr.response);
+                console.log(typeof data, data);
+            }
+
+            xhr.send();
+
+        }
+
+        buttons[2].onclick = function() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/getXML', true);
+
+            
+
+            xhr.onload = function() {
+                /**
+                 * xml格式是早期前后端交互使用的一种格式，也是ajax默认的一种交互格式
+                 * ajax对象如果接收到的是一个xml格式的数据，那么会自动处理
+                 * 并把处理的结果保存到另外一个属性中
+                */
+                console.log( xhr );
+                console.log( xhr.responseXML ); // 保存了被解析后的数据，并且把解析后的数据变成了对象形式：这是就DOM
+
+                let doc = xhr.responseXML;
+                let users = doc.getElementsByTagName('user');
+                console.log(users[0].getAttribute('username'));
+            }
+
+            xhr.send();
+
+        }
+
+    </script>
+</body>
+</html>

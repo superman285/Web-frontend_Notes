@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>jquery - ajax</h2>
+    <button>获取</button>
+    <button>提交</button>
+
+    <script src="jquery.min.js"></script>
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+
+        buttons[0].onclick = function() {
+
+            $.ajax({
+                url: '/getUser',
+                success(data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+        let data = {username: 'zmouse', height: 170, weight: 178}
+        buttons[1].onclick = function() {
+
+            // $.ajax({
+            //     type: 'post',
+            //     url: '/putUser',
+            //     data,
+            //     success(d) {
+            //         console.log(d);
+            //     }
+            // });
+
+            /**
+             * 如果后端接受的数据是json格式，而不是urlencode的，那么jq这里需要注意
+             * 一下
+            */
+            $.ajax({
+                type: 'post',
+                url: '/putUser',
+                // dataType: 'json',   //dataType不是用来设置发送的类型，而是告诉jq返回的数据，你应该处理成什么格式给我
+                contentType: 'application/json',
+                data: JSON.stringify(data)
+            });
+
+        }
+
+
+    </script>
+</body>
+</html>

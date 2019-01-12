@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="file" id="file1" />
+    <button>提交上传</button>
+
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+        let file1 = document.querySelector('#file1');
+
+        buttons[0].onclick = function() {
+
+            // console.dir(file1.files);   //类数组的fileList对象，每一个子对象表示一个文件
+            // return;
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('post', '/upload2', true);
+
+            xhr.onload = function() {
+                console.log(ctx.response);
+            }
+
+            /**
+             * formData格式
+             *  http提交数据的一种格式
+             *  我们可以使用js中提供的FormData对象来创建这样的数据格式
+             */
+
+            let fd = new FormData();
+            // fd.append('username', 'zmouse');    //username=zmouse&age=30
+            // fd.append('age', 30);
+
+            // 如果send方法里面传入的是一个formData对象，那么就需要手动设置
+            // 提交的内容的content-type，内部会自动设置content-type为：formdata
+            
+            // file1这个input的value值并不是该文件的二进制数据，只是该文件的路径和名称
+            // fd.append('file1', file1.value);
+            fd.append('file1', file1.files[0]);
+
+            xhr.send( fd );
+
+        }
+    
+    </script>
+
+</body>
+</html>

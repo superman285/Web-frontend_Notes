@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>jquery - ajax</h2>
+    <button>获取</button>
+    <button>提交</button>
+
+    <script src="axios.min.js"></script>
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+
+        buttons[0].onclick = async function() {
+
+            // axios({
+            //     url: '/getUser'
+            // }).then( res => {
+            //     console.log(res);
+            // } );
+
+            let res = await axios({url: '/getUser'});
+            console.log(res);
+
+        }
+
+        let data = {username: 'zmouse', height: 170, weight: 178}
+
+        buttons[1].onclick = async function() {
+
+            // 数据通过querysring发送：数据设置给params参数
+            // let res = await axios({
+            //     url: '/putUser',
+            //     params: data
+            // });
+
+            // 数据如果通过正文发送：数据设置给data参数
+            let res = await axios({
+                method: 'post',
+                url: '/putUser',
+                data: data
+            });
+
+        }
+
+
+    </script>
+</body>
+</html>

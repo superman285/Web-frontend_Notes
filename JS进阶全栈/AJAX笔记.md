@@ -61,6 +61,12 @@ path和queryString都基于url，会受到url长度限制
 
 
 
+> Ajax是JS提交请求而不是浏览器提交请求 不用重新渲染整个页面
+>
+> 即无刷新提交
+
+
+
 ##### 代码示例 创 开 发 载
 
 //创建
@@ -97,9 +103,11 @@ onload事件绑定发生在事件完成之后，所以 onload就不生效了，�
 
 
 
-//请求完成后触发的事件 加载
+//响应完成(即下载完成)后触发的事件 加载 
 
-//请求完成后,服务端返回的信息会保存在xhr对象下response属性下
+//响应完成后,服务端返回的信息会保存在xhr对象下response属性下
+
+
 
 xhr.onload = function(){
 
@@ -108,6 +116,10 @@ xhr.onload = function(){
 ​    userNameMessageEle.innerHTML = this.response;
 
 }
+
+
+
+---
 
 
 

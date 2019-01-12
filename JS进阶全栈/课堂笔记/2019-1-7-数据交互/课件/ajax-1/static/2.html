@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>数据提交</h2>
+    <button>通过url的path（params）提交数据</button>
+    <button>通过url的queryString提交数据</button>
+    <button>通过body提交数据</button>
+
+
+    <script>
+    
+        let buttons = document.querySelectorAll('button');
+
+        /**
+         * 使用params：通过url的path提交数据
+         * 对于复杂的数据就不太方便了
+        */
+        buttons[0].onclick = function() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/putUserId/10', true);
+
+            xhr.send();
+
+        }
+
+        /**
+         * 如果提交的数据比较复杂，那么通过path提交就比较麻烦
+         * 用户名，身高，体重
+         * 我们可以通过queryString组织格式
+        */
+        buttons[1].onclick = function() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/putUser?username=zmouse&height=170&weight=178', true);
+
+            xhr.send();
+
+        }
+
+         /**
+         * 因为path和queryString都是基于url的，那么会受到url的长度限制
+         * 对于大的数据就不能正确提交了，同时url上的数据只能作为字符串进行处理
+         * 如果要提交的数据是非普通文本，那么path和queryString都无法完成了
+         * 这个时候，我们就需要使用http的正文进行提交
+         * 正文提交不支持get方法
+        */
+        buttons[2].onclick = function() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('post', '/putUser', true);
+
+            /**
+             * 因为body方式提交提交的数据格式是有多种多样的
+             * 所以在提交数据的时候需要告诉后端我们发送的数据是什么格式的
+            */
+
+            xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            xhr.send('username=zmouse&height=170&weight=178');
+
+        }
+
+    </script>
+</body>
+</html>

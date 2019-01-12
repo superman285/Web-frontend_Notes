@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <p></p>
+    <hr />
+    <button>按钮</button>
+    <p></p>
+
+    <script>
+        let buttons = document.querySelectorAll('button');
+        let ps = document.querySelectorAll('p');
+
+        function fn(data) {
+            ps[0].innerHTML = data;
+        }
+        function miaov(data) {
+            ps[1].innerHTML = data;
+        }
+
+        /**
+         * 问题：
+         *  数据提供方的数据可控性比较差
+         *  jsonp是通过script发送的请求，只能是get
+        */
+
+        buttons[0].onclick = function() {
+            let scriptElement = document.createElement('script');
+            scriptElement.src = 'http://localhost:8080/getData3';
+            document.body.appendChild(scriptElement);
+        }
+        buttons[1].onclick = function() {
+            let scriptElement = document.createElement('script');
+            scriptElement.src = 'http://localhost:8080/getData3?cb=miaov';
+            document.body.appendChild(scriptElement);
+        }
+    </script>
+</body>
+</html>
