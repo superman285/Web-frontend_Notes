@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        let arr = [1,2,3,4,5];
+
+        // (async () => {
+        //     for (let i=0; i<arr.length; i++) {
+        //         console.log(i);
+        //         await fn();
+        //     }
+        // })();
+
+        // arr.forEach( async v => {
+        //     console.log(v);
+        //     await fn();
+        // } );
+
+        // (async () => {
+        //     for (let i of arr) {
+        //         console.log(i);
+        //         await fn();
+        //     }
+        // })();
+        
+        function fn() {
+            return new Promise( resolve => {
+                setTimeout(() => {
+                    console.log('...');
+                    resolve();
+                }, 1000);
+            } );
+        }
+        
+    </script>
+</body>
+</html>

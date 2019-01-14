@@ -129,7 +129,7 @@ package.json是锁定大版本号(第一版本号),每次npm install仍然会更
 
 这时使用package-lock.json就锁定全部版本号,不会因为npm install导致包的版本号变动
 
-如果还是想更新npm包，就只能用这种方法，npm install packxx@x.x.x(或者latest)
+如果还是想更新npm包，就只能用这种方法，npm install packxx@x.x.x(或者@latest)
 
 
 

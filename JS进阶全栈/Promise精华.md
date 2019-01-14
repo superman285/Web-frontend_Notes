@@ -1,10 +1,34 @@
-##### 先记一下写法
+##### 先记住写法
 
 new Promise(function(resolve,reject){resolve() **或者** reject()})
 
-同
+==等价于==
 
 new Promise((resolve,reject)=>{resolve() **或者** reject()})
+
+
+
+###### 知识点:js内置属性[[prop]] 双方括号
+
+[[PromiseStatus]]和[[PromiseValue]]
+
+均为js内置属性，这种双方括号属性无法直接进行读或写操作，只能通过特定方法来进行读写操作。
+
+特定方法来了:
+
+Promise.resolve(1) 就相当于把promise的status设置为resolved,PromiseValue设为1
+
+想读取PromiseValue只能 Promise.resolve(‘hello’).then(res=>{console.log(res)})
+
+then中才可以打印出‘hello’
+
+==注意==
+
+var er = Promise.reject(‘err2’) 会改变PromiseStatus为rejected和PromiseValue为‘err’
+
+但是会报错 Uncaught (in promise) err2
+
+还是得处理下错误
 
 
 
@@ -15,8 +39,6 @@ new Promise((resolve,reject)=>{resolve() **或者** reject()})
 
 
 then中处理返回值方案选择：
-
-
 
 1. then中没有异步代码|逻辑处理或不需要向下传值了，我们只需要用then默认返回的promise即可
 
@@ -37,6 +59,8 @@ then中处理返回值方案选择：
   })
 
 
+
+> 几段代码读懂promise特性 https://www.jb51.net/article/119630.htm
 
 
 

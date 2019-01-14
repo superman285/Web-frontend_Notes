@@ -26,7 +26,30 @@ var {y} = {x:1,y:2} //y=2
 
 
 
-##### forEach循环
+##### 对象的增强
+
+- 对象中的属性简写
+- 对象中的方法简写
+- 对象属性名可使用表达式 e.g. obj[‘my’+‘name’]
+
+简写举🌰
+
+```javascript
+let name = 'miaomiao'
+var obj = {
+    name,	//相当于name:name
+    getName(){console.log(this.name)}
+    //相当于
+    //getName: function(){console.log(this.name)}
+    //或getName: function getName(){console.log(this.name)}
+}
+```
+
+
+
+
+
+##### forEach循环 (其实是es5的)
 
 arr.forEach(val=>{//do something}) 循环的结果是值而非索引
 
@@ -39,6 +62,59 @@ var obj = {'0':'a','1':'b','2':'c'};
 
 Object.keys(obj).forEach(key=>{console.log(key,obj[key])})
 ```
+
+
+
+##### forEach引申出的 数组和遍历相关的方法
+
+forEach map filter find findIndex
+
+
+
+==共同点==
+
+五个方法均把函数作为参数，然后这个函数的第一个param为元素值，第二个param为元素索引
+
+arr.method((value,index)=>{});
+
+
+
+==差异点==
+
+forEach无返回值 一般是根据需要进行循环操作 其他四项均有返回值
+
+map的函数 return后的语句作为返回值塞入新结果数组中 生成新数组
+
+filter的函数 return后的语句作为判断条件 满足条件的原数组元素 塞入新结果数组中
+
+find的函数 return后的语句作为判断条件 满足条件的原数组第一个元素 为新返回结果
+
+findIndex的函数 return后的语句作为判断条件 满足条件的原数组第一个元素的索引 为新返回结果
+
+
+
+**举个**🌰
+
+```javascript
+var arr = [1,2,3,4,5]
+var nr1 = arr.forEach((x,y)=>{return x+y}) //nr1 = undefined
+
+var nr2 = arr.map((x,y)=>{return x+y}) // nr2 = [1,3,5,7,9]
+var nr2_2 = arr.map((x,y)=>{return x>2}) //nr2_2 = [false,false,true,true,true] 把x>2的判断结果布尔值塞进了新结果数组
+
+var nr3 = arr.filter((x,y)=>{return x+y}) // nr3 = [1,2,3,4,5] x+y这个语句肯定是真 全都满足
+var nr3_2 = arr.map((x,y)=>{return x>2}) // nr3_2 = [3,4,5] 只有3、4、5满足x>2为true
+
+var nr4 = arr.find((x,y)=>{return x+y}) //nr4 = 1 x+y这个语句肯定是真 全都满足 取第一个为1
+var nr4_2 = arr.find((x,y)=>{return x>2}) //nr4_2 = 3 只有3、4、5满足，取第一个为3
+
+var nr5 = arr.findIndex((x,y)=>{return x+y}) //nr5 = 0 x+y这个语句肯定是真 全都满足 取第一个的索引
+var nr5_2 = arr.findIndex((x,y)=>{return x>2}) //nr5_2 = 2 只有3、4、5满足，取第三个的索引
+```
+
+
+
+
 
 
 
@@ -109,7 +185,13 @@ var ar = arr.find(elem=>elem>5)
 
 
 
-还有附送的findIndex方法
+还有附送的findIndex方法 返回的第一个符合判断条件的元素的索引
+
+
+
+注意💡
+
+符合判断条件的第一个是从左到右开始判断 即从索引0开始
 
 
 
