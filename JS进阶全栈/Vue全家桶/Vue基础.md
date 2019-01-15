@@ -147,9 +147,20 @@ methods中的方法的第一个参数就是事件对象
 
 v-on:click=“fn4()” 并不会立即调用 vue会智能地判断 还是会等到点击时才触发
 
-如果在v-on处用了带括号的写法，必须显式地声明时间参数
+如果在v-on处用了带括号的写法，必须显式地声明事件参数 否则不会获取到事件对象
 
 v-on:click=“fn4($event)”
+
+
+
+假设Vue对象中methods:function click(p1,p2){console.log(p1,p2)};
+
+v-on不同写法有以下几种情况:顺序很重要
+
+- v-on:click=‘click’ 这时会自动将第一个参数视为事件对象 //MouseEvent{} undefined
+- v-on:click=‘click(1)’ 这时就没事件对象啥事了 当做正常参数了 //1 undefined
+- v-on:click=‘click($event)’ 显示调事件参数 //MouseEvent{} undefined
+- v-on:click=‘click(1,$event) 两个参数都生效 //1 MouseEvent{}
 
 
 
