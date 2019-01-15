@@ -1,0 +1,224 @@
+##### 设计模式 mvvm
+
+m: model 数据 界面中展示的或应用中使用的数据
+
+v: view 视图 用户看到的界面
+
+vm: view-model 中间人 处理数据与界面之间的相关逻辑(处理v和m的交互)
+
+
+
+
+
+new Vue得到一个vue对象 后续的数据管理和视图的渲染更新这些操作都是通过这个Vue对象来完成的
+
+
+
+初始化Vue中的属性
+el:指定当前vue对象处理的范围，通过el指定的内容将被当前Vue对象管理，
+
+可使用选择器指定，要在这个范围内才能管理和使用data的数据
+
+data:存放当前Vue实例管理的应用中的所有数据
+
+
+
+
+
+##### 模板语法
+
+插值语法 {{插值**表达式**}} Mustache写法双大括号
+
+表达式:能产生结果(值)的公式 ==变量|函数调用|数学运算==等
+
+语句: 一个行为，例如if for之类
+
+{{val}} 如果val是对象 vue会默认将val转为JSON格式
+
+相当于{{JSON.stringfy(val)}}
+
+
+
+##### vue指令
+
+指令填充的是表达式
+
+v-开头的一种特殊属性 行间 vue内置了很多指令 我们还可以自定义指令
+
+
+
+v-for = “(val,idx) in array”
+
+
+
+v-show是改变display属性(存在于页面上) 需要频繁切换时使用
+
+v-if是是否渲染元素(不满足时这个元素直接不存在)
+
+
+
+> v-text和v-html
+
+v-text="title" 这个title代表的是变量(表达式) 是data中title的值
+
+如果想要title字符串 可以写为 v-text=“‘title’”
+
+
+
+v-html更新元素的innerHTML 危险 容易导致xss攻击 可以识别html语法
+
+v-html=“content” //data中content=“\<strong>I am strong\</strong>”
+
+
+
+v-text相当于更新元素的innerText 纯文本
+
+
+
+> v-bind 
+
+想把数据作为标签的某个特定属性
+
+
+
+把表达式的值绑定到指定的参数属性中
+
+v-bind:value=“title” //title是表达式 是data中定义的变量
+
+==简写形式== 只有冒号 去掉v-bind
+
+:value=“title”
+
+
+
+针对class和style使用v-bind时又有特殊用法
+
+v-bind动态改变class 使用三目运算符
+
+或用对象写法 作用等同三目
+
+
+
+对于class和style还有特殊待遇，可用数组形式和对象形式
+
+v-bind:
+
+v-bind:class=“[class1,class2,class3]”
+
+v-bind:style=“{color:activeColor,background:bgColor}”
+
+或“[colorObject,bgObject]” colorObject和bgObject是定义在data中的对象
+
+
+
+> v-on
+
+v-on:click= 简写 @click=
+
+
+
+vue中的click相当于js中的onclick 后面跟函数名 不带() 与原生html的onclick(带括号)区分
+
+
+
+vue中的函数默认都指向当前vue对象
+
+原因是在函数中用this可以很方便的去调用vue实例对象下的其他数据，例如data中的数据
+
+data中的数据和methods中的函数，都可以通过实例对象进行直接访问
+
+Vue在初始化时把data、methods中的属性和方法都直接挂载到了实例对象上
+
+把data中的methods中的数据直接挂在了实例对象上
+
+this.dataProp1(不用this.data.dataProp1)
+
+this.methodFn1()(不用this.methods.methodFn1())
+
+
+
+想拿到事件元素event怎么拿?通过第一个参数
+
+methods中的方法的第一个参数就是事件对象
+
+
+
+==特殊地==
+
+v-on:click=“fn4()” 并不会立即调用 vue会智能地判断 还是会等到点击时才触发
+
+如果在v-on处用了带括号的写法，必须显式地声明时间参数
+
+v-on:click=“fn4($event)”
+
+
+
+==事件修饰符== 不同指令有不同修饰符 有的指令无修饰符
+
+@click.修饰符=“函数名” 也可以不跟函数 只是触发事件修饰符
+
+@contextmenu.prevent 阻止右键弹出菜单的默认行为
+
+
+
+stop 阻止冒泡 相当于stopPropagation()
+
+capture 捕获 相当于把原生addEventListener中第三个参数设置为true 事件设为捕获
+
+prevent 阻止默认行为
+
+once 绑定一次
+
+self 只有点自己才会触发 
+
+passive(消极的) true表示永不调用preventDefault 为false即可以preventDefault
+
+
+
+self:给父亲设置@click.self后，点击儿子是不会触发父亲方法的(没设置之前是可以触发的)
+
+
+
+> 表单💡
+
+数据单向绑定(v-bind)  model -> view 
+
+当js中的数据变化了,视图上显示的数据也会重新渲染
+
+
+
+数据双向绑定(v-model)  model <-> view 
+
+当js中的数据变化，视图上的数据也会变化
+
+当视图的数据发生变化，js中的数据也发生变化
+
+
+
+不同的标签 v-model绑定的标签属性不一样 智能地绑
+
+input:text v-model 绑定的是value
+
+input:checkbox v-model 绑定的是checked
+
+input:radio v-model 绑定的是checked
+
+
+
+input单个checkbox v-model 绑定checked 布尔值
+
+input多个checkbox v-model绑定数组 value出现在了数组中则被选中
+
+input多个radio v-model绑定字符串 哪个radio被选中 就显示哪个radio的value值
+
+select多个option v-model绑定字符串 哪个option被选中 就显示哪个option的innerText(文本内容)
+
+
+
+
+
+.lazy修饰符 input变化时不会实时更新 而是失去焦点时再更新
+
+.number 用户输入的值转为数值类型(原本默认为string)
+
+.trim 去除首尾空白字符

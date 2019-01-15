@@ -1,14 +1,48 @@
+##### 同步异步
+
+script标签加载方式为同步阻塞方式，所以一般放在body最后
+
+最新es版本 script标签增加了async属性 可设置为true 则为异步加载
+
+createElement创建script对象加载 为异步非阻塞模式
+
+
+
 ##### 先记住写法
 
-new Promise(function(resolve,reject){resolve() **或者** reject()})
+new Promise(function(resolve,reject){dosomething(异步代码)})
 
 ==等价于==
 
-new Promise((resolve,reject)=>{resolve() **或者** reject()})
+new Promise((resolve,reject)=>{dosomething(异步代码)})
 
 
 
-###### 知识点:js内置属性[[prop]] 双方括号
+Promise为js内置的构造函数，构造的Promise对象是==专门用于处理异步任务的管理工具==
+
+
+
+
+
+##### Promise状态
+
+Promise如何管理异步代码？
+
+它为每一个任务都维护了一个内部状态，我们可根据异步代码的执行结果去动态改变Promise的内部状态，从而实现后续代码的调用
+
+(是我们手动改变状态，不是Promise自己维护的，如果我们不去手动改，**永远都是初始状态pending**)
+
+- pending - 初始状态 既非成功 也非失败 在等待
+- resolved - 操作成功 通过resolve(xx)方法 之后调用then方法
+- rejected - 操作失败 通过reject(yy)方法 之后调用catch方法
+
+resolve和reject函数调用类似事件对象event，需要传入进new Promise的参数中才可调用！
+
+Promise的状态被修改后 就会调用后续的then、catch方法 ss
+
+
+
+###### 💡知识点:js内置属性[[prop]] 双方括号
 
 [[PromiseStatus]]和[[PromiseValue]]
 

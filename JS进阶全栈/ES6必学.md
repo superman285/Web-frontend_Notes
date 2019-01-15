@@ -130,6 +130,8 @@ for...in... 取到的是索引 可用于数组/字符串，==可直接用于对�
 
 for(let index in arr){console.log(index)}
 
+vue中的for in取到的是值
+
 
 
 for...of... 取到的是值 可用于数组/字符串，不直接用于对象
