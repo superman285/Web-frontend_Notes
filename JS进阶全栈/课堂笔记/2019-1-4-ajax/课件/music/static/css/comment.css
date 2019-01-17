@@ -1,0 +1,15 @@
+.mod_part .header h2 span {
+    font-size: 14px;
+    color: rgb(192, 182, 182);
+}
+
+textarea {
+    width: 1158px;
+    height: 160px;
+}
+.success {
+    width: 100px;
+}
+.comment_list .date {
+    color: #999;
+}

@@ -69,6 +69,8 @@ Object.keys(obj).forEach(key=>{console.log(key,obj[key])})
 
 forEach map filter find findIndex
 
+some every
+
 
 
 ==共同点==
@@ -90,6 +92,14 @@ filter的函数 return后的语句作为判断条件 满足条件的原数组元
 find的函数 return后的语句作为判断条件 满足条件的原数组第一个元素 为新返回结果
 
 findIndex的函数 return后的语句作为判断条件 满足条件的原数组第一个元素的索引 为新返回结果
+
+
+
+some和every return后跟的是判断条件 返回值是true或false 
+
+every需要数组每个值都满足条件
+
+some需要数组中至少一个值满足条件
 
 
 

@@ -1,0 +1,71 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/public/css/register_login.css" />
+<link rel="stylesheet" href="/public/css/form.css" />
+{% endblock %}
+
+{% block main %}
+<div class="form">
+
+    <div class="header">
+        <h2><a href="/register">注册</a></h2>
+        <h2 class="active">登陆</h2>
+    </div>
+
+    <div class="content">
+
+        <!-- <div class="input_row">
+            <button class="btn info">
+                <a href="/checklogin?username=zmouse&password=123">
+                    立即登录 - GET</a>
+            </button>
+        </div>
+
+        <form action="/checklogin?username=zmouse&password=456" method="POST">
+            <div class="input_row">
+                <button class="btn info">立即登录 - POST</button>
+            </div>
+        </form> -->
+
+        <form action="/login" method="POST">
+            <div class="input_row">
+                <input type="text" name="username" />
+            </div>
+            <div class="input_row">
+                <input type="password" name="password" />
+            </div>
+            <div class="input_row">
+                <button class="btn info">立即登录 - POST</button>
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+    
+        /**
+         * 通过queryString
+         *  1、因为queryString是指url问号后面的内容，它属于url中的一部分
+         *  又因为url有长度的限制，所以queryString也是有长度限制，那么过多的内容
+         *  会被忽略，也就会造成数据的丢失
+         *  
+         *  2、queryString是在url对于一些数据的隐私性并不好
+         *  3、queryString数据格式只支持字符串（url编码）类型，所以对一些特殊的数据
+         *      比如二进制（图片，视频，音频）的非字符型数据就不支持了
+         * 
+         * 还有一个问题和queryString没有关系，但是和提交方式有关
+         * 
+         * get方式和post方式都是可以使用queryString
+         * 
+         * get和post
+         *  get提交，会被浏览器缓存（历史记录），如果一个请求时get，那么在浏览器
+         *  历史记录时会有保存的，那么放在queryString下面的提交会被历史记录保存下来
+         * 
+         * 我们可以通过post方式来提交数据，数据不是通过queryString提交，而是通过
+         * 正文提交
+        */
+    
+    </script>
+</div>
+{% endblock %}

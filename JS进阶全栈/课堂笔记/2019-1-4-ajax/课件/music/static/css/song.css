@@ -1,0 +1,48 @@
+
+.song_list .songlist_number {
+    width: 2%;
+}
+.song_list .songlist_name {
+    width: 45%;
+}
+.song_list .songlist_album {
+    width: 45%;
+}
+.song_list .songlist_time {
+    width: 8%;
+}
+
+
+.songlist_header {
+    background-color: #fbfbfd;
+    height: 50px;
+    line-height: 50px;
+    color: #999;
+}
+.songlist_header li {
+    float: left;
+}
+
+.songlist_list li {
+    height: 50px;
+    line-height: 50px;
+}
+.songlist_list li:nth-child(even) {
+    background-color: #fbfbfd;
+}
+.songlist_list li div {
+    float: left;
+}
+
+.songlist_list .songlist_name {
+    position: relative;
+}
+.songlist_list .songlist_name .tools {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    display: none;
+}
+.songlist_list .songlist_name:hover .tools {
+    display: block;
+}

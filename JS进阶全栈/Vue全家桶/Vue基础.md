@@ -233,3 +233,51 @@ select多个option v-model绑定字符串 哪个option被选中 就显示哪个o
 .number 用户输入的值转为数值类型(原本默认为string)
 
 .trim 去除首尾空白字符
+
+
+
+
+
+##### data中的数据
+
+data中一般放原始数据 
+
+派生数据一般放 computed中 是通过计算或其他值换算来的
+
+
+
+计算属性 会动态地受其他值影响 其他值变了 它动态地改变 很智能
+
+
+
+如果用v-model绑定了数据 computed方法中必须配上get()和set()
+
+因为v-model是双向绑定 用户也可能改数据 导致computed属性发生改变
+
+
+
+如果是v-bind就说明只是读取值 不会改值 就不用写get()和set() 默认为get()
+
+直接return xxxxx
+
+
+
+注💡 
+
+一般来说 computed属性都是派生来的 由其他属性计算得来的 而不是直接手动改
+
+
+
+
+
+##### 侦听器
+
+watch
+
+监听的属性名要与data中的数据同名
+
+watch:{
+
+​    a(){ //a为data中的属性}
+
+}

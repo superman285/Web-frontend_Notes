@@ -1,0 +1,265 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/public/css/singer.css" />
+<link rel="stylesheet" href="/public/css/song.css" />
+<link rel="stylesheet" href="/public/css/album.css" />
+<link rel="stylesheet" href="/public/css/form.css" />
+<link rel="stylesheet" href="/public/css/comment.css" />
+{% endblock %}
+
+{% block main %}
+<div class="detail_header">
+    <a href="" class="detail_cover">
+        <img src="/public/photos/singers/T001R150x150M000{{singer.mid}}.jpg" />
+    </a>
+    <div class="detail_con">
+        <h1>{{singer.name}}</h1>
+        <div class="detail_desc">
+            <span>中文名：{{basic['中文名']}}</span>
+            <span> / </span>
+            <span>国籍：{{basic['国籍']}}</span>
+            <span> / </span>
+            <span>出生地：{{basic['出生地：']}}</span>
+            <span> / </span>
+            <span>职业：{{basic['职业：']}}</span>
+            <span>[<a href="">更多</a>]</span>
+        </div>
+        <div class="detail_statistic">
+            <a href="">
+                <span>单曲</span>
+                <strong>{{songsCount}}</strong>
+            </a>
+            <a href="">
+                <span>专辑</span>
+                <strong>{{albumsCount}}</strong>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="mod_part">
+    <div class="header">
+        <h2>热门歌曲</h2>
+        <a href="" class="more">全部 &gt;</a>
+    </div>
+
+    <div class="song_list">
+        <ul class="songlist_header">
+            <li class="songlist_number">&nbsp;</li>
+            <li class="songlist_name">歌曲</li>
+            <li class="songlist_album">专辑</li>
+            <li class="songlist_time">时长</li>
+        </ul>
+        <ul class="songlist_list">
+            {% for song in songs %}
+            <li>
+                <div class="songlist_number">{{loop.index}}</div>
+                <div class="songlist_name">
+                    <a href="">{{song.name}}</a>
+
+                    <div class="tools">
+                        <button data-song-id="{{song.id}}" data-song-name="{{song.name}}" data-song-time="{{song.interval}}"
+                            class="tools_play">播放</button>
+                    </div>
+                </div>
+                <div class="songlist_album">
+                    <a href="">光年之外</a>
+                </div>
+                <div class="songlist_time">
+                    <span>{{song.interval}}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="mod_part">
+    <div class="header">
+        <h2>专辑</h2>
+        <a href="" class="more">全部 &gt;</a>
+    </div>
+
+    <ul class="album_list">
+        {% for album in albums %}
+        <li class="playlist_item">
+            <div class="playlist_item_box">
+                <div class="playlist_item_cover">
+                    <a href="">
+                        <img src="/public/photos/albums/T002R300x300M000{{album.mid}}.jpg" />
+                    </a>
+                </div>
+                <h4 class="playlist_item_title">
+                    <a href="">{{album.name}}</a>
+                </h4>
+                <div class="playlist_item_date">
+                    <span>{{album.pubTime}}</span>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="mod_part">
+    <div class="header">
+        <h2>
+            评论
+            <span>共 121 条评论</span>
+        </h2>
+    </div>
+    
+    <div class="form">
+        <form id="comment_form" method="POST" enctype="application/x-www-form-urlencoded" action="/comment">
+            <div>
+                <textarea name="content" placeholder="期待您的神评论……"></textarea>
+            </div>
+            <div class="text_right">
+                <button class="btn success comment_btn">提交</button>
+            </div>
+        </form>
+    </div>
+
+    <ul class="comment_list">
+        <!-- <li>
+            <h4>zMouse</h4>
+            <p>一直单曲循环，而你依然美得让我窒息，我好想你</p>
+            <div class="clear">
+                <div class="fl date">2018年12月28日 18:55</div>
+                <div class="fr">
+                    顶 （100）
+                </div>
+            </div>
+        </li> -->
+    </ul>
+</div>
+
+<script>
+    var songlistList = document.querySelector('.songlist_list');
+    let commentList = document.querySelector('.comment_list');
+    let commentListLis = commentList.getElementsByTagName('li');
+
+    // songsList是一个变量，每次刷新都会重置，这个变量需要在初始化的时候，同步一下
+    // localStorage 中的数据
+    var songsList = [];
+    if (localStorage.getItem('songsList')) {
+        songsList = JSON.parse(localStorage.getItem('songsList'));
+    }
+
+    songlistList.onclick = function (e) {
+        if (e.target.classList.contains('tools_play')) {
+
+            /**
+             * Storage
+             *  数据库是服务器用来存储数据的
+             *  在浏览器中也有很多的位置（方式）来存储数据
+             * 
+             * locaStorage / sessionStorage
+             * 
+             * Storage 是以 key-value 的形式存储的
+             * 
+             * 注意：
+             *  同域（同源策略）限制
+             *      同源策略：请求与响应的 协议、域名、端口都相同 则时同源，否则为 跨源/跨域，浏览器中的Storage是以域的形式来存储，不同的域存储的Storage不能互相访问和操作
+             *  存储的内容都会转换成字符串
+             *  locaStorage 中存储的数据是永久存储在，除非强制删除他们
+             * 
+             * locaStorage 还有一个全局事件：storage 事件
+             *  当storage数据发生改变的时候（添加，修改，删除）就会触发
+             * 
+             *  当前页面触发的storage事件只能由其它页面监听
+             *  在当前页面对storage进行操作，不会触发当前这个页面的storage事件
+             *  这个事件是一种：广播特性的事件
+            */
+
+            // console.log( localStorage );
+
+            // localStorage.setItem('a', JSON.stringify({x:1, y:2}));
+
+            // 我们就可以把当前点击的这个按钮所表示的歌曲信息保存在localStorage中
+
+            // console.log(e.target.dataset.songName);
+
+            // 如果 songsList 里面不存在该次点击的歌曲，才添加
+            if (!songsList.find(song => song.songId == e.target.dataset.songId)) {
+                songsList.push({
+                    songId: e.target.dataset.songId,
+                    songName: e.target.dataset.songName,
+                    songTime: e.target.dataset.songTime
+                });
+            }
+
+
+
+            // 每次songsList更新了以后，都要存储到 localStorage 里面
+            localStorage.setItem('songsList', JSON.stringify(songsList));
+
+
+            // 点击的是播放按钮
+            if (localStorage.getItem('player') != 1) {
+                window.open('/player');
+            }
+        }
+    }
+
+    /**
+     * 获取评论并显示
+    */
+   
+
+    /**
+     * 评论
+    */
+    let commentForm = document.querySelector('#comment_form');
+    let content = commentForm.content;
+    let commentBtn = document.querySelector('.comment_btn');
+
+    commentBtn.onclick = function(e) {
+        e.preventDefault();
+        
+        /**
+         * 通过ajax把提交的数据发送到后端
+        */
+        let xhr = new XMLHttpRequest();
+        xhr.open(commentForm.method, commentForm.action, true);
+        xhr.onload = function() {
+            // console.log(xhr.response);
+            let res = JSON.parse(xhr.response);
+
+            if (res.code) {
+                alert(xhr.message);
+            } else {
+                alert('留言成功');
+                content.value = '';
+                let li = document.createElement('li');
+                let dateTime = new Date(res.data.datetime);
+                li.innerHTML = `
+                    <h4>${res.data.username}</h4>
+                    <p>${res.data.content}</p>
+                    <div class="clear">
+                        <div class="fl date">${dateTime.getFullYear()}年${dateTime.getMonth() + 1}月${dateTime.getDate()}日 ${dateTime.getHours()}:${dateTime.getMinutes()}</div>
+                        <div class="fr">
+                            顶 （100）
+                        </div>
+                    </div>
+                `;
+                commentList.insertBefore(li, commentListLis[0]);
+            }
+        };
+        /**
+         * 如果ajax是通过请求正文发送的数据，则需要把数据作为send参数传入
+         *  - 通过queryString提交的数据只支持url编码的字符串
+         *  - 如果通过正文发送，则提交的数据是支持多种格式的
+         *      - 存文本：
+         *      - url编码的：
+         *      - 二进制的（formData）：
+         *  - 所以，如果数据是通过正文发的，那么同时还需要在发送的请求头种设置当前
+         *      提交的数据的content-type
+        */
+        xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+        xhr.send('content=' + content.value);
+    }
+    
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+        ajax({
+            url: '/a',
+            success() {
+                // 当我们请求/a拿到数据以后，会根据返回的数据再去请求另外一个接口
+                ajax({
+                    url: '/b',
+                    success() {
+                        // 又要请求另另外一个
+                        ajax({
+                            url: '/c',
+                            success() {
+
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        // 如果 /a 和 /b 是独立的，但是 /c 必须依赖前面两个的共同结果
+        let n = 0;
+        ajax({
+            url: '/a',
+            success() {
+                fn();
+            }
+        });
+        ajax({
+            url: '/b',
+            success() {
+                fn();
+            }
+        });
+
+        function fn() {
+            n++;
+            if (n == 2) {
+                ajax({
+                    url: '/c',
+                    success() {
+                        
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

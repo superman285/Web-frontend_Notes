@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/base.css" />
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+    <header class="clear">
+        <h1>
+            <a href="/"></a>
+        </h1>
+        <div class="header_user">
+            
+            {% if username %}
+            <div class="user">
+                <a href="">{{username}}</a>
+                <span> | </span>
+                <a href="/logout">退出</a>
+            </div>
+            {% else %}
+            <div class="register_login">
+                <a href="/login">登录</a>
+                <span> | </span>
+                <a href="/register">注册</a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="main">
+        {% block main %}{% endblock %}
+    </div>
+
+</body>
+</html>

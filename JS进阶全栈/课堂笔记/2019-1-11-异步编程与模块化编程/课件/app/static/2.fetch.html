@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <script>
+    
+        let button = document.querySelector('button');
+
+        button.onclick = function() {
+            fetch('/getData').then( res => {
+                // console.log(res);
+                // fetch返回的 Response 对象包含了与返回有关的一些细节
+                // 但是返回的内容并不能够直接去操作，而是需要经过二次转换
+                // 我们需要把返回的二进制原始数据通过Response提供一些其它方法进行转换
+                // let data = res.text();  // 注意：.text()和.json()这几个转换方法也是异步的，同时也是经过Promise包装的
+                // console.log(data);
+
+                return res.text();
+            } ).then( data => {
+                // data 是上面的.text()或.json()解析后的数据了
+                console.log(data);
+            } );
+        }
+
+    </script>
+</body>
+</html>

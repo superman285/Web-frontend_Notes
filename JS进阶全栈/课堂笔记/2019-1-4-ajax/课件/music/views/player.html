@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/play.css" />
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="box">
+
+            <div class="toolbar">
+                <a href="">
+                    <i class="like"></i>
+                    删除
+                </a>
+                <a href="">
+                    <i class="like"></i>
+                    清空列表
+                </a>
+            </div>
+
+            <div class="song_list">
+
+                <ul class="songlist_header">
+                    <li class="songlist_number">
+                        <label class="checkbox">
+                            <input type="checkbox" />
+                            <span></span>
+                        </label>
+                    </li>
+                    <li class="songlist_name">歌曲</li>
+                    <li class="songlist_songer">专辑</li>
+                    <li class="songlist_time">时长</li>
+                </ul>
+                <ul class="songlist_list">
+                    <!-- <li>
+                        <div class="songlist_number">
+                            <label class="checkbox">
+                                <input type="checkbox" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="songlist_name">
+                            <a href="">光年之外 《太空旅客（Passengers）》电影中国区主题曲</a>
+                        </div>
+                        <div class="songlist_songer">
+                            <a href="">光年之外</a>
+                        </div>
+                        <div class="songlist_time">
+                            <span>03:55</span>
+                        </div>
+                    </li> -->
+                </ul>
+
+            </div>
+
+            <div class="song_info"></div>
+
+        </div>
+
+        <div class="player">
+
+        </div>
+    </div>
+
+    <div class="bg_player"></div>
+    
+    <script>
+
+        // 只要该页面打开了，就向storage中写入一个值，表示该页面已经开启了
+        localStorage.setItem('player', 1);
+
+        window.addEventListener('beforeunload', function() {
+            localStorage.removeItem('player');
+        });
+    
+        // console.log(localStorage);
+        
+        // 这个页面也可以访问同域下的 localStorage
+
+        let songlistList = document.querySelector('.songlist_list');
+
+        var songsList = [];
+        render();
+
+        window.addEventListener('storage', e => {
+            // 通过 e 的下面的key、newValue、oldValue就可以知道当前是哪个storage
+            // 发生了改变，是新增还是修改还是删除
+            // console.log(e);
+            render();
+        });
+
+        function render() {
+            if ( localStorage.getItem('songsList') ) {
+                songsList = JSON.parse(localStorage.getItem('songsList'));
+            }
+            songlistList.innerHTML = '';
+            songsList.forEach( song => {
+
+                let li = document.createElement('li');
+                li.innerHTML = `
+                            <div class="songlist_number">
+                                <label class="checkbox">
+                                    <input type="checkbox" />
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="songlist_name">
+                                <a href="">${song.songName}</a>
+                            </div>
+                            <div class="songlist_songer">
+                                <a href="">...</a>
+                            </div>
+                            <div class="songlist_time">
+                                <span>${song.songTime}</span>
+                            </div>
+                `;
+                songlistList.appendChild(li);
+            } );
+        }
+    
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    
+        /**
+            有的时候，我们是一个任务依赖多个异步任务
+        */
+        let p1 = new Promise( resolve => {
+            setTimeout(() => {
+                resolve( 'p1：' + Math.random() );
+            }, Math.random() * 1000 );
+        } );
+
+        let p2 = new Promise( resolve => {
+            setTimeout(() => {
+                resolve( 'p2：' + Math.random() );
+            }, Math.random() * 1000 );
+        } );
+
+        // 需求，当p1和p2的异步任务都完成了才进行下一步
+        // all方法用来执行批量的异步任务，特点：当所有的异步任务都成功完成了，才执行后面的then
+        // Promise.all([p1, p2]).then( v => {
+        //     // v的值是一个数组：分别对应前面异步任务的值
+        //     console.log(v);
+        // } );
+
+        // 批量任务的执行，还有一种模式，只要有一个完成了就执行then
+        Promise.race([p1, p2]).then( v => {
+            console.log(v);
+        } );
+    </script>
+
+</body>
+</html>

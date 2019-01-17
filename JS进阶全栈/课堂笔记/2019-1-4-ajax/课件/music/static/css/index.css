@@ -1,0 +1,31 @@
+.singer_list ul {
+    width: 1326px;
+}
+.singer_list_item {
+    float: left;
+    width: 20%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.singer_list_item_box {
+    position: relative;
+    margin-right: 20px;
+    min-height: 195px;
+    padding: 25px 0;
+    overflow: hidden;
+}
+.singer_list_item_box>a, .singer_list_item_box>a>img{
+    display: block;
+    width: 140px;
+    height: 140px;
+    border-radius: 126px;
+}
+.singer_list_item_box>h3 {
+    font-size: 16px;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    zoom: 1;
+    margin: 20px 20px 4px;
+}

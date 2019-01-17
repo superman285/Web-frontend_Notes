@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    
+        /**
+            我有一个异步任务，这个异步任务会产生一个值，并在后续的代码中使用该值
+        */
+        // let n;
+        // let p1 = new Promise( (resolve, reject) => {
+        //     setTimeout(() => {
+        //         n = Math.random();
+        //         resolve();
+        //     }, 1000);
+        // } );
+        // p1.then( () => {
+        //     console.log(n);
+        // } );
+
+        /**
+            Promise不仅仅提供了一个内部状态，还提供另外一个属性，这个属性就是用来
+            存储和传递异步任务产生的值
+            我们可以在调用resolve和reject方法的时候传入一个值，而这个值就是被
+            赋值给了Promise内部的value
+            后续方法在中函数第一个参数就是该值
+        */
+        let p1 = new Promise( (resolve, reject) => {
+            setTimeout(() => {
+                let n = Math.random();
+                // resolve(n);
+                if (n < .5) {
+                    resolve(n);
+                } else {
+                    reject(n);
+                }
+            }, 1000);
+        } );
+        p1.then( n => {
+            console.log('成功了', n);
+        }, m => {
+            console.log('失败了', m);
+        } );
+
+    </script>
+
+</body>
+</html>

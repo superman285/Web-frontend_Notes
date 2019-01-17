@@ -1,0 +1,143 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/public/css/register_login.css" />
+<link rel="stylesheet" href="/public/css/form.css" />
+{% endblock %}
+
+{% block main %}
+<div class="form">
+
+    <div class="header">
+        <h2 class="active">注册</h2>
+        <h2><a href="/login">登陆</a></h2>
+    </div>
+
+    <div class="content">
+
+        <!-- <button class="btn1">按钮</button> -->
+
+        <form action="/register" method="POST">
+            <div class="input_row">
+                <input type="text" name="username" placeholder="用户名" />
+                <div class="msg error username"></div>
+            </div>
+            <div class="input_row">
+                <input type="password" name="password" placeholder="密码" />
+                <!-- <div class="msg error">提示</div> -->
+            </div>
+            <div class="input_row">
+                <input type="password" name="repassword" placeholder="重复密码" />
+                <!-- <div class="msg error">提示</div> -->
+            </div>
+            <div class="input_row">
+                <button class="btn info">立即注册</button>
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+
+        
+    
+        // let btn1 = document.querySelector('.btn1');
+        let form = document.querySelector('form');
+        let usernameMessageEle = document.querySelector('.msg.username');
+
+        // setTimeout(() => {
+        //     btn1.onclick = function() {
+        //         console.log('btn1');
+        //     }
+        // }, 5000);
+
+        // btn1.onclick = function() {
+        //     console.log('btn1');
+        // }
+
+        // 通过name直接获取表单元素
+        form.username.onblur = function() {
+            // console.log(this.value);
+
+            /**
+             * 通过js发送一个http请求到指定的http服务器，把要注册的用户名带过去
+             * 当响应完成以后，返回的数据又会保存到js指定的位置
+            */
+
+            /**
+             * XMLHttpRequest
+             * 创建一个XMLHttpRequest对象（ajax），通过这个对象来完成数据请求和接收
+            */
+            let xhr = new XMLHttpRequest();
+            /**
+             * 发送请求之前的准备工作（请求配置的初始化）
+             *  open(请求的方式，请求的url，是否异步)
+             * 
+             * 有的时候有些操作时需要花费一定的时间去完成的
+             *  比如 下载电影->看电影
+             * 阻塞/非阻塞
+             *      做事的方式，一件一件的做
+             * 同步/异步
+             *      事情的通知方式
+             *          主动观察
+             *          主动通知
+             * 
+             *  1. 盯着电影下载完成，然后看电影
+             *      
+             *  2. 后台静默下载（做一些其它事情），当电影下载完成以后会通知下载完成了
+             * 
+             * js的xhr对象
+             *      同步阻塞
+             *      异步非阻塞
+            */
+            xhr.open('get', '/checkUserName?username=' + this.value, true);
+            
+            /**
+             * 当请求完成以后触发的事件
+             * 当请求完成以后，服务端返回的信息会保存到xhr下的
+             *  response 属性中
+            */
+            xhr.onload = function() {
+                console.log( '这是返回的数据：', this.response );
+                let data = JSON.parse(this.response);
+                // console.log(data);
+
+                // usernameMessageEle.innerHTML = this.response;
+
+                /**
+                 * 后端的数据不仅仅是直接显示在页面中，有的时候是需要根据后端
+                 * 返回的不同数据去对页面做不同的处理
+                 * 后端返回的数据有的时候只是前端在渲染新内容的时候的一种判断依据
+                */
+
+                // 直接用返回的内容做判断是可以的，但是
+                // if (this.response == '可以注册') {
+                // 为了数据使用方便，后端通常会返回一个约定好的数据结构：json
+                // {"code":number, "message": string, "data"...}
+                // code: 当前返回的数据逻辑是否有错误，比如用户名是空，用户名被注册
+                // 习惯用户非0的值表示对应的某个错误，用0表示逻辑正确
+                // message: code对应的描述文字
+                if (data.code) {
+                    usernameMessageEle.classList.remove('success');
+                    usernameMessageEle.classList.add('error');
+                } else {
+                    usernameMessageEle.classList.remove('error');
+                    usernameMessageEle.classList.add('success');
+                }
+                usernameMessageEle.innerHTML = data.message;
+            }
+            
+            /**
+             * 发送请求
+            */
+            xhr.send(); //如果是同步的，那么其它的所有事情都需要等待请求完成以后才会去处理
+
+            // console.log(1);
+
+            
+        }
+    
+    </script>
+
+</div>
+{% endblock %}

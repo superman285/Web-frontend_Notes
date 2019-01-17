@@ -1,0 +1,37 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/public/css/index.css" />
+{% endblock %}
+
+{% block main %}
+<div class="singer_list">
+    <ul class="clear">
+        {% for singer in singers %}
+        <li class="singer_list_item">
+            <div class="singer_list_item_box">
+                <a href="/detail/{{singer.id}}">
+                    <img src="/public/photos/singers/T001R150x150M000{{singer.mid}}.jpg" />
+                </a>
+                <h3>
+                    <a href="/detail/{{singer.id}}">{{singer.name}}</a>
+                </h3>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="pages">
+    {% if page > 1 %}
+    <a href="/{{page-1}}" class="prev"> &lt; </a>
+    {% endif %}
+
+    {% for n in range(pages) %}
+    <a href="/{{n+1}}" {% if n+1==page %}class="current" {% endif %}>{{n+1}}</strong>
+        {% endfor %}
+
+        {% if page < pages %} <a href="/{{page+1}}" class="next"> &gt; </a>
+    {% endif %}
+</div>
+{% endblock %}

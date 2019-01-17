@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    
+        /**
+            Promise
+                在js中内置的一个构造函数，我们可以通过这个构造函数创建一个Promise对象
+                后面我们就可以利用这个Promise对象来进行异步代码的编写
+
+            我们可以把Promise对象当作是一个专门用来处理异步任务的管理工具
+
+            new Promise( 任务函数 );
+            任务函数：包含我们要执行的异步代码的函数
+        */
+
+        // setTimeout(() => {
+        //     console.log('abc');
+        // }, 2000);
+        // console.log('miaov');
+
+        /**
+            Promise如何管理异步代码的呢？
+                Promise为每一个任务都维护了一个内部状态
+                我们根据异步代码的执行结果去动态改变Promise这个内部状态
+                来实现后续代码的调用
+
+                Promise的状态不是Promise自己来维护，而是根据实际的异步代码的
+                执行结果来改变
+
+            Promise会提供两个方法来帮助我们去改变这个状态
+                resolve()：把当前Promise对象的状态改为resolved，调用then
+                reject()：把当前Promise对象的状态改为rejected，调用catch
+            这两个方法都是通过 new Promise的传入的函数的参数进行获取的
+            当Promise的状态一被修改就会调用当前Promise对象后续的then，catch方法
+        */
+        let p1 = new Promise( (resolve, reject) => {
+            // 我们可以把异步代码放在这个函数里面去执行
+            setTimeout(() => {
+                console.log('abc');
+                // resolve();
+                reject();
+            }, 2000);
+        } );
+        // console.log('miaov');
+        // 我们交给p1的任务执行完成以后需要再去调用的代码
+        // then方法可以接收两个函数作为参数，前一个表示resolved，后一个表示rejected
+        p1.then( () => {
+            console.log('miaov');
+        }, () => {
+            console.log('zmouse');
+        } );
+
+    </script>
+
+</body>
+</html>

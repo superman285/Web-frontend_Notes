@@ -1,0 +1,26 @@
+.form {
+    margin: 100px auto 0;
+    width: 40%;
+}
+.form .header {
+    height: 60px;
+}
+.form .header h2 {
+    margin: 0;
+    float: left;
+    width: 50%;
+    height: 55px;
+    border-bottom: 5px solid #d1d0d0;
+    line-height: 55px;
+}
+.form .header h2 a {
+    display: block;
+    color: #d1d0d0;
+}
+.form .header h2.active {
+    border-bottom-color: #31c27c;
+    color: #31c27c;
+}
+.form .content {
+    margin: 40px 0;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <script>
+    
+        let button = document.querySelector('button');
+
+        button.onclick = async function() {
+            // 如果await后面是一个Promise对象，那么await会等待Promise的状态发生改变
+            // 才进行后续操作，状态需要变成成功状态
+            // await后面的值将被赋值给=左侧的变量
+            let res = await fetch('/getData');
+            let data = await res.text();
+            console.log(data);
+        }
+
+        // await 不能单独使用，需要在async函数中使用
+        // let v = await 1;
+
+        // async function fn() {
+        //     let v = await 1;
+        //     console.log(v);
+        // }
+
+        // fn();
+
+        // async function fn() {
+        //     let v = await new Promise( resolve => {
+        //         setTimeout(() => {
+        //             resolve(100);
+        //         }, 1000);
+        //     } );
+        //     console.log(v);
+        // }
+
+        // fn();
+
+        // async function fn() {
+        //     let v = await getValue();
+        //     console.log(v);
+        // }
+
+        // function getValue() {
+        //     return new Promise( resolve => {
+        //         setTimeout(() => {
+        //             resolve(100);
+        //         }, 1000);
+        //     } );
+        // }
+
+        // fn();
+
+        // await 的错误是通过try，catch来捕获的
+        // async function fn() {
+        //     try {
+        //         let v = await getValue();
+        //         console.log(v);
+        //     } catch(e) {
+        //         console.log('捕获到的', e);
+        //     }
+        // }
+
+        // function getValue() {
+        //     return new Promise( (resolve, reject) => {
+        //         setTimeout(() => {
+        //             reject('发生了错误');
+        //         }, 1000);
+        //     } );
+        // }
+
+        // fn();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    
+        
+        // let p1 = new Promise( resolve => {
+        //     setTimeout(() => {
+        //         console.log('1');
+        //         resolve();
+        //     }, 1000 );
+        // } )
+        // p1.then( () => {
+        //     console.log('2');
+        // } );
+        // p1.then( () => {
+        //     console.log('3');
+        // } );
+
+        // 下面这段代码和上面的代码它并不一样
+        // 上面的两个then都是属于p1对象的
+        // 下面的两个then，只有第一个then是属于第一个new Promise对象的
+        // 第二个then其实是第一个then方法默认返回的Promise对象
+        new Promise( resolve => {
+            setTimeout(() => {
+                console.log('1');
+                resolve();
+            }, 1000 );
+        } ).then( () => {
+            // 这个then返回返回一个新的Promise对象，且该对象的状态继承了这个then的状态
+            
+            // console.log('2');
+            // 这两段代码是一致的效果
+            // return new Promise( resolve => {
+            //     console.log('2');
+            //     resolve();
+            // } );
+
+            // 我们也可以手动的return一个新的Promise对象
+            // return new Promise( resolve => {
+            //     resolve(100);
+            // } );
+
+            // Promise提供了一个更简介的写法
+            // return Promise.resolve(100);
+
+
+            // 如果then中没有再没有异步代码了或向下传值了，这个直接写代码，用默认返回的Promise
+            // 当我们异步代码或者希望传值到下一个then中，那么手动创建新的Promise
+            
+            // 如果只向下传值，则直接使用 Promise.resolve()或Promise.reject()方法
+            // return Promise.resolve(100);
+
+            // 如果有更多的代码，或者异步任务，则使用 new Promise()
+            // return new Promise( resolve => {
+            //     setTimeout(() => {
+            //         console.log('.....');
+            //         resolve();
+            //     }, 2000);
+            // } );
+        } ).then( v => {
+            console.log(v);
+        } );
+
+
+        // 'abcdefg'.substring(1).substring(4);
+
+        // let str = 'abcdefg';
+        // str.substring(1);
+        // str.substring(4);
+    </script>
+
+</body>
+</html>
