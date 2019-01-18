@@ -238,6 +238,54 @@ select多个option v-model绑定字符串 哪个option被选中 就显示哪个o
 
 
 
+###### 自定义指令
+
+指令是以属性方式出现在元素上的，有特殊前缀，v-指令名称
+
+指令时作用于 使用当前指令的元素上的 当一个元素使用某个指令以后 该指令会对当前使用它的元素产生一些特定效果 具体的效果由当前指令的具体代码去实现
+
+
+
+Vue.directive(id,[definition]) 方法定义全局指令
+
+id:指令名称 使用时需要带v-前缀，定义时不用带v-前缀
+
+defnition:指令定义 具体定义、指令配置
+
+钩子函数：指令的执行过程中不同阶段调用的不同函数
+
+==5个钩子==: bind inserted update componentUpdated unbind
+
+https://cn.vuejs.org/v2/guide/custom-directive.html
+
+注意💡 bind函数只执行一次，在初始化时指令绑定到元素上的瞬间执行，即使值再改 不会重新绑定的
+
+第一次绑定并不算update 一般大逻辑写在bind中 update改变小值
+
+如果bind函数和update函数想共享变量 可以把变量挂载这些函数的第一个参数上(即dom元素对象)
+
+或者通过dataset来共享数据
+
+
+
+bind函数的第一个参数为元素 第二个参数binding为对象 里头有一些属性
+
+根据binding来配置自定义指令的值
+
+
+
+如果想自动重新绑定类似v-model那样 就不用bind函数钩子 用update钩子
+
+
+
+focus不生效的原因：
+
+focus不能放在bind和update中，要放在inserted狗子中
+
+bind vue还没解析完
+
+
+
 ##### data中的数据
 
 data中一般放原始数据 
@@ -281,3 +329,5 @@ watch:{
 ​    a(){ //a为data中的属性}
 
 }
+
+当有的数据 是异步变化而不是立即得到结果的可能要用到监听watch
