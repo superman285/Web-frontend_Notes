@@ -230,7 +230,21 @@ Promise.resolve(1) 就相当于把promise的status设置为resolved,PromiseValue
 
 then中才可以打印出‘hello’
 
+或者这种写法:
+
+```javascript
+(async ()=>{
+    let res = await Promise.resolve('hello');
+    console.log(res);
+})()
+//注意console.log(res)要紧跟在await后才有效
+```
+
+
+
 Promise.resolve() 则 Promise为 resolved:undefined
+
+
 
 ==注意==
 

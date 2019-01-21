@@ -75,3 +75,21 @@ Vue.component(‘tab’,{
 
 
 定义外部使用的时候可以传入哪些属性，数据可以通过this.直接访问
+
+
+
+==组件的props和data区别:==
+
+props 存放接收 组件外部调用的时候传入的数据
+
+
+
+data 存放组件内部私有的数据 组件的data必须是函数 不能是直接对象
+
+
+
+props中和data中定义的数据不要重名！
+
+
+
+ctx.set(‘Access-Control-Allow-Origin’,‘*’)
