@@ -91,6 +91,12 @@ v-bind:value=“title” //title是表达式 是data中定义的变量
 
 
 
+当想传入一个对象而不是字符串时，用v-bind写法
+
+:value = “{title:‘super’}”
+
+
+
 针对class和style使用v-bind时又有特殊用法
 
 v-bind动态改变class 使用三目运算符
