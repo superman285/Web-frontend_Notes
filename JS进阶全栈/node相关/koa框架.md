@@ -146,7 +146,11 @@ app.use(function(){
 
 Koa解决跨域简单写法
 
-ctx.set(‘Access-Control-Allow-Origin’,‘*’)
+app.use( async (ctx,next) => {
+
+ctx.set(‘Access-Control-Allow-Origin’,‘*’); await next();
+
+})
 
 
 
