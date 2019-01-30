@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        
+        <div class="tab">
+            <button 
+                v-for="title,index in tab1.titles"
+                :class="{active: index == tab1.active}"
+                @click="toggle1(index)"
+            >
+                {{title}}
+            </button>
+
+            <p 
+                v-for="content,index in tab1.contents"
+                v-show="index == tab1.active"
+            >
+                {{content}}
+            </p>
+        </div>
+
+        <div class="tab">
+            <button 
+                v-for="title,index in tab2.titles"
+                :class="{active: index == tab2.active}"
+                @click="toggle2(index)"
+            >
+                {{title}}
+            </button>
+
+            <p 
+                v-for="content,index in tab2.contents"
+                v-show="index == tab2.active"
+            >
+                {{content}}
+            </p>
+        </div>
+
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        /**
+            组件：自定义html标签，把经常使用html+css+js进行包装
+            通过标签的方式进行调用
+        */
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                tab1: {
+                    active: 0,
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    active: 1,
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            },
+            methods: {
+                toggle1(index) {
+                    this.tab1.active = index;
+                },
+                toggle2(index) {
+                    this.tab2.active = index;
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

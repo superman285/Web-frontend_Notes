@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div>
+            <router-link :to="{name:'home'}">首页</router-link>
+            <span> | </span>
+            <router-link :to="{name:'list'}">列表</router-link>
+            <span> | </span>
+            <router-link :to="{name:'user'}">个人中心</router-link>
+            <span> | </span>
+            <router-link :to="{name:'login'}">登录</router-link>
+        </div>
+
+        <hr />
+
+        <router-view></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+
+        const users = [
+            {id: 1, username: 'zmouse'},
+            {id: 2, username: 'reci'},
+            {id: 3, username: 'kimoo'}
+        ]
+
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>
+                    首页
+                </div>
+            `
+        });
+
+        const ListPage = Vue.component('ListPage', {
+            data() {
+                return {
+                    users
+                }
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li v-for="user in users">
+                            <router-link :to="{name:'view', params: {id:user.id}}">{{user.id}}</router-link>
+                        </li>
+                    </ul>
+                </div>
+            `
+        });
+
+        const ViewPage = Vue.component('ViewPage', {
+            data() {
+                return {
+                    username: ''
+                }
+            },
+            template: `
+                <div>
+                    <p v-if="username">
+                        {{username}}
+                    </p>
+                    <p v-else>加载中……</p>
+                </div>
+            `,
+            // created() {
+                // setTimeout( () => {
+                //     let id = this.$route.params.id;
+                //     let user = users.find(user => user.id == id);
+                //     // console.log(user.username);
+                //     this.username = user.username;
+                // }, 2000 );
+            // }
+            beforeRouteEnter(to, from, next) {
+                setTimeout( () => {
+                    // let id = this.$route.params.id;
+                    let id = to.params.id;
+                    let user = users.find(user => user.id == id);
+                    // console.log(user.username);
+                    // this.username = user.username;
+                    // next(function(vm) {
+                    //     //vm => 组件this对象
+                    //     // console.log('...', vm);
+                    // })
+
+                    next( vm =>  {
+                        vm.username = user.username
+                    });
+                }, 2000 );
+            }
+        });
+
+        const UserPage = Vue.component('UserPage', {
+            template: `
+                <div>
+                    个人中心
+                </div>
+            `
+        });
+
+        const LoginPage = Vue.component('LoginPage', {
+            template: `
+                <div>
+                    登录
+                </div>
+            `
+        });
+
+
+
+        let isLogin = true;
+
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: HomePage
+                },
+                {
+                    path: '/list',
+                    name: 'list',
+                    component: ListPage
+                },
+                {
+                    path: '/view/:id',
+                    name: 'view',
+                    component: ViewPage
+                },
+                {
+                    path: '/user',
+                    name: 'user',
+                    component: UserPage
+                },
+                {
+                    path: '/login',
+                    name: 'login',
+                    component: LoginPage
+                }
+            ]
+        });
+
+
+        new Vue({
+            el: '#app',
+            router
+        });
+
+    </script>
+</body>
+
+</html>

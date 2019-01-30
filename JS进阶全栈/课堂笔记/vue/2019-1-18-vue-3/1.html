@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <div class="box" @mousedown="down" @mousemove="move" @mouseup="up"></div>
+
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+    
+        // 虽然下面的代码可以实现一个简易的拖拽元素的效果，但是有很多的问题
+        // mousemove、mouseup事件应该是绑定在document上面
+        // 复用性特别差
+        new Vue({
+            el: '#app',
+            data: {
+                isDown: false,
+                x: 0,
+                y: 0
+            },
+            methods: {
+                down(e) {
+                    this.isDown = true;
+                    let {clientX, clientY, target} = e;
+                    this.x = clientX - target.offsetLeft;
+                    this.y = clientY - target.offsetTop;
+                },
+                move(e) {
+                    // 只有当mousedown事件发生以后，mousemove事件发生的时候
+                    // 才执行下面的代码
+                    if (this.isDown) {
+                        let {clientX, clientY, target} = e;
+                        target.style.left = clientX - this.x + 'px';
+                        target.style.top = clientY - this.y + 'px';
+                    }
+                },
+                up() {
+                    this.isDown = false;
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>

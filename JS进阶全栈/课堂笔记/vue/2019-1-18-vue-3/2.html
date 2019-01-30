@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <div class="box" v-drag></div>
+
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+    
+        /**
+            指令是以属性的方式出现在元素上的，指令有一个特殊的前缀 v-指令名称
+
+            指令是作用域使用当前指令的元素上面的：当一个元素使用某个指令以后
+            该指令会对当前使用它的元素产生一些特定的效果，具体的效果由当前指令
+            的具体代码去实现
+
+            v-drag
+        */
+
+        // 通过Vue.directive( id, [definition] )这个方法，我们可以定义一个全局指令
+        // id：指令的名称，使用的时候需要带上v-前缀，定义的时候不需要
+        // definition：指令的具体定义，指令的一些配置
+        //      钩子函数：指令执行过程中，不同的阶段调用的函数
+        //          bind、inserted、update、componentUpdated、unbind
+        //          https://cn.vuejs.org/v2/guide/custom-directive.html
+        Vue.directive('drag', {
+            bind(el) {
+                // console.log('bind');
+                // console.log(el);
+
+                el.onmousedown = function(e) {
+                    let {clientX, clientY} = e;
+                    let x = clientX - el.offsetLeft;
+                    let y = clientY - el.offsetTop;
+
+                    document.onmousemove = function(e) {
+                        let {clientX, clientY} = e;
+                        el.style.left = clientX - x + 'px';
+                        el.style.top = clientY - y + 'px';
+                    }
+
+                    document.onmouseup = function() {
+                        document.onmousemove = document.onmouseup = null;
+                    }
+
+                    return false;
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app'
+        });
+    
+    </script>
+</body>
+</html>

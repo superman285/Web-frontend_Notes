@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <div v-on:click="fn1">内容</div>
+        <hr>
+        <div v-on:click="fn2">内容</div>
+        <hr>
+        <!-- 有的时候，我们需要在事件函数中传入一些参数 -->
+        <ul>
+            <li v-for="user in users" :data-gender="user.gender" v-on:click="fn3">
+                {{user.username}}
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <!-- v-on:click="fn4()" fn4加了括号并不会立即调用 -->
+            <!-- 但是与不加括号有很大的区别：事件对象需要手动传入，名称是：$event -->
+            <li v-for="user in users" v-on:click="fn4(user.gender, $event)">
+                {{user.username}}
+            </li>
+        </ul>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        /**
+            事件绑定是通过指令：v-on
+                vue推荐我们把存数据存放到data中，把函数存放到另外一个属性中：methods
+                v-on也有一个简写的形式：@
+                    v-on:click="fn" => @click="fn"
+        */
+        let app = new Vue({
+            el: '#app',
+            data: {
+                // fn() {
+                //     console.log('...');
+                // },
+                title: '音乐',
+                users: [
+                    {username:'zMouse', gender: '男'},
+                    {username:'Reci', gender: '女'},
+                    {username:'kimoo', gender: '男'}
+                ]
+            },
+            methods: {
+                fn1() {
+                    console.log('...');
+                },
+                fn2(e) {
+                    // vue中的函数（不管是不是绑定到了事件上）默认都指向当前vue对象
+                    // 这么做的原因是因为，在函数中就可以很方便的去调用实例对象下的其它
+                    // 数据，比如说data中的数据
+                    // data中的数据还有methods中的函数，都可以通过实例对象进行直接访问
+                    // 因为Vue在初始化的时候把data，methods中的一些属性和方法都同步
+                    // 映射到实例对象上
+                    // console.log(this.title);
+
+                    // 那触发该事件的元素又该这么拿到？通过事件对象
+                    // 在vue实例中，methods中的方法如果与一个事件绑定了，那么这个方法
+                    // 的第一个参数默认就是事件对象
+                    // console.log(e, e.target);
+                },
+                fn3(e) {
+                    console.log(e.target.dataset.gender);
+                },
+                fn4(gender, e) {
+                   // console.log('....');
+                   console.log(gender, e);
+                }
+            }
+        });
+
+        
+        // function fn4(e) {
+        //     console.log(e);
+        // }
+
+        // document.onclick = fn4;
+        // document.onclick = function(ev) {
+        //     fn4(ev);
+        // }
+    </script>
+</body>
+</html>

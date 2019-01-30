@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        
+        <tab></tab>
+        <tab></tab>
+
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        Vue.component('tab', {
+            data() {
+                return {
+                    active: 0,
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in titles"
+                        :class="{active: index == active}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in contents"
+                        v-show="index == active"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    this.active = index;
+                }
+            }
+        });
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                tab1: {
+                    active: 0,
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    active: 1,
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

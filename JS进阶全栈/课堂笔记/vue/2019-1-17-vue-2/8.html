@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <button @click="isShow = !isShow">按钮</button>
+        <transition
+            @before-leave="a"
+            @leave="b"
+            @after-leave="c"
+        >
+            <div class="box" v-show="isShow"></div>
+        </transition>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script>
+    
+        new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+            methods: {
+                // el: 表示当前触发过渡事件的元素
+                a(el) {
+                    console.log('a');
+                },
+                b(el, done) {
+                    console.log('b');
+                    console.log(el);
+                    // el.style.height = 0;
+                    // 动画是有事件的，如果通过js定时器来改变的话，那么
+                    // 最后的after-leave事件不会等到定时器动画完成以后
+                    // 再执行，after-leave默认会把元素的状态设置为最后的结果
+                    // css动画vue会监听animationend事件
+                    // js动画vue没有办法监听到动画结束
+                    // 但是该过程它传入了第二个参数：done，这个参数其实就是after事件
+                    // 的执行函数
+                    $(el).animate({
+                        height: 0
+                    }, done);
+                },
+                c(el) {
+                    console.log('c');
+                    // v-show：当这个函数执行的时候，会把元素设置成显示或隐藏的状态
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>

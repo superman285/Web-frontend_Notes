@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <a href="javascript:;" @click="t('ma')">ma</a>
+        <span> | </span>
+        <a href="javascript:;" @click="t('mb')">mb</a>
+        <span> | </span>
+        <a href="javascript:;" @click="t('mc')">mc</a>
+        <component :is="currentComponent"></component>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        Vue.component('ma', {
+            template: `
+                <div>这是ma的内容</div>
+            `
+        });
+        Vue.component('mb', {
+            template: `
+                <div>这是mb的内容</div>
+            `
+        });
+        Vue.component('mc', {
+            template: `
+                <div>这是mc的内容</div>
+            `
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                currentComponent: 'ma'
+            },
+            methods: {
+                t(name) {
+                    this.currentComponent = name;
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

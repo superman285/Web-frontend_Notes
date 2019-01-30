@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <tab :datas="tab1"></tab>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        Vue.component('tab', {
+            
+            props: ['datas'],
+            data() {
+                return {
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in datas.titles"
+                        :class="{active: index == datas.active}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in datas.contents"
+                        v-show="index == datas.active"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    this.datas.active = index;
+                }
+            }
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                tab1: {}
+            },
+            async created() {
+                // console.log('created');
+                // 发送请求，获取数据
+                let res = await fetch('http://localhost:8080/tabs');
+                let data = await res.json();
+                // console.log(data);
+
+                this.tab1 = data.data;
+            }
+        });
+
+    </script>
+
+</body>
+</html>

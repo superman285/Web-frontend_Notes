@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        {{title}}
+        <hr>
+        {{1+1}}
+        <hr>
+        {{Math.random()}}
+        <hr>
+        <!-- {{fn()}} -->
+
+        <div miaov="{{c}}"></div>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        // function fn() {
+        //     return 'miaov'
+        // }
+        
+        /**
+            模板语法：插值语法 {{插值表达式}}
+                表达式：能够产生结果的公式，变量，函数调用，数学运算
+                语句：if，for
+        */
+        let app = new Vue({
+            // 指定当前Vue对象处理的范围，通过el指定的内容将被当前这个Vue对象所管理
+            el: '#app',
+            // 存放当前Vue实例管理的应用中的所有数据
+            data: {
+                title: '音乐',
+                c: 'box'
+            }
+        });
+    </script>
+</body>
+</html>

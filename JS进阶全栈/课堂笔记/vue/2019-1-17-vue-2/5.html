@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <button @click="animate">按钮</button>
+        <div :style="style1"></div>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+    
+        new Vue({
+            el: '#app',
+            data: {
+                style1: {
+                    width: '100px',
+                    height: '100px',
+                    background: 'red'
+                }
+            },
+            methods: {
+                animate() {
+                    setInterval( () => {
+                        this.style1.width = parseInt(this.style1.width) + 1 + 'px';
+                    }, 100 );
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" :value="n">
+        <input type="text" v-model="n">
+        <button @click="add">按钮</button>
+        <button @click="getN">按钮</button>
+        <hr>
+        <input type="checkbox" v-model="isChecked">
+        <hr>
+        <input type="checkbox" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+        
+        /**
+            表单
+                数据单向绑定
+                    当数据发生变化以后，视图对应的也会重新渲染
+                    model -> view
+                数据双向绑定
+                    当数据发生变化以后，视图对应的也会重新渲染
+                    当视图发生变化，数据也会更新
+                    model -> view
+                    view -> model
+
+                不同的元素v-model绑定的属性是不一样的
+                input:text v-model 绑定了 value
+                input:checkbox v-model 绑定了 checked
+        */
+        let app = new Vue({
+            el: '#app',
+            data: {
+                n: 1,
+                users: [
+                    {username:'zMouse', gender: '男'},
+                    {username:'Reci', gender: '女'},
+                    {username:'kimoo', gender: '男'}
+                ],
+                isChecked: true,
+                checkedNames: ['John']
+            },
+            methods: {
+                add() {
+                    this.n += 1;
+                },
+                getN() {
+                    console.log(this.n);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

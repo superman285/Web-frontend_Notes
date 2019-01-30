@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .router-link-active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <div>
+            <router-link to="/" exact>首页</router-link>
+            <span> | </span>
+            <router-link to="/list">列表</router-link>
+            <span> | </span>
+            <router-link to="/user">用户中心</router-link>
+        </div>
+
+        <hr />
+
+        <div>
+            <router-view></router-view>
+        </div>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+
+        const users = [
+            {id: 1, username: 'zMouse', gender: '男', age: 33},
+            {id: 2, username: 'Reci', gender: '女', age: 18},
+            {id: 3, username: 'Kimoo', gender: '男', age: 28}
+        ];
+
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>首页</div>
+            `
+        });
+        const ListPage = Vue.component('ListPage', {
+            data() {
+                return {
+                    users
+                }
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li v-for="user in users">
+                            <router-link :to="'/detail?id=' + user.id">{{user.username}}</router-link>
+                        </li>
+                    </ul>
+                </div>
+            `
+        });
+        const DetailPage = Vue.component('DetailPage', {
+            data() {
+                return {
+                    users,
+                    user: {}
+                }
+            },
+            template: `
+                <div>
+                    <p>id：{{user.id}}</p>
+                    <p>姓名：{{user.username}}</p>
+                    <p>性别：{{user.gender}}</p>
+                    <p>年龄：{{user.age}}</p>
+                </div>
+            `,
+            created() {
+                // console.log(this.$route);
+                // console.log( this.$route.query.id );
+                this.user = this.users.find( user => user.id == this.$route.query.id );
+            }
+        });
+        const UserPage = Vue.component('UserPage', {
+            template: `
+                <div>
+                    <h4>用户中心</h4>
+                    <div>
+                        <router-link to="/user" exact>基本信息</router-link>
+                        <span> | </span>
+                        <router-link to="/user/order">我的订单</router-link>
+                        <span> | </span>
+                        <router-link to="/user/address">我的地址</router-link>
+                    </div>
+                    <div>
+                        <router-view></router-view>
+                    </div>
+                </div>
+            `
+        });
+        // 用户
+        const UserBasePage = Vue.component('UserBasePage', {
+            template: `
+                <p>基本信息</p>
+            `
+        });
+        const UserOrderPage = Vue.component('UserOrderPage', {
+            template: `
+                <p>我的订单信息</p>
+            `
+        });
+        const UserAddressPage = Vue.component('UserAddressPage', {
+            template: `
+                <p>我的收获地址信息</p>
+            `
+        });
+
+        /**
+            嵌套路由
+                1. routes选项中要设置路由的包含关系：children选项
+                2. 子路由组件出现在父级路由组件页面中的哪个位置：router-view
+        */
+
+        const router = new VueRouter({
+            // linkActiveClass: 'zm',
+            routes : [
+                {
+                    path: '/',
+                    component: HomePage
+                },
+                {
+                    path: '/list',
+                    component: ListPage
+                },
+                {
+                    // 这个路由组件由点特殊，这个组件需要接收一些数据
+                    // 动态路径参数 以冒号开头
+                    path: '/detail',
+                    component: DetailPage
+                },
+                {
+                    path: '/user',
+                    component: UserPage,
+                    children: [
+                        {
+                            path: '/user',
+                            component: UserBasePage
+                        },
+                        {
+                            path: '/user/order',
+                            component: UserOrderPage
+                        },
+                        {
+                            path: '/user/address',
+                            component: UserAddressPage
+                        }
+                    ]
+                }
+            ]
+        });
+
+        let app = new Vue({
+            el: '#app',
+            router
+        });
+
+        // console.log( app );
+        /**
+            当我们把new出来的router对象赋值给Vue实例的router属性以后
+            那么vue实例中的两个属性：
+                $route: 当前路由的信息
+                $router: new出来的router对象
+        */
+    
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+        li {
+            margin: 10px 0;
+        }
+        li.done, li.done button {
+            color: #ccc;
+        }
+        .footer a {
+            text-decoration: none;
+            color: #ccc;
+        }
+        .footer a.selected {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <router-view></router-view>
+        
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/vuex.js"></script>
+    <script>
+
+        /**
+            通过Vuex.Store来创建一个存储数据的仓库
+        */
+        const store = new Vuex.Store({
+            // state: 存储原始数据的位置
+            state: {
+                _id: 2,
+                selected: 'all',
+                tasks: [
+                    {id: 1, name: 'aaa', done: false},
+                    {id: 2, name: 'bbbb', done: true},
+                ]
+            },
+            // 存放提供派生数据
+            getters: {
+                // 与组件中的computed类似
+                doneData(state) {
+                    return state.tasks.filter( t => t.done );
+                },
+                undoneData(state) {
+                    return state.tasks.filter( t => !t.done );
+                },
+                allData(state) {
+                    return state.tasks;
+                }
+            },
+            // mutations：处理组件提交过来的任务
+            mutations: {
+                addNewTask(state, task) {
+                    // state: 仓库的state对象
+                    // console.log('addNewTask');
+
+                    state.tasks.unshift({
+                        id: ++state._id,
+                        name: task,
+                        done: false
+                    });
+                },
+                remove(state, payload) {
+                    state.tasks = state.tasks.filter(t => t != payload);
+                },
+                toggleTask(state, payload) {
+                    let task = state.tasks.find( t => t.id == payload.id );
+                    // console.log(task);
+                    task.done = payload.done;
+                },
+                chooseSelected(state, payload) {
+                    state.selected = payload;
+                }
+            }
+        });
+
+        const mHeader = Vue.component('mHeader', {
+            data() {
+                return {
+                    task: '',
+                }
+            },
+            template: `
+                <header>
+                    <p>
+                        <input type="text" v-model="task" placeholder="请输入任务名称" />
+                        <button @click="addNewTask">添加新任务</button>
+                    </p>
+                </header>
+            `,
+            methods: {
+                addNewTask() {
+                    // this.$emit('addNewTask', this.task);
+
+                    // 通知Store处理数据
+                    this.$store.commit('addNewTask', this.task);
+
+                    this.task = '';
+                }
+            },
+        });
+
+        const mList = Vue.component('mList', {
+            template: `
+                <ul>
+                    <m-item v-for="task in tasks" :task="task" :key="task.id"></m-item>
+                </ul>
+            `,
+            computed: {
+                tasks() {
+                    // 计算属性：当仓库的数据发生改变的时候，该计算属性也会更新
+                    // return this.$store.state.tasks;
+                    // return this.$store.getters.undoneData;
+                    // console.log(this.$store.state.selected);
+                    switch( this.$store.state.selected ) {
+                        default:
+                        case 'all':
+                            return this.$store.getters.allData;
+                        case 'done':
+                            return this.$store.getters.doneData;
+                        case 'undone':
+                            return this.$store.getters.undoneData;
+                    }
+                }
+            }
+        });
+
+        const mItem = Vue.component('mItem', {
+            props: ['task'],
+            data() {
+                return {
+                    done: this.task.done
+                }
+            },
+            template: `
+                <li :class="{done: task.done}">
+                    <input type="checkbox" @change="toggleTask" v-model="done" />
+                    <span>{{task.name}}</span>
+                    <button @click="removeTask">删除</button>
+                </li>
+            `,
+            methods: {
+                removeTask() {
+                    this.$store.commit('remove', this.task);
+                },
+                toggleTask() {
+                    // console.log(this.done);
+                    this.$store.commit('toggleTask', {
+                        id: this.task.id,
+                        done: this.done
+                    });
+                }
+            }
+        });
+
+        const mFooter = Vue.component('mFooter', {
+            template:`
+                <div class="footer">
+                    <a href="javascript:;" @click="chooseSelected('all')" :class="{selected: selected=='all'}">全部</a>
+                    <a href="javascript:;" @click="chooseSelected('done')" :class="{selected: selected=='done'}">已完成</a>
+                    <a href="javascript:;" @click="chooseSelected('undone')" :class="{selected: selected=='undone'}">未完成</a>
+                </div>
+            `,
+            computed: {
+                selected() {
+                    return this.$store.state.selected;
+                }
+            },
+            methods: {
+                chooseSelected(selected) {
+                    // this.selected = selected;
+                    this.$store.commit('chooseSelected', selected);
+                }
+            }
+        })
+
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>
+                    <m-header></m-header>
+
+                    <m-list></m-list>
+
+                    <m-footer></m-footer>
+                </div>
+            `
+        });
+
+        /**
+            把应用中需要公用的数据都交给一个人管理
+            但是使用不需要层层传递，而是扁平化，谁使用都可以直接与数据的管理者进行
+            交互
+                使用数据直接从管理者上获取
+                修改数据（注意：还是不能直接修改，而是需要提交给管理者进行处理），
+                但是中间减少传递过程
+        */
+
+
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: HomePage
+                }
+            ]
+        });
+
+
+        new Vue({
+            el: '#app',
+            router,
+            store   // 我们就可以在组件内部通过 this.$store 来访问仓库了
+        });
+
+    </script>
+</body>
+
+</html>

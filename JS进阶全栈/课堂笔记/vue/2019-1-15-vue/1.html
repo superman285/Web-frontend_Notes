@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        {{title}}
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+        /**
+            mvvm：
+                m：Model - 数据，界面中展示的数据或应用中使用的数据
+                v：View - 视图，用户看到的界面
+                vm：View-Model - 中间人，处理数据与界面之间相关逻辑
+        */
+
+        /**
+            通过new Vue得到一个Vue对象，我们后续应用中的数据管理和视图的渲染更新
+            这些操作都是通过这个Vue对象来完成
+        */
+        let app = new Vue({
+            // 指定当前Vue对象处理的范围，通过el指定的内容将被当前这个Vue对象所管理
+            el: '#app',
+            // 存放当前Vue实例管理的应用中的所有数据
+            data: {
+                title: '音乐'
+            }
+        });
+        // console.log( app );
+
+        // tpl.render('index.html', {
+        //     title: '音乐'
+        // });
+    </script>
+</body>
+</html>

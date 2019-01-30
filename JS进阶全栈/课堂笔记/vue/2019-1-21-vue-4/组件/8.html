@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <!-- 
+            这里的click是组件自定义的事件和原生click触发规则是完全不一样的
+            如果我们希望绑定的是原生的click
+        -->
+        <tab :datas="tab1" :active="active1" @click.native="fn"></tab>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+       
+        Vue.component('tab', {
+            props: ['datas', 'active'],
+            data() {
+                return {
+                    ac: this.active
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in datas.titles"
+                        :class="{active: index == ac}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in datas.contents"
+                        v-show="index == ac"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    this.ac = index;
+                    this.$emit('click', this.ac);
+                }
+            }
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                active1: 0,
+                active2: 1,
+                tab1: {
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                }
+            },
+            methods: {
+                fn(v) {
+                    console.log('....');
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

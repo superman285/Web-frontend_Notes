@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <button @click="add">添加一个新的数据</button>
+        <button @click="random">随机</button>
+        <ul>
+            <li v-for="user,index in users" :key="user.id">
+                <input type="checkbox" />
+                <span>{{user.username}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+    
+        new Vue({
+            el: '#app',
+            data: {
+                users: [
+                    {id: 1, username: 'zmouse'},
+                    {id: 2, username: 'reci'},
+                    {id: 3, username: 'kimoo'}
+                ]
+            },
+            methods: {
+                add() {
+                    this.users.push({
+                        username: 'mt'
+                    });
+                },
+                random() {
+                    this.users = this.users.sort( () => {
+                        return Math.random() - .5;
+                    } );
+                }
+            },
+        });
+
+    </script>
+
+</body>
+</html>

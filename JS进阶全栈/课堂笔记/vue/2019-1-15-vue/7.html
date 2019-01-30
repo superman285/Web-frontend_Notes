@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <div style="border: 1px solid red; padding: 50px;" @click="fn1">
+            <button @click.stop="fn2" @contextmenu.prevent>按钮</button>
+        </div>
+        <ul @click.self="fn1" style="border: 1px solid red; padding: 50px;">
+            <li></li>
+            <li>222</li>
+            <li>333</li>
+        </ul>
+        <input type="text" @keydown.13="fn1">
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+        
+        /**
+            指令：
+                指令名称:指令参数.指令的修饰符="指令值（表达式）"
+                    指令的修饰符是可以连续书写多个的
+        */
+        let app = new Vue({
+            el: '#app',
+            data: {
+                title: '音乐',
+                users: [
+                    {username:'zMouse', gender: '男'},
+                    {username:'Reci', gender: '女'},
+                    {username:'kimoo', gender: '男'}
+                ]
+            },
+            methods: {
+                fn1() {
+                    console.log('111');
+                },
+                fn2(e) {
+                    // e.stopPropagation(); //vue为我们提供了一些更简单的方法
+                    console.log('222');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

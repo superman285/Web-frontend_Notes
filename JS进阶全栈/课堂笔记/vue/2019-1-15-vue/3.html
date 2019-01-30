@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        {{title}}
+        <hr>
+        <ul>
+            <li v-for="user in users" v-if="user.gender=='男'">
+                {{user.username}}
+            </li>
+        </ul>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        /**
+            指令：出现在标签属性上的，以v-开头的一种特殊属性
+                vue内置了很多不同指令，不同的指令有不一样的作用，我们还可以自定义指令
+        */
+        let app = new Vue({
+            el: '#app',
+            data: {
+                title: '音乐',
+                users: [
+                    {username:'zMouse', gender: '男'},
+                    {username:'Reci', gender: '女'},
+                    {username:'kimoo', gender: '男'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

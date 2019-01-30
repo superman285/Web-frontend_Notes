@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <h1 v-bind:_value="title"></h1>
+        <h1 :_value="title"></h1>
+        <hr>
+        <h1 :class="c1"></h1>
+        <hr>
+        <ul>
+            <!-- <li v-for="user in users" :class="user.gender == '男'?'':'red'">
+                {{user.username}}
+            </li> -->
+
+            <li v-for="user in users" :class="{red: user.gender == '女'}">
+                {{user.username}}
+            </li>
+        </ul>
+        <hr>
+        <h1 :class="[c1, c2, c3]"></h1>
+        <hr>
+        <h1 :_value="{red: true}"></h1>
+        <hr>
+        <div style="color: yellow; background: red;"></div>
+        <hr>
+        <!-- <div :style="'color: '+ s1.color +'; background: red;'"></div> -->
+        <div :style="s1" ></div>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        /**
+            如果我们想把数据作为标签的属性值进行渲染，这个时候需要使用另外一些指定
+            的指令：v-bind
+                _value="{{title}}" => v-bind:_value="title"
+                把指令的值（表达式的值）绑定到指定参数属性中
+                简写：:_value="title"
+
+            针对class和style使用v-bind的时候又有一些特殊的用法
+        */
+        let app = new Vue({
+            el: '#app',
+            data: {
+                title: '音乐',
+                c1: 'box1',
+                c2: 'box2',
+                c3: 'box3 box4',
+                users: [
+                    {username:'zMouse', gender: '男'},
+                    {username:'Reci', gender: '女'},
+                    {username:'kimoo', gender: '男'}
+                ],
+                s1: {
+                    color: 'yellow',
+                    background: 'red'
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <div>
+            <a href="#/">首页</a>
+            <span> | </span>
+            <a href="#/list">列表</a>
+        </div>
+
+        <hr />
+
+        <div>
+            <!-- 
+                router-view是VueRouter为我们提供了一个组件，用于展示当前
+                与url匹配的组件
+            -->
+            <router-view></router-view>
+        </div>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+
+        /**
+            1. vue页面开发中，每一个要实现的独立页面内容都是通过组件来完成的
+                在vue中有一些组件是与url挂钩的，一个url匹配一个页面（组件）
+        */
+
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>首页</div>
+            `
+        });
+        const ListPage = Vue.component('ListPage', {
+            template: `
+                <div>列表</div>
+            `
+        });
+
+        /**
+            vue-router库中提供了一个类（构造函数）：VueRouter
+        */
+        // console.log(VueRouter);
+        const router = new VueRouter({
+            // routes : 路由组件关系映射数组，定义了应用每一个url与对应组件的映射关系
+            routes : [
+                // 每一个对象就是一个url与组件的映射关系的对象
+                {
+                    // path : url
+                    path: '/',
+                    // component : 组件
+                    component: HomePage
+                },
+                {
+                    path: '/list',
+                    component: ListPage
+                }
+            ]
+        });
+    
+        /**
+            把构建出来的某个router对象与对应vue实例对象关联起来
+            在Vue的配置选项中有一个路由配置
+        */
+        new Vue({
+            el: '#app',
+            // router: router
+            router
+        });
+
+        /**
+            由了router对象，也关联了router对象与Vue对象
+            还需要在我们的模板中去设置对应路由组件显示在什么位置
+        */
+    
+    </script>
+
+</body>
+</html>

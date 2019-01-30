@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <div>
+            <router-link to="/" exact>首页</router-link>
+            <span> | </span>
+            <router-link :to="{name:'list'}">列表</router-link>
+            <span> | </span>
+            <router-link to="/add">添加</router-link>
+        </div>
+
+        <hr />
+
+        <div>
+            <router-view></router-view>
+        </div>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+
+        let _id = 3;
+        const users = [
+            {id: 1, username: 'zMouse', gender: '男', age: 33},
+            {id: 2, username: 'Reci', gender: '女', age: 18},
+            {id: 3, username: 'Kimoo', gender: '男', age: 28}
+        ];
+
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>首页</div>
+            `
+        });
+        const ListPage = Vue.component('ListPage', {
+            data() {
+                return {
+                    users
+                }
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li v-for="user in users">
+                            <router-link :to="'/detail?id=' + user.id">{{user.username}}</router-link>
+                        </li>
+                    </ul>
+                </div>
+            `
+        });
+        const AddPage = Vue.component('AddPage', {
+            data() {
+                return {
+                    username: '',
+                    gender: '男',
+                    age: 0
+                }
+            },
+            template: `
+                <div>
+                    <p>
+                        用户名：<input type="text" v-model="username" />
+                    </p>
+                    <p>
+                        性别：
+                        <label><input type="radio" value="男" v-model="gender" /> 男</label>
+                        <label><input type="radio" value="女" v-model="gender" /> 女</label>
+                    </p>
+                    <p>
+                        年龄：<input type="text" v-model="age" />
+                    </p>
+                    <p><button @click="addNewUser">提交</button></p>
+                </div>
+            `,
+            methods: {
+                addNewUser() {
+                    // console.log( this.username, this.gender, this.age );
+                    
+                    users.push( {
+                        id: ++_id,
+                        username: this.username,
+                        gender: this.gender,
+                        age: this.age
+                    } );
+
+                    // 命名路由：有利于后期的维护和修改
+                    this.$router.replace({
+                        name: 'list'
+                    });
+
+                }
+            }
+        });
+
+        const router = new VueRouter({
+            routes : [
+                {
+                    path: '/',
+                    component: HomePage
+                },
+                {
+                    path: '/l',
+                    alias: '/list',
+                    name: 'list',
+                    component: ListPage
+                },
+                // {
+                //     path: '/list',
+                //     redirect: '/l'
+                // },
+                {
+                    path: '/add',
+                    component: AddPage
+                }
+            ]
+        });
+
+        let app = new Vue({
+            el: '#app',
+            router
+        });
+    
+    </script>
+
+</body>
+</html>

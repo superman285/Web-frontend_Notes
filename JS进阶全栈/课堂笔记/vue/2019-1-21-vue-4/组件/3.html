@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+
+        function app() {
+            let tab1, tab2;
+
+            tab(tab1);
+            tab(tab2);
+        }
+
+     -->
+    
+    <div id="app">
+
+        <!-- let tab1, tab2 -->
+
+        <!-- 如果使用属性的普通写法，那么值永远都是字符串 -->
+        <!-- <tab datas="1"></tab> -->
+        <!-- 如果我们想传递给组件数字，布尔值，对象等各种不同类型的数据，那么就需要使用v-bind -->
+        <tab :datas="tab1"></tab>
+        <hr />
+        <tab :datas="tab2"></tab>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        /**
+            Vue.component(组件名称, 组件的配置);
+                当Vue发现页面模板中有一个自定义的标签，那么Vue会对该自定义标签
+                进行一些对应的解析操作，把解析后的结果（html）替换掉我们的自定义标签
+
+            组件注册完成以后，是通过自定义html标签的方式进行使用
+            传递给组件的数据其实就是组件的参数，参数是通过标签属性的形式传递给组件解析的
+        */
+        // 注册组件
+        Vue.component('tab', {
+            // props：接收组件在使用的过程中传入的属性（数据-参数）
+            // props数组中定义的key就是组件要解析的自定义参数
+            // 组件在解析完成props以后，会在组件实例的下面添加同名的属性，我们可以
+            // 直接使用组件内部实例对象：this来访问这些数据
+
+            // props ：存放/接收组件外部调用的时候传入的数据
+            props: ['datas'],    // this.data
+            // data ：存放组件内部私有的数据，组件的data必须是一个函数
+            data() {
+                // console.log( typeof this.datas );
+                // console.log( this.datas );
+                // 这个返回的对象才是组件的私有数据存放的容器
+                return {
+                    // 因为props和data下定义的数据在组件解析的时候会被挂载到
+                    // 组件实例this对象下面，所以props和data中定义的数据不要重名了
+                    // datas: 100
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in datas.titles"
+                        :class="{active: index == datas.active}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in datas.contents"
+                        v-show="index == datas.active"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    this.datas.active = index;
+                }
+            }
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                tab1: {
+                    active: 0,
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    active: 1,
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

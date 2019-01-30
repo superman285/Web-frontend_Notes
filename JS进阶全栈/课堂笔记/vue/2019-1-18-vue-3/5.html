@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            left: 0;
+            top: 100px;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .box2 {
+            position: absolute;
+            left: 0;
+            top: 300px;
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        
+        <button @click="isDrag = !isDrag">按钮</button>
+        <div class="box" v-drag:limit="isDrag"></div>
+        <div class="box2" v-drag="!isDrag"></div>
+        
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+        
+        Vue.directive('drag', {
+            bind(el, binding) {
+                // bind只执行一次，而且是在初始化，指令绑定到元素上一瞬间
+
+                // let {value: isDrag} = binding;
+                // console.log(binding);
+                el._isDrag = binding.value;
+
+                el.onmousedown = function(e) {
+                    let {clientX, clientY} = e;
+                    let x = clientX - el.offsetLeft;
+                    let y = clientY - el.offsetTop;
+
+                    document.onmousemove = function(e) {
+                        // 如果我们希望这个isDrag使用永远都是和外界的数据绑定的
+                        // 当指令的值发生改变以后，这里也能使用到改变后的值
+                        if (el._isDrag) {
+                            let {clientX, clientY} = e;
+
+                            let l = clientX - x;
+                            let t = clientY - y;
+
+                            if (binding.arg == 'limit') {
+                                if (l < 0) {
+                                    l = 0;
+                                } else if (l > document.documentElement.clientWidth - el.offsetWidth) {
+                                    l = document.documentElement.clientWidth - el.offsetWidth;
+                                }
+                                if (t < 0) {
+                                    t = 0;
+                                } else if (t > document.documentElement.clientHeight - el.offsetHeight) {
+                                    t = document.documentElement.clientHeight - el.offsetHeight;
+                                }
+                            }
+
+                            el.style.left = l + 'px';
+                            el.style.top = t + 'px';
+                        }
+                    }
+
+                    document.onmouseup = function() {
+                        document.onmousemove = document.onmouseup = null;
+                    }
+
+                    return false;
+                }
+            },
+            update(el, binding) {
+                // console.log('...');
+                // console.log(binding);
+                el._isDrag = binding.value;
+            }
+        });
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isDrag: false
+            }
+        });
+    
+    </script>
+</body>
+</html>

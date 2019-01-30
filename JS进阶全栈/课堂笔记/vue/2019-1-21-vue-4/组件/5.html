@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <tab :datas="tab1" :active="active1"></tab>
+        <button>获取当前选项的选项</button>
+        <p>当前选项tab1的选项是：{{active1}}</p>
+
+        <hr />
+        <tab :datas="tab2" :active="active1"></tab>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        // function app() {
+        //     let a = 1;
+        //     let b = 2;
+
+        //     // 能不能直接去获取tab内部的v值
+        //     console.log(v);
+
+        //     tab(a);
+        //     tab(b);
+        // }
+
+        // function tab(datas) {
+        //     // ....datas
+        //     let v = 10;
+        // }
+
+        /**
+            
+        */
+        Vue.component('tab', {
+            props: ['datas', 'active'],
+            data() {
+                return {
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in datas.titles"
+                        :class="{active: index == active}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in datas.contents"
+                        v-show="index == active"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    // 因为active是属于props的，组件的内部对props下的数据
+                    // 只能读，而不能改，如果修改vue会报错
+                    // 为什么不能改？因为props是外部的数据传入的，如果直接在
+                    // 组件内部修改的话，会影响外部其它使用改数据的组件
+                    this.active = index;
+                }
+            }
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                active1: 0,
+                active2: 1,
+                tab1: {
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

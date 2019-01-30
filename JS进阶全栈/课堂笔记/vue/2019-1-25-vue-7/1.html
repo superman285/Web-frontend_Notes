@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <div>
+            <router-link :to="{name:'home'}">首页</router-link>
+            <span> | </span>
+            <router-link :to="{name:'list'}">列表</router-link>
+            <span> | </span>
+            <router-link :to="{name:'user'}">个人中心</router-link>
+            <span> | </span>
+            <router-link :to="{name:'login'}">登录</router-link>
+        </div>
+
+        <hr />
+
+        <router-view></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+    
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>
+                    首页
+                </div>
+            `
+        });
+
+        const ListPage = Vue.component('ListPage', {
+            template: `
+                <div>
+                    列表
+                </div>
+            `
+        });
+
+        const UserPage = Vue.component('UserPage', {
+            template: `
+                <div>
+                    个人中心
+                </div>
+            `
+        });
+
+        const LoginPage = Vue.component('LoginPage', {
+            template: `
+                <div>
+                    登录
+                </div>
+            `
+        });
+
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: HomePage
+                },
+                {
+                    path: '/list',
+                    name: 'list',
+                    component: ListPage
+                },
+                {
+                    path: '/user',
+                    name: 'user',
+                    component: UserPage
+                },
+                {
+                    path: '/login',
+                    name: 'login',
+                    component: LoginPage
+                }
+            ]
+        });
+
+        let isLogin = false;
+        router.beforeEach( (to, from, next) => {
+            // console.log('...');
+            // next是一个方法，通过调用next方法进入下一步（确认导航）
+            // 当路由发生变化的时候，全局beforeEach就会被触发，我们可以在这个函数
+            // 中加入一些业务处理，比如权限验证，如果通过了则调用next进入目标路由页面
+
+            // console.log(to, from);
+
+            // if ( !isLogin && to.name !== 'login' ) {
+            //     // console.log('你还没有登录');
+
+            //     router.push({name: 'login'});
+            // } else {
+            //     next();
+            // }
+
+            if ( isLogin || to.name === 'login' ) {
+                next();
+            } else {
+                router.push({name: 'login'});
+                // next({name: 'login'});
+            }
+        } );
+
+        new Vue({
+            el: '#app',
+            router
+        });
+    
+    </script>
+</body>
+</html>

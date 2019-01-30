@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        
+        <!-- 如果传入的数据不是字符串，比如是一个对象，数组数字等其它形式，那么最好使用v-bind传值 -->
+        <tab :data="tab1"></tab>
+        <tab :data="tab2"></tab>
+
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        /**
+            组件可以看做是一个函数，它也可以接收不同的数据（参数）
+            因为组件在这里是通过标签的方式去调用，参数传入通过标签的属性传进来的
+        */
+        Vue.component('tab', {
+            // 定义外部使用的时候可以传入哪些属性，数据可以通过this直接访问
+            props: ['data'],
+            // 组件与组件之间的数组是不共享的
+            // 组件与父级之间的数据也是不共享的
+            data() {
+                return {}
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in data.titles"
+                        :class="{active: index == data.active}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in data.contents"
+                        v-show="index == data.active"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    this.data.active = index;
+                }
+            }
+        });
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                tab1: {
+                    active: 0,
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    active: 1,
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

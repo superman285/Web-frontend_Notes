@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <router-view></router-view>
+        
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+
+        
+
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>
+                    <header>
+                        <p>
+                            <input type="text" placeholder="请输入任务名称" />
+                        </p>
+                    </header>
+
+                    <ul>
+                        <li>
+                            <input type="checkbox" />
+                            <span>1111</span>
+                            <button>删除</button>
+                        </li>
+                        <li>
+                            <input type="checkbox" />
+                            <span>2222</span>
+                            <button>删除</button>
+                        </li>
+                        <li>
+                            <input type="checkbox" />
+                            <span>3333</span>
+                            <button>删除</button>
+                        </li>
+                    </ul>
+                </div>
+            `
+        });
+
+
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: HomePage
+                }
+            ]
+        });
+
+
+        new Vue({
+            el: '#app',
+            router
+        });
+
+    </script>
+</body>
+
+</html>

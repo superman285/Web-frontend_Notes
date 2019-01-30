@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <button @click="add">按钮</button>
+        {{a}}
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        // 初始化事件，数据观测 => 编译模板（html） => 显示在浏览器指定的位置(el)：挂载
+        // 模板 + 数据 => 编译 => 视图
+
+        let app = new Vue({
+            el: '#app',
+
+            data: {
+                a: 1,
+                b: 10
+            },
+
+            // template指定的模板优先于el的outerHTML
+            // 如果没有template选项，那么 template : el.outerHTML
+            // template: `
+            //     <div>{{b}}</div>
+            // `,
+            // template: `
+            //     <div id="app">
+            //         {{a}}
+            //     </div>
+            // `,
+
+            methods: {
+                add() {
+                    this.a++;
+                }
+            },
+
+            // 生命周期
+            beforeCreate() {
+                console.log('beforeCreate');
+            },
+
+            created() {
+                console.log('created');
+                console.log(this.$el);
+            },
+
+            beforeMount() {
+                console.log('beforeMount');
+            },
+
+            mounted() {
+                console.log('mounted');
+                console.log(this.$el);
+            },
+
+            beforeUpdate() {
+                console.log('beforeUpdate');
+            },
+
+            updated() {
+                console.log('updated');
+            },
+
+            beforeDestroy() {
+                console.log('beforeDestroy');
+            },
+
+            destroyed() {
+                console.log('destroyed');
+            },
+
+        });
+
+        // app.$mount('#app');  // 后续的手动指定挂载元素
+
+    </script>
+
+</body>
+</html>

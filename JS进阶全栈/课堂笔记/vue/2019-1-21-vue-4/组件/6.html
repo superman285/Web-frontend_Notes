@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <tab :datas="arr"></tab>
+        <hr/ >
+        <tab :datas="arr"></tab>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        Vue.component('tab', {
+            props: ['datas'],
+            data() {
+                return {
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button @click="handler">按钮</button>
+                    {{datas}}
+                </div>
+            `,
+            methods: {
+                handler() {
+                    // 并没有改变datas的地址
+                    // this.datas.push('zmouse');
+                    // 把datas的地址都给换了
+                    this.datas = [1,2,3];
+
+                    // 这是一个坑，vue并不能监控对象的属性修改（在原有对象上的修改）
+                }
+            }
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                arr: ['a','b','c']
+            },
+        });
+
+    </script>
+
+</body>
+</html>

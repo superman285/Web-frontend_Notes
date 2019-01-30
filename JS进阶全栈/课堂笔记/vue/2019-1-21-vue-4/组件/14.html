@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .m-dialog {
+            width: 300px;
+            border: 1px solid #000000;
+        }
+        .m-dialog .header, .m-dialog .content, .m-dialog .footer {
+            padding: 5px;
+        }
+        .m-dialog .header {
+            background: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <m-dialog footer="底部" :timeout="1000">
+
+            <p>这是内容</p>
+            <table width="100%" border="1">
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+            </table>
+        </m-dialog>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        Vue.component('mDialog', {
+            // props: [
+            //     'header',
+            //     'content',
+            //     'footer'
+            // ],
+
+            // 对props进行类型验证
+            props: {
+                header: {
+                    type: String,
+                    // default: "标题",
+                    default() {
+                        // 可以在这里处理一些逻辑，然后得到一个默认值
+                        return '标题'
+                    }
+                },
+                content: String,
+                footer: String,
+                // timeout: {
+                //     type: Number
+                // },
+                timeout: {
+                    validator(val) {
+                        return val >= 0;
+                    }
+                },
+            },
+            template: `
+                <div class="m-dialog">
+                    <div class="header">
+                        <div v-if="header">
+                            {{header}}
+                        </div>
+                        <div v-else>
+                            <slot name="header"></slot>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <slot></slot>
+                    </div>
+                    <div class="footer">{{footer}}</div>
+                </div>
+            `
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                
+            }
+        });
+
+    </script>
+
+</body>
+</html>

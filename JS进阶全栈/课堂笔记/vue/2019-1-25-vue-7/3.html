@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <div>
+            <router-link :to="{name:'home'}">首页</router-link>
+            <span> | </span>
+            <router-link :to="{name:'list'}">列表</router-link>
+            <span> | </span>
+            <router-link :to="{name:'user'}">个人中心</router-link>
+            <span> | </span>
+            <router-link :to="{name:'login'}">登录</router-link>
+        </div>
+
+        <hr />
+
+        <router-view></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+    
+        const HomePage = Vue.component('HomePage', {
+            template: `
+                <div>
+                    首页
+                </div>
+            `
+        });
+
+        const ListPage = Vue.component('ListPage', {
+            template: `
+                <div>
+                    列表
+                </div>
+            `
+        });
+
+        const UserPage = Vue.component('UserPage', {
+            template: `
+                <div>
+                    个人中心
+                </div>
+            `
+        });
+
+        const LoginPage = Vue.component('LoginPage', {
+            template: `
+                <div>
+                    登录
+                </div>
+            `
+        });
+
+        
+
+        let isLogin = true;
+
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: HomePage
+                },
+                {
+                    path: '/list',
+                    name: 'list',
+                    component: ListPage
+                },
+                {
+                    path: '/user',
+                    name: 'user',
+                    component: UserPage,
+                    beforeEnter(to, from, next) {
+                        // console.log(isLogin);
+                        // next();
+
+                        if (isLogin) {
+                            next();
+                        } else {
+                            next({name: 'login'});
+                        }
+                    }
+                },
+                {
+                    path: '/login',
+                    name: 'login',
+                    component: LoginPage
+                }
+            ]
+        });
+        
+
+        new Vue({
+            el: '#app',
+            router
+        });
+    
+    </script>
+</body>
+</html>

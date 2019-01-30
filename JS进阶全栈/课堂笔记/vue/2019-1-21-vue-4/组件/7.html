@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <tab :datas="tab1" :active="active1" @zmouse="fn"></tab>
+        <button @click="getActive1">获取当前选项的选项</button>
+        <p>当前选项tab1的选项是：{{active1}}</p>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        /**
+         * 组件通信
+         * 
+         *  1. 组件外部 => 组件内部 => props
+         *  2. 组件内部 => 组件外部 => 事件（自定义）
+        */
+
+        Vue.component('tab', {
+            props: ['datas', 'active'],
+            // 如果要对外部传入的数据进行修改，推荐把这个数据转移到data，或计算属性中
+            data() {
+                return {
+                    // 把props中active数据转移到data的ac属性中
+                    ac: this.active
+                }
+            },
+            template: `
+                <div class="tab">
+                    <button 
+                        v-for="title,index in datas.titles"
+                        :class="{active: index == ac}"
+                        @click="toggle(index)"
+                    >
+                        {{title}}
+                    </button>
+
+                    <p 
+                        v-for="content,index in datas.contents"
+                        v-show="index == ac"
+                    >
+                        {{content}}
+                    </p>
+                </div>
+            `,
+            methods: {
+                toggle(index) {
+                    // this.active = index;
+                    this.ac = index;
+
+                    // 如果我们想把这个数据的变化通知给外部，则可以
+                    // 使用组件提供一个方法 $emit 来触发一个自定义的事件
+                    // 外部通过监听改组件的事件来获取对应信息
+                    this.$emit('zmouse', this.ac);
+                }
+            }
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                active1: 0,
+                active2: 1,
+                tab1: {
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            },
+            methods: {
+                getActive1() {
+                    console.log(this.active1);
+                },
+                fn(v) {
+                    // console.log('组件修改了', v);
+
+                    // 虽然在这里active1的值也修改了，但是这个值修改的权力
+                    // 不是组件内部修改的，而是由组件外部持有改数据的
+                    // 所有人来修改
+                    this.active1 = v;
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

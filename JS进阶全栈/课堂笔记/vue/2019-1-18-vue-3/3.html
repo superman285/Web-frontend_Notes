@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        
+        <div class="box" v-drag="isDrag"></div>
+
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+    
+        
+        Vue.directive('drag', {
+            bind(el, binding) {
+
+                // console.log(binding);
+                let {value: isDrag} = binding;
+
+                el.onmousedown = function(e) {
+                    let {clientX, clientY} = e;
+                    let x = clientX - el.offsetLeft;
+                    let y = clientY - el.offsetTop;
+
+                    document.onmousemove = function(e) {
+                        if (isDrag) {
+                            let {clientX, clientY} = e;
+                            el.style.left = clientX - x + 'px';
+                            el.style.top = clientY - y + 'px';
+                        }
+                    }
+
+                    document.onmouseup = function() {
+                        document.onmousemove = document.onmouseup = null;
+                    }
+
+                    return false;
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                isDrag: false
+            }
+        });
+    
+    </script>
+</body>
+</html>

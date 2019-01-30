@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .m-dialog {
+            width: 300px;
+            border: 1px solid #000000;
+        }
+        .m-dialog .header, .m-dialog .content, .m-dialog .footer {
+            padding: 5px;
+        }
+        .m-dialog .header {
+            background: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <!-- 插槽 -->
+        <!-- <m-dialog header="标题" content="<p>这是内容</p>" footer="底部"></m-dialog> -->
+
+        <!-- 组件内部数据 不是 组件包含的数据 -->
+        <m-dialog header="标题" footer="底部">
+            <!-- 具名插槽，设置slot属性并起名，没有slot包含的则为默认插槽 -->
+            <h1 slot="header">这是标题</h1>
+            
+            <p>这是内容</p>
+            <table width="100%" border="1">
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+            </table>
+        </m-dialog>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        // 组件名称不能使用内置标签名，推荐驼峰命名，在使用的是驼峰转横线（烤串）
+        // Vue为我们内置提供了一个组件 slot ，他的作用是用来承载被组件包含的内容
+        Vue.component('mDialog', {
+            props: [
+                'header',
+                'content',
+                'footer'
+            ],
+            template: `
+                <div class="m-dialog">
+                    <div class="header">
+                        <slot name="header"></slot>
+                    </div>
+                    <div class="content">
+                        <slot></slot>
+                    </div>
+                    <div class="footer">{{footer}}</div>
+                </div>
+            `
+        });
+    
+        new Vue({
+            el: '#app',
+            data: {
+                
+            }
+        });
+
+    </script>
+
+</body>
+</html>

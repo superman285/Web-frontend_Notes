@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+        .disabeld {
+            color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <table width="80%" border="1">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" v-model="checkedAll" />
+                    </th>
+                    <th>名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>总价</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items">
+                    <td>
+                        <input type="checkbox" v-model="item.checked" />
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>￥ {{(item.price).toFixed(2)}}</td>
+                    <td>
+                        <button :class="{disabeld: item.num < 2}" @click="sub(item)">-</button>
+                        <input style="text-align: center" type="text" v-model.lazy.number="item.num">
+                        <button @click="plus(item)">+</button>
+                    </td>
+                    <td>￥ {{(item.price * item.num).toFixed(2)}}</td>
+                    <td>
+                        <a href="javascript:;" @click="remove(item)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            当前一共购买了 <strong>{{totalNum}}</strong> 件商品，总价是 ￥ <strong></strong>
+        </p>
+        <div>
+            <button :class="{disabeld: buy}">立即购买</button>
+        </div>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                items: [
+                    {
+                        id: 1,
+                        name: '程序员的数学3 线性代数',
+                        price: 62.30,
+                        num: 1,
+                        checked: true
+                    },
+                    {
+                        id: 2,
+                        name: '游戏开发物理学 第2版',
+                        price: 74.50,
+                        num: 1,
+                        checked: false
+                    }
+                ]
+            },
+            methods: {
+                // 单个商品的数量减
+                sub(item) {
+                    if (item.num > 1) {
+                        item.num--;
+                    }
+                },
+                // 单个商品的数量加
+                plus(item) {
+                    item.num++;
+                },
+                // 单个商品的删除
+                remove(item) {
+                    // 通过items的filter方法把与传入的item不相等的商品保留下来
+                    this.items = this.items.filter( t => t != item );
+                }
+            },
+            // 存放通过其它数据计算得到的新数据
+            computed: {
+
+                // 计算属性的完整形式
+                checkedAll: {
+                    get() {
+                        return this.items.every( item => item.checked );
+                    },
+                    set(newValue) {
+                        // console.log('...', newValue);
+                        this.items.forEach( item => item.checked = newValue );
+                    }
+                },
+                totalNum() {
+                    // let totalNum = 0;
+                    // this.items.forEach( item => totalNum += item.num );
+                    // return totalNum;
+
+                    return this.items.reduce( (prev, current) => {
+                        return prev + current.num;
+                    }, 0 );
+                    // 1 => prev=0,current=item => return 0 + 4 => 4
+                    // 2 => prev=4,current=item => return 4 + 3 => 7
+                    // 完成 7
+                },
+                buy() {
+                    // 只要有一个为true
+                    return !this.items.some( item => item.checked );
+                }
+            }
+        });
+    </script>
+</body>
+</html>

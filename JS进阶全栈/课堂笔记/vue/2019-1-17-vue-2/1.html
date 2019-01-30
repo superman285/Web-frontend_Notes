@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+        .disabeld {
+            color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <table width="80%" border="1">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" @change="changeCheckedAll" :checked="checkedAll" />
+                    </th>
+                    <th>名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>总价</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items">
+                    <td>
+                        <input type="checkbox" v-model="item.checked" />
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>￥ {{(item.price).toFixed(2)}}</td>
+                    <td>
+                        <button :class="{disabeld: item.num < 2}" @click="sub(item)">-</button>
+                        <input style="text-align: center" type="text" v-model.lazy.number="item.num">
+                        <button @click="plus(item)">+</button>
+                    </td>
+                    <td>￥ {{(item.price * item.num).toFixed(2)}}</td>
+                    <td>
+                        <a href="javascript:;" @click="remove(item)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+
+    
+        /**
+            数据驱动视图
+        */
+        new Vue({
+            el: '#app',
+            data: {
+                // 有的时候，我们需要的数据其实是根据以有的数据派生而来的，比如
+                // 下面的checkedAll，类似这样的数据我们不推荐写在data中，
+                // data中一般存放原始数据
+                // :checkedAll true,
+                items: [
+                    {
+                        id: 1,
+                        name: '程序员的数学3 线性代数',
+                        price: 62.30,
+                        num: 1,
+                        checked: true
+                    },
+                    {
+                        id: 2,
+                        name: '游戏开发物理学 第2版',
+                        price: 74.50,
+                        num: 1,
+                        checked: false
+                    }
+                ]
+            },
+            methods: {
+                // 单个商品的数量减
+                sub(item) {
+                    if (item.num > 1) {
+                        item.num--;
+                    }
+                },
+                // 单个商品的数量加
+                plus(item) {
+                    item.num++;
+                },
+                // 单个商品的删除
+                remove(item) {
+                    // 通过items的filter方法把与传入的item不相等的商品保留下来
+                    this.items = this.items.filter( t => t != item );
+                },
+                // 全选状态
+                changeCheckedAll(e) {
+                    // console.log( e.target.checked );
+                    // 根据当前元素的状态checked去修改下面每一条数据
+                    this.items.forEach( item => item.checked = e.target.checked );
+                }
+            },
+            // 存放通过其它数据计算得到的新数据
+            computed: {
+                // computed里面设置的属性，这个属性的得到方式是通过computed里面
+                // 的同名方法来获取的
+                // 当这个属性中包含的数据发生改变了以后，那么当前这个计算也会自动更新
+                checkedAll() {
+                    // 该函数其实就是checkedAll这个属性的get方法
+                    // return true;
+
+                    // let v = true;
+                    // for (let i=0; i<this.items.length; i++) {
+                    //     if (!this.items[i].checked) {
+                    //         v = false;
+                    //     }
+                    // }
+                    // return v;
+
+                    // 如果每一个item的checked为true，那么every的结果就是true
+                    return this.items.every( item => item.checked );
+                }
+            }
+        });
+
+        // let arr = [1,4,6,12,5,3];
+        // let arr2 = arr.filter( v => {
+        //     return v >= 5;
+        // } );
+        // console.log( arr2 );
+
+        // let arr = [1,4,6,12,5,3];
+        // let arr2 = arr.map( v => {
+        //     return v * 10;
+        // } );
+        // console.log( arr2 );
+
+        // 只有每一个都满足了，every的结果才是true
+        // console.log( [10,14,15,7].every( v => v > 5 ) );
+
+        // 只要有一个满足，some的结果就是true
+        // console.log( [1,4,5,7].some( v => v > 5 ) );
+    
+    </script>
+</body>
+</html>

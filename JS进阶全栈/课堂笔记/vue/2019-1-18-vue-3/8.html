@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab button.active {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        
+        <tab></tab>
+
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        // 指令定义完成以后是做为标签的属性的方式进行使用的
+        // 组件定义完成以后是作为标签的方式进行使用的
+
+        /**
+            组件 -> 自定义标签
+                1. 结构（样式）
+                2. 数据
+                3. 行为
+
+            Vue实例其实本质上就是一个组件
+        */
+        Vue.component('tab', {
+            // 组件的结构（样式），注意：template中的结构只能存在一个根结点
+            // template: `
+            //     <div>
+            //         <div>我就是结构</div>
+            //         <div>我就是结构</div>
+            //     </div>
+            // `
+
+            template: `
+                <div>
+                    <div @click="fn">我就是结构 - {{title}}</div>
+                </div>
+            `,
+
+            // vue实例的data可以是对象，但是组件的data必须是一个函数
+            // 该函数必须返回一个对象，返回的对象其实才是最终data
+            data() {
+                // 这里可以做一些初始化的数据处理以后再返回数据
+                return {
+                    title: 'zmouse'
+                }
+            },
+
+            methods: {
+                fn() {
+                    console.log('....');
+                }
+            }
+        });
+
+        let app = new Vue({
+            el: '#app',
+            // Vue实例其实也有template，但是如果我们给实例设置了el的话，那么
+            // el元素的内容其实就是template
+            // template: '',
+            data: {
+                tab1: {
+                    active: 0,
+                    titles: [
+                        '选项一',
+                        '选项二',
+                        '选项三'
+                    ],
+                    contents: [
+                        '内容一',
+                        '内容二',
+                        '内容三'
+                    ]
+                },
+                tab2: {
+                    active: 1,
+                    titles: [
+                        'option-1',
+                        'option-2',
+                        'option-3'
+                    ],
+                    contents: [
+                        'content-1',
+                        'content-2',
+                        'content-3'
+                    ]
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

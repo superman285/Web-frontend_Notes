@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <button @click="isShow = !isShow">按钮</button>
+        <transition
+            @before-leave="a"
+            @leave="b"
+            @after-leave="c"
+        >
+            <div class="box" v-show="isShow"></div>
+        </transition>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+    
+        new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+            methods: {
+                // el: 表示当前触发过渡事件的元素
+                a(el) {
+                    console.log('a');
+                },
+                b(el) {
+                    console.log('b');
+                    console.log(el);
+                    el.style.height = 0;
+                },
+                c(el) {
+                    console.log('c');
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>

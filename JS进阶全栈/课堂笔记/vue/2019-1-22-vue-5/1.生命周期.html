@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        Animate({
+            el: '#app',
+            attrs: {
+                width: 200
+            },
+            onend() {
+
+            }
+        });
+    
+        /**
+            通过调用Animate函数传入的一些指定的配置函数
+            然后Animate会在其指定的位置（运行期）中调用传入对应函数
+            我们把这样的函数称为：钩子函数，通过这种方式我们可以
+            在函数运行期间指定的位置做一些额外的工作
+        */
+        function Animate(options) {
+            options.oninit();
+            // 运动开始前的准备-初始化代码
+
+            options.onstart();
+            // 准备开始运动代码
+
+            options.onmoving();
+            // 运动代码
+
+            // 运动结束代码
+            options.onend();
+        }
+
+    </script>
+
+</body>
+</html>

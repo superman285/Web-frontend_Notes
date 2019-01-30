@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        {{title}}
+        <hr>
+        <h1 v-text="title"></h1>
+        <h1 v-text="'title'"></h1>
+        <hr>
+        {{content}}
+        <h1 v-text="content"></h1>
+        <h1 v-html="content"></h1>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        /**
+            指令的值：表达式
+        */
+        let app = new Vue({
+            el: '#app',
+            data: {
+                title: '音乐',
+                content: '<strong>Music</strong>',
+                users: [
+                    {username:'zMouse', gender: '男'},
+                    {username:'Reci', gender: '女'},
+                    {username:'kimoo', gender: '男'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

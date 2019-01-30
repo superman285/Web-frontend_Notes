@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+        <input type="text" v-focus />
+        
+        
+
+    </div>
+
+    <button id="btn">按钮</button>
+    <div id="app2">
+        <input type="text" id="input1">
+    </div>
+
+    <script>
+    
+        let btn = document.querySelector('#btn');
+        let app2 = document.querySelector('#app2');
+        let input1 = document.querySelector('#input1');
+
+        btn.onclick = function() {
+            // input1.focus();
+
+            let input2 = document.createElement('input');
+            // 有些方法产生的效果是需要该元素在页面中存在的，是已经被渲染到浏览器中
+            input2.focus();
+            app2.appendChild( input2 );
+        }
+
+    </script>
+
+    <script src="./js/vue.js"></script>
+    <script>
+        
+        Vue.directive('focus', {
+            bind(el) {
+                // bind是vue在解析模板的时候，发现某个元素上有该指令
+                // 那么就会对该指令进行初始化解析
+                // 这个过程元素是存在的，但不一定是在页面中存在
+                // console.log(el);
+                // el.focus();
+            },
+            inserted(el) {
+                el.focus();
+            }
+        });
+
+        let app = new Vue({
+            el: '#app'
+        });
+    
+    </script>
+</body>
+</html>
