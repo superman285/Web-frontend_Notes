@@ -1,3 +1,23 @@
+五大核心：
+
+- 入口 entry
+- 出口 output
+- loader
+- 插件 plugins
+- 模式 mode
+
+
+
+loader帮助webpack处理非js的其他文件 例如css样式文件 sass-loader css-loader style-loader
+
+
+
+webpack 按照模块化方式引入 
+
+css也用import方式引入
+
+
+
 webpack 模块化方式进行打包
 
 

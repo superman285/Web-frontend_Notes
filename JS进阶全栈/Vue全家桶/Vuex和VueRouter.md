@@ -256,6 +256,18 @@ return this.$store.state.dataA
 
 
 
+
+
+==💡易错点==
+
+methods中的方法 向vuex commit时，只能有两个参数，第一个参数为vuex中的方法名，第二个参数为对象
+
+如果有多个参数必须包含在对象中
+
+然后vuex中的mutations的方法的参数也写成对象形式
+
+
+
 ==state==
 
 存储原始数据的位置
