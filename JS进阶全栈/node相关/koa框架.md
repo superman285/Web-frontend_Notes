@@ -134,6 +134,14 @@ https://segmentfault.com/q/1010000011033764
 
 
 
+一个js文件里头 不是所有有use的地方 都需要看到next 没有next就影响其他use了 ==并不是!==
+
+
+
+这个函数得是中间件 你才需要next! 比如访问静态页面或访问路由 不需要向下next了 就不算中间件？
+
+
+
 中间件本质就是一个函数
 
 
@@ -159,6 +167,12 @@ app.use( async (ctx,next) => {
 ctx.set(‘Access-Control-Allow-Origin’,‘*’); await next();
 
 })
+
+
+
+中间件模拟 深度
+
+https://segmentfault.com/a/1190000016707059
 
 
 

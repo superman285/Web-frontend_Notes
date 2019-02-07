@@ -8,6 +8,16 @@
 
 
 
+浏览器不支持import语法 可以用webpack来打包好 然后再在html中引入打包后的js
+
+
+
+./node_module/webpack/bin/webpack 完整命令
+
+
+
+
+
 loader帮助webpack处理非js的其他文件 例如css样式文件 sass-loader css-loader style-loader
 
 
@@ -49,3 +59,34 @@ module.exports = {
 
 
 babel是将es新版本 或者其他语言 解析为 js的es5版本
+
+
+
+---
+
+> 打包js/打包scss 方法
+
+webpack.config.js配置好入口entry(一个文件) 输出output(path和filename)(一个文件)
+
+path模块的使用 join不可省\__dirname resolve可省略__dirname
+
+
+
+然后运行 npm run webpack(在package.json配置好) 或者 ./node_modules/webpack/bin/webpack
+
+
+
+就将入口js打包到了 出口/xxx.js 一般是dist/bundle.js
+
+
+
+如果要打包css|scss|sass|less文件 在entry入口js文件中引入css
+
+import “xxxxx/yyyyy/style.scss”
+
+在webpack.config.js中配置rules 配置好scss结尾正则使用的loader(sass-loader|css-loader|style-loader) 切记要npm i 安装好这些loader才可正常打包
+
+
+
+然后再npm run webpack 随便改下入口js文件即可打包好
+
