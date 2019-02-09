@@ -185,6 +185,24 @@ name和version两个字段是==必须必须有的==
 
 
 
+##### 常用工具
+
+path库
+
+livereload 不用手动刷新页面 自动重启前端
+
+supervisor 不用手动重新打指令开服务器 自动重启后端
+
+nrm 切换下载源
+
+http-server -c-1 启动简易服务器
+
+
+
+
+
+
+
 ##### 发布一个npm包
 
 ==package.json是必须的==
