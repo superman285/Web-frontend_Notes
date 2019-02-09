@@ -1,4 +1,37 @@
-##### 模板引擎
+##### class类
+
+类中默认自带constructor
+
+`constructor`方法默认返回实例对象（即`this`），完全可以指定返回另外一个对象。
+
+
+
+实例属性写法 以下两种写法等价
+
+class A {
+
+​    prop1 = 1;
+
+constructor(){
+
+​    this.prop2 = 2;
+
+}
+
+}
+
+静态属性 两种写法 static目前能用不？
+
+- class A{static pro = 1;}
+- 类外面 A.pro = 1;
+
+
+
+类的私有属性 属性前加#
+
+
+
+##### 模板字符串
 
 \`我的天我是${god}\`   god为变量
 
