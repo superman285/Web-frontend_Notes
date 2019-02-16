@@ -28,8 +28,18 @@ koa2-cors 解决跨域问题
 
 
 
+在服务器端app.js
+
+const cors = require(‘koa2-cors’);
+
+app.use(cors()); //放在route前
+
+app.use(router.routes());
+
+
+
 ```javascript
-const Koa = require('koa2');
+const Koa = require('koa');//可确认下koa版本是否是2
 //相当于const http = require('http');
 
 //创建一个经过Koa包装的http服务器

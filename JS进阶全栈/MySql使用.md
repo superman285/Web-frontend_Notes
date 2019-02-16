@@ -33,9 +33,17 @@
 >
 > show databases; 可以查看所有数据库
 
+或者输个密码123456
+
 
 
 可视化工具推荐Navicat for MySQL
+
+
+
+
+
+create table notesContent(noteid int not null primary key,uid int not null,text varchar(255) not null);
 
 
 
