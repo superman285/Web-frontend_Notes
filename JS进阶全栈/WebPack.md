@@ -90,3 +90,21 @@ import “xxxxx/yyyyy/style.scss”
 
 然后再npm run webpack 随便改下入口js文件即可打包好
 
+
+
+##### 配置全局插件
+
+```javascript
+plugins: [
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        Web3: "web3",
+    }),
+]
+```
+
+前端中所有模块都可访问这些插件 不需要再require或者import了
+
+注意这个全局插件 服务器端是无法访问到的 还是要require
+
+服务器端无法import

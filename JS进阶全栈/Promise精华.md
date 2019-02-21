@@ -280,6 +280,10 @@ await后的Promise对象如果reject了 那整个async函数会中断执行
 
 
 
+回调函数 (err,result)=>{}
+
+换await写的话 用try catch来处理
+
 例子：
 
 ```javascript

@@ -174,7 +174,7 @@ parseInt('123', 5) // 将'123'看作5进制数，返回十进制数38 => 1*5^2 +
 
 只有0|NaN|‘’|undefined|null 是`5`个falsy值，转成boolean为false，其他`所有`都会转成true
 
-`所有对象`转为boolean都为true，包括空对象、空数组、空函数等
+`所有对象`转为boolean都为true，包括空对象、空数组、空函数等，包括字符串“0”
 
 
 

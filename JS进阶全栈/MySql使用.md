@@ -47,6 +47,28 @@ create table notesContent(noteid int not null primary key,uid int not null,text 
 
 
 
+##### linux开启关闭数据库 找半天 晕
+
+sudo apt-get install mysql-server 安装
+
+https://www.cnblogs.com/sancong/p/6280094.html
+
+
+
+mysql -u root -p
+
+
+
+sudo service mysql start
+
+sudo service mysql stop
+
+sudo service mysql restart
+
+
+
+
+
 ###### 一些坑
 
 node index启动时报错

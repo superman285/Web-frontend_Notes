@@ -22,8 +22,8 @@ constructor(){
 
 静态属性 两种写法 static目前能用不？
 
-- class A{static pro = 1;}
-- 类外面 A.pro = 1;
+- class A{static pro = 1;} 好像用不了
+- 类外面 A.pro = 1; 可用
 
 
 
@@ -267,9 +267,35 @@ var ar = arr.find(elem=>elem>5)
 
 
 
+##### 伪数组改造为真数组方法
+
+很多js获取到的内容为伪数组，例如arguments、HTMLCollection、NodeList等
+
+Array.prototype.slice.call(arguments|HTMLCollection|NodeList)返回一个真数组
+
+即可改造成功,相当于获取到伪数组中所有带数字索引的项 
+
+相当于xxxxx.slice.call(arg,0)
+
+
+
+更绝的方法:
+
+var arr = [...NodeList|HTMLCollection|arguments] 可以试试 记得加[]
+
+或var arr = Array.from(arguments)
+
+
+
 ##### import和export
 
+import {A} from ‘./xxx’
 
+import C from ‘./yyy’
+
+
+
+export {A,B} 或 export default C
 
 
 
@@ -281,7 +307,7 @@ var ar = arr.find(elem=>elem>5)
 
 name=>result
 
-注意💡
+**注意💡**
 
 返回值为对象时，如果不写return，要加个小括号以区分
 
