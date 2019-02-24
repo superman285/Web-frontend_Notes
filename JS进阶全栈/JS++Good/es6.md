@@ -215,3 +215,92 @@ babel index.js -o bundle.js
 
 ##### Symbol
 
+Symbol不是构造函数 不可new Symbol()
+
+var sb1 = Symbol(); var sb2 = Symbol(“foo”);
+
+
+
+迭代器 iterator
+
+数组类型上有 迭代器接口 Symbol.iterator
+
+var arr = [1,2,3]
+
+var iter = arr\[Symbol.iterator]()
+
+iter.next() 输出对象{value: ,done: ,} 不断调next相当于一项一项输出
+
+value是读到的值 done表示遍历是否结束 像[1,2,3] 需要next3次 第3次 {value:3,done:false}
+
+第4次 {value:undefined,done:true}
+
+
+
+
+
+##### for...of... 
+
+调用的iterator
+
+部署过迭代器接口(Symbol.iterator)的数据类型 例如数组 对象无迭代器接口 因为无序
+
+部署了迭代器接口的类型 map,set,array,string,arguments等类数组
+
+for(let value of arr) 循环数组值
+
+forof无法迭代对象，想迭代的话 给对象加上迭代接口 手动部署Symbol.iterator
+
+obj = {
+
+start: [1,2,3,4],
+
+end: [5,6,7,8],
+
+//记得要加[] 因为是string
+
+​    [Symbol.iterator]\(){
+
+​        let index = 0,
+
+​        arr = [...this.start,...this.end],
+
+​        len = arr.length;
+
+​	return {
+
+​	    next(){
+
+​		if(index<len){
+
+​		    return {
+
+​		        value: arr[index++],
+
+​			done: false
+
+​		    }
+
+​		}else {
+
+​		    value: undefined,
+
+​		    done: true
+
+​		}
+
+​            }
+
+​	}
+
+​    }
+
+}
+
+
+
+
+
+for...in...可循环对象
+
+for(let index in arr) 循环数组索引
