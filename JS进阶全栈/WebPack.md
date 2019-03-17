@@ -108,3 +108,88 @@ plugins: [
 注意这个全局插件 服务器端是无法访问到的 还是要require
 
 服务器端无法import
+
+
+
+
+
+##### 打包优化
+
+---
+
+打包优化用到的插件 可以直接npm i xxx安装 或者-D 安装 装到开发依赖 devDependencies
+
+
+
+http://www.linbenjian.com/article-detail/5c0f7c59420f72223ab43517
+
+vue-cli-service的环境设置
+
+
+
+使用vue-cli3打包项目，通过配置不同的指令给项目设置不一样的配置。
+
+npm run serve时会把process.env.NODE_ENV设置为‘development’；
+
+npm run build 时会把process.env.NODE_ENV设置为‘production’；
+
+
+
+优化打包webpack+vuecli3配置系列
+
+https://blog.csdn.net/u014440483/article/details/87267160
+
+
+
+打包优化精品文章:webpack4
+
+https://blog.csdn.net/weixin_40817115/article/details/80992301
+
+
+
+webpack-bundle-analyzer的使用
+
+
+
+1.devtool sourcemap
+
+2.代码压缩 optimization minimize:true
+
+3.分离css(从主js)
+
+4.cdn加载方式
+
+
+
+cdn加载方式
+
+配置webpack的externals
+
+
+
+vuecli3
+
+gzip配置方法:
+
+
+
+const CompressionPlugin = require("compression-webpack-plugin");
+
+
+
+```javascript
+devServer: {
+    port: 3000,
+    compress: true // 服务器返回浏览器的时候是否启动gzip压缩
+},
+
+configureWebpack: {
+	plugins:[new CompressionPlugin(),] //直接开启压缩
+}
+```
+
+
+
+webpack4 常见插件配置大全
+
+https://my.oschina.net/susouth/blog/2877935
