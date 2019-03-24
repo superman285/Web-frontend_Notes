@@ -118,6 +118,12 @@ p1.then(xx=>{yy1});p1.then(xx=>{yy2})
 >
 > Promise {<resolved>: 2} 没想到吧.
 >
+> 所以下一个then可以获取到2
+>
+> then(val=>{console.log(val);return 2;}).then(val2=>console.log(val2);)
+>
+> //第二个then打印val2 就是打印出2
+>
 >
 >
 > 所以可以动手造一个new Promise作为返回值，在这个new Promise中根据需求手动设定状态
