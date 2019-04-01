@@ -104,7 +104,7 @@ p1.then(xx=>{yy1});p1.then(xx=>{yy2})
 >
 > 一旦你调用了then或catch方法而且里头有传函数作为参数(即使函数体为空！)，但你没有手动return new Promise和在里头更改status和value的话
 >
-> 那then或catch之后一定会给你返回这么一个Promise: <resolved>: undefined
+> 那then或catch`之后`一定会给你返回这么一个Promise: <resolved>: undefined
 >
 > 因为then第一个参数代表resolve,而catch其实相当于then(undefined,xxx)
 >
@@ -135,6 +135,12 @@ p1.then(xx=>{yy1});p1.then(xx=>{yy2})
 then方法可以链式调用，最好每个then中都动手构造new Promise作为返回值，根据需求来改变状态，
 
 但是最后一个then不需要手动构造了，因为后续没有要执行的代码了
+
+
+
+then方法的第二个参数 就相当于catch
+
+then(res=>{},rej=>{}) 相当于 then(res=>{}).catch(rej=>{})
 
 
 
@@ -176,6 +182,10 @@ p1.then().then().finally(()=>{})
 
   val->[p1v,p2v]
 
+  所有promise成功才会返回成功，一个promise失败就返回失败
+
+  返回成功值数组 | 返回最快失败的promise
+
 - Promise.race
 
   当参数中的Promise但凡有一个到达了成功状态(resolved)就可以执行后续的then
@@ -185,6 +195,10 @@ p1.then().then().finally(()=>{})
   Promise.race([p1,p2]).then(v=>{})
 
   then中的v代表的是最先完成的Promise对象的PromiseValue(p1和p2中先完成的那个传给resolve函数的值)
+
+  一个promise成功就返回成功，一个promise失败就返回失败
+
+  返回最快成功的promise | 返回最快失败的promise
 
 
 
@@ -215,8 +229,6 @@ then中处理返回值方案选择(需不需要手动return新Promise呢?)：
 
 
 > 几段代码读懂promise特性 https://www.jb51.net/article/119630.htm
-
-
 
 
 

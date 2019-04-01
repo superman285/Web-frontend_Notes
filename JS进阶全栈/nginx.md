@@ -50,6 +50,36 @@ svn checkout https://github.com/superman285/PrivateOwnWebProject/trunk/AdvancedJ
 
 
 
+
+
+nginx配置
+
+/etc/nginx/conf.d 下新建对应网站名称的conf文件 例如 superskr.conf 然后配置
+
+server{
+
+​    listen 80;
+
+​    server_name www.superskr.top superskr.top;
+
+​    location / {
+
+​        proxy_pass http://127.0.0.1:4000;
+
+​    }
+
+}
+
+nginx 启动
+
+/usr/sbin/nginx
+
+定位到sbin目录 sudo nginx 启动
+
+sudo nginx -s stop 停止
+
+
+
 ###### 数据库
 
 sudo apt-get install mysql-server mysql-client

@@ -102,6 +102,80 @@ ctx.set(‘Access-Control-Allow-Origin’,‘*’)
 
 
 
+##### props
+
+定义之后 标签中就可以带这个属性了
+
+
+
+data中:
+
+```javascript
+post: {
+id: 1,
+title: 'My Journey with Vue'
+}
+```
+
+```html
+<blog-post v-bind="post"></blog-post>
+等价于
+<blog-post
+  v-bind:id="post.id"
+  v-bind:title="post.title"
+></blog-post>
+```
+
+
+
+props 数据从标签的属性传到了innerText
+
+data 数据直接从data传到innerText
+
+
+
+数据从父亲的data传到儿子的prop
+
+
+
+数据单向下行
+
+父亲的prop变化了 儿子也知道
+
+儿子的prop变化了 父亲不知道
+
+儿子太多 父亲只有一个
+
+
+
+##### 调用方法
+
+1.
+
+子组件调用父组件,要打报告emit,当然 父亲需要开个on来监听(就像solidity) v-on:eventName=“func”
+
+父亲需要监听，儿子需要汇报
+
+调用父组件上的方法使用$emit('eventName',param)
+
+报告的是事件名不是方法名 注意了
+
+
+
+2.
+
+父组件调用子组件,直接找到儿子,访问方法 简单粗暴.. 也不需要监听了 
+
+父亲和儿子啥都不用准备
+
+儿子有ref
+
+父亲使用this.$refs.child.chMethod()
+
+
+
+
+
 
 
 ##### 组件定义
@@ -109,6 +183,24 @@ ctx.set(‘Access-Control-Allow-Origin’,‘*’)
 在js文件中用Vue.component({})定义全局组件 不支持css
 
 在vue文件中定义单文件组件 (更优秀)
+
+
+
+##### slot插槽
+
+很简单 如果想在组件标签中加上内容(包括文本和其他标签)
+
+那就在组件定义时就在中间加上`<v-slot>defaultContent</v-slot>`
+
+defaultContent为可设置的默认内容
+
+如果加了默认内容 当组件标签间不加内容时 就会渲染出默认内容 defaultContent
+
+组件标签间加了内容 就会取代掉默认内容 不显示默认内容
+
+插槽命名
+
+v-slot:nameA
 
 
 

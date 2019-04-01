@@ -15,6 +15,8 @@
 
 
 
+
+
 第二种直接在命令行进行开启数据库服务
 
 > mysql.server start
@@ -22,8 +24,6 @@
 关闭数据库服务
 
 > mysql.server stop
-
-
 
 连接数据库
 
@@ -40,6 +40,12 @@
 可视化工具推荐Navicat for MySQL
 
 
+
+> 注意💡
+>
+> 在打开navicat连接前
+>
+> 先启动mysql.server 连接mysql -u root -p 这样就保证可以正常连接了
 
 
 
@@ -64,8 +70,6 @@ sudo service mysql start
 sudo service mysql stop
 
 sudo service mysql restart
-
-
 
 
 
@@ -96,3 +100,21 @@ sequelize库的坑
 如果是数据库的问题，就给数据库表设置text或longtext类型而不是varchar
 
 如果是sequelize的问题，就不要设置sequelize.STRING，而是设置sequelize.TEXT
+
+
+
+
+
+
+
+已备案网站
+
+highskr.cn 博客
+
+superman285.top 链接到博客
+
+skrgame.fun 井字棋
+
+superskr.top SkrWallet
+
+superskr.fun KoaNotes
