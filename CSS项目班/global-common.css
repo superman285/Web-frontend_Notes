@@ -1,0 +1,137 @@
+/*css reset 样式初始化*/
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,p,th,td{
+    margin:0;
+    padding:0;
+    font-size: 14px;
+    font-family:"微软雅黑";
+    color:#666560;
+}
+header,footer,article,aside,section,nav,menu,hgroup,details,dialog,figure,figcaption{
+    display:block
+}
+ol,li,ul,dl,dt,dd{
+    list-style:none;
+}
+a{
+    text-decoration:none;
+    color:#666560;
+}
+a:hover{
+    color:#ff2016;
+}
+
+input,img,button{
+    border:none;
+    outline:none;
+    vertical-align: middle;
+    padding:0;
+}
+table{
+    border-collapse:collapse;
+    border_spacing:0;
+}
+
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+/*常用效率 样式*/
+/*版心,版心设置以min-width为基准*/
+.w{
+    /*百分比一般不用*/
+    /*width: 85%; 这个可用于响应式布局，媒体查询*/
+    /*1350全长*/
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/*flex行分居左右大法*/
+.flex-spacebetween{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/*字体*/
+.hotred{
+    color:#ff2016;
+}
+.f20{
+    font-size: 20px;
+    font-weight: bold;
+}
+.f18{
+    font-size: 18px;
+}
+.f16{
+    font-size: 16px;
+}
+.f15{
+    font-size: 15px;
+}
+.f14{
+    font-size: 14px;
+}
+.f13{
+    font-size: 14px;
+}
+.f12{
+    font-size: 12px;
+}
+.f11{
+    font-size: 11px;
+}
+.bold{
+    font-weight: bold;
+}
+
+/*清除浮动,给父元素设置，after是父元素的最后那儿加*/
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix{
+    zoom: 1;
+}
+/*左浮动*/
+.fl{
+    float:left;
+}
+/*右浮动*/
+.fr{
+    float:right;
+}
+
+/*加入flex弹性布局*/
+.flex{
+    display:flex;
+}
+
+/*父元素加上该属性清除 行内块子元素之间的空白间距*/
+.clear-linespacing{
+    font-size: 0px;
+}
+
+/*后代行内元素水平居中*/
+.child-horizontalCenter{
+    text-align:center;
+}
+/*块元素自身水平居中*/
+.horizontalCenter{
+    margin:0 auto;
+}
+
+/*边框和padding不影响实际大小的css3新属性*/
+.border-box{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+

@@ -34,6 +34,8 @@ merge相当于一个新的提交记录
 
 当进行一个操作，且没add时，可以用checkout . 进行撤销。
 
+当进行一个操作，add了 没commit,可以用git reset head filename(可选,不写就是回滚目录所有)
+
 当进行一个操作，且add和commit了，可以用revert commitID 进行回滚。(commitID在log中查看)
 
 
