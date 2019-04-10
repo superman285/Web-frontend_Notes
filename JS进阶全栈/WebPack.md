@@ -8,15 +8,15 @@
 
 
 
-浏览器不支持import语法 可以用webpack来打包好 然后再在html中引入打包后的js
+浏览器不支持import语法 
+
+1.可以用webpack来打包好 然后再在html中引入打包后的js
+
+2.script标签加上type=“module”
 
 
 
 ./node_module/webpack/bin/webpack 完整命令
-
-
-
-
 
 loader帮助webpack处理非js的其他文件 例如css样式文件 sass-loader css-loader style-loader
 
