@@ -61,7 +61,7 @@ path和queryString都基于url，会受到url长度限制
 
 
 
-> Ajax是JS提交请求而不是浏览器提交请求 不用重新渲染整个页面
+> Ajax是JS提交请求而不是浏览器的url提交请求 不用重新渲染整个页面
 >
 > 即无刷新提交
 
@@ -442,7 +442,7 @@ axios({
 
 这儿的data没有jQ的智能，只能适用于post|put|patch，没有jq的作为get的queryString功能
 
-想使用get+查询参数 只能用url方式
+get+查询参数 url方式
 
 ```javascript
 url: '/checkUserName?username='+this.value,

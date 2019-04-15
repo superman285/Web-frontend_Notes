@@ -208,6 +208,25 @@ http://js.jirengu.com/duzo/1/edit?html,console,output
 
 
 
+```javascript
+<input :value="xxx" 
+           @input="xxx =$event.target.value">
+           new Vue({
+      el: '#app',
+      data: {
+        xxx: 'xxx'
+      },
+      watch: {
+        xxx: function(){
+          console.log(this.xxx)
+        }
+      
+```
+
+
+
+
+
 > 表单💡
 
 数据单向绑定(v-bind)  model -> view 

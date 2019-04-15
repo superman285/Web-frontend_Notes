@@ -22,7 +22,7 @@ jQuery最最常用的
 | (‘p’).index(‘*’)                 | 类似原生的indexOf,p在所有元素中的索引号                      |
 | eq(i)\|get(i)                    | 获取索引为i的元素,eq为jq包装的,get为原生获得的               |
 | .click\|.hover (function(){})    | 点击触发事件，鼠标移入触发事件                               |
-| text()\|html()\|val()            | 类原生的innerText,innerHTML,value(表单用),可get和set         |
+| text([x])\|html([x])\|val([x])   | 类原生的innerText,innerHTML,value(表单用),可get和set         |
 | attr(‘s1’[,‘news1’])\|prop(‘s2’) | 获取或设置某标签的某属性,可以写成对象形式设置多个值<br>例如attr({“href”:“baidu.com”,“title”:“baidu”})<br>attr可用于所有属性，prop用于固有属性 |
 | append(ctx)\|prepend(ctx)        | 在元素内部的末尾/元素内部开头 插入内容                       |
 | after(ctx)\|before(ctx)          | 在元素前面/元素后面 插内容 「元素外部」                      |
@@ -37,7 +37,9 @@ on 类似原生js的addEventListener
 
 \$.each(arr,(index,val)=>{}) 类似forEach,jQ中第一个参数是索引第二个参数是值,原生js中反过来,第一个是值第二个是索引
 
+一般这么用：
 
+$(‘cont’).each((idx,val)=>{})
 
 
 

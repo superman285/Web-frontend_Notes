@@ -153,11 +153,13 @@ webpack-bundle-analyzer的使用
 
 1.devtool sourcemap
 
-2.代码压缩 optimization minimize:true
+2.代码压缩 optimization minimize:true terserplugin
 
-3.分离css(从主js)
+3.分离css(从主js中)
 
-4.cdn加载方式
+4.cdn加载方式 减小包体
+
+5.压缩成gzip compressionplugin
 
 
 

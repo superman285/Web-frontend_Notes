@@ -27,7 +27,7 @@ constructor(){
 
 
 
-类的私有属性 属性前加#
+类的私有属性 属性前加# 好像用不了
 
 
 
@@ -141,6 +141,12 @@ arr.method((value,index)=>{});
 
 
 
+map return+处理语句
+
+其他 return+判断语句
+
+
+
 ==差异点==
 
 forEach无返回值 一般是根据需要进行循环操作 其他四项均有返回值
@@ -204,7 +210,7 @@ vue中的for in取到的是值
 
 
 
-for...of... 取到的是值 可用于数组/字符串，不直接用于对象
+for...of... 取到的是值 可用于数组/字符串，不直接用于对象 只能作用于实现了迭代器的 [Symbol.iterator]
 
 for(let val of str){console.log(val)}
 
@@ -212,7 +218,7 @@ for(let val of str){console.log(val)}
 
 不能直接作用于对象，但是对象有返回数组的方法呀，返回key或value的数组
 
-Object.keys(obj) | Object.values(obj)
+Object.keys(obj) | Object.values(obj) Object.entries(obj)
 
 
 
@@ -220,7 +226,7 @@ Object.keys(obj) | Object.values(obj)
 
 
 
-for...of... 是比较新的方法
+for...of... 是比较新的es6方法
 
 
 
@@ -345,6 +351,10 @@ data: ()=>{return {user:name}}
 
 
 let newArr = Array.from(new Set(oldArr));
+
+
+
+let newArr = [...new Set(oldArr)]
 
 
 

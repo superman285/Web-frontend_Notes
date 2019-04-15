@@ -1,4 +1,4 @@
-##### 给他人直接提交权限，团队写作方式
+##### 给他人直接提交权限，团队协作方式
 
 自己的github中某个项目，Settings-Collaborators
 
@@ -47,6 +47,10 @@ git reset head filename(可选,不写就是回滚目录所有)
 当进行一个操作，且add和commit了，可以用revert commitID 进行回滚。(commitID在log中查看)
 
 然后需要push?
+
+
+
+严重用revert 次严重用reset
 
 
 

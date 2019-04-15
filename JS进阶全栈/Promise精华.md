@@ -64,7 +64,7 @@ Promise中的异步任务什么时候 可以继续向下执行 全凭你吩咐 �
 
 ##### Promise对象的then方法
 
-then方法可接收两个函数作为参数，第一个表示resolved，第二个表示rejected
+then方法可接收==两个函数==作为参数，第一个表示resolved，第二个表示rejected
 
 如果只接收了一个函数 那么就是成功
 
@@ -106,7 +106,7 @@ p1.then(xx=>{yy1});p1.then(xx=>{yy2})
 >
 > 那then或catch`之后`一定会给你返回这么一个Promise: <resolved>: undefined
 >
-> 因为then第一个参数代表resolve,而catch其实相当于then(undefined,xxx)
+> 因为then第一个参数代表resolve,而catch其实相当于then(undefined,(xxx)=>{yyy})
 >
 > 不信你去试试 例如p2 = p1.then(()=>{},x=>{console.log(x)})
 >
@@ -152,7 +152,7 @@ p1.then(()=>{},x=>{y}) => p1.then(undefined,x=>{y})
 
 => p1.catch(x=>{y}) 都是等价的
 
-想链式调用多个catch 中间一定要手动返回new Promise且reject(val)
+想链式调用多个catch 中间一定要手动返回new Promise且reject(val)改变状态和值
 
 p1.catch(x=>{}).catch(x=>{}).catch(x=>{});
 
@@ -266,7 +266,7 @@ Promise.resolve() 则 Promise为 resolved:undefined
 
 ==注意==
 
-var er = Promise.reject(‘err2’) 会改变PromiseStatus为rejected和PromiseValue为‘err’
+var er = Promise.reject(‘err2’) 会改变PromiseStatus为rejected和PromiseValue为‘err2’
 
 但是会报错 Uncaught (in promise) err2
 

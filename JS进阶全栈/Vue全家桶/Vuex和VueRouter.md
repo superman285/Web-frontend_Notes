@@ -26,7 +26,7 @@ router的组件 router-view router-link
 
 
 
-router-view : 相当于占位符,用于展示与当前url匹配的组件内容(route对象中的component)
+router-view : 相当于占位符,用于展示与当前浏览器的url匹配的组件内容(route对象中的component)
 
 
 

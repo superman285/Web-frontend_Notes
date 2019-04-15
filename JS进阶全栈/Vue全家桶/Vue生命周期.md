@@ -4,6 +4,14 @@
 
 从初始化到调用结束
 
+new-beforeC-create-beforeM-mounted-beforeU-updated-beforeD-destroyed
+
+new-c-m-u-d
+
+cmud
+
+create mount update destroy
+
 ![vuelifecycle](./vuelifecycle.png)
 
 

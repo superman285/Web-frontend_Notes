@@ -48,11 +48,7 @@ gradle 可用brew装
 
 将原项目中打包到dist的内容都丢到 cordova项目 www目录下 要把gz等无法识别的文件删除
 
-
-
 记得在html的body末尾 引入 script标签 载入cordova.js
-
-
 
 main.js中加入监听；监听deviceready 事件
 
