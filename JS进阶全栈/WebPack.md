@@ -151,7 +151,7 @@ webpack-bundle-analyzer的使用
 
 
 
-1.devtool sourcemap
+1.devtool 关闭sourcemap
 
 2.代码压缩 optimization minimize:true terserplugin
 

@@ -109,6 +109,22 @@ https://segmentfault.com/a/1190000016571785
 
 
 
+...可以把数组展开！ 可以把字符串展开！
+
+
+
+字符串快速转数组 Array.from(str) | str.split('') | [...str]
+
+
+
+##### includes 包含
+
+数组可用，字符串可用
+
+有点像indexOf
+
+
+
 ##### forEach循环 (其实是es5的)
 
 arr.forEach(val=>{//do something}) 循环的结果是值而非索引
@@ -229,6 +245,32 @@ Object.keys(obj) | Object.values(obj) Object.entries(obj)
 for...of... 是比较新的es6方法
 
 
+
+==切记==
+
+for of 和 for in只能拿到一个内容 of是value,in是index
+
+想同时拿值和索引 用forEach
+
+
+
+**特别地**
+
+如果是对象 可以用 for [val,idx] of Object.entries(obj)
+
+如果是map 可以用 for [val,idx] of map
+
+
+
+##### reduce大法
+
+最基础用法 累加
+
+
+
+arr.reduce((sum,item)=>sum+item) 把数组所有项累加 sum默认为0
+
+arr.reduce((sum,item)=>sum+item,10) 初始sum值为10  把总数和10相加
 
 ##### Object.assign
 

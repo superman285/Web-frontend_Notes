@@ -326,3 +326,22 @@ Response Headers/Request Headers**右侧浅色小字**
 
 ---
 
+
+
+
+
+##### 经典面试题 从输入url到页面展示 经历了什么过程
+
+---
+
+
+
+1. 输入url后浏览器补全协议、端口、路径等信息
+
+2. DNS解析 获取到url对应的ip地址
+3. 浏览器向服务器发起tcp连接(三次握手)
+4. 握手成功后浏览器会向服务器发起http请求
+5. 服务器响应请求 把数据返回给浏览器
+6. 浏览器拿到数据，把html解析成DOM树，把css解析成CSSOM树
+7. 把DOM和CSSOM合并生成render tree
+8. 布局render tree并将它绘制到屏幕上

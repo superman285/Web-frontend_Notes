@@ -200,7 +200,7 @@ self:给父亲设置@click.self后，点击儿子是不会触发父亲方法的(
 
 简单滴说：
 
-双向绑定 = 单向绑定 + UI 事件监听
+双向绑定 = 单向绑定 + UI 事件监听 是一个语法糖
 
 例子:
 
@@ -209,6 +209,7 @@ http://js.jirengu.com/duzo/1/edit?html,console,output
 
 
 ```javascript
+<div>{{xxx}}</div>   //这算单向数据流
 <input :value="xxx" 
            @input="xxx =$event.target.value">
            new Vue({
@@ -223,7 +224,15 @@ http://js.jirengu.com/duzo/1/edit?html,console,output
       
 ```
 
+```
+<input v-model="haorooms" />
+```
 
+也可以写成
+
+```
+<input :value="haorooms"  @input="haorooms= $event.target.value" />
+```
 
 
 
@@ -331,7 +340,27 @@ data中一般放原始数据
 
 
 
-计算属性 会动态地受其他值影响 其他值变了 它动态地改变 很智能
+###### 计算属性 
+
+会动态地受其他值影响 其他值变了 它动态地改变 很智能
+
+如果需要通过超过一个表达式的逻辑 data中一个表达式写不过来 可以用计算属性
+
+如果想要缓存效果 可以用计算属性
+
+
+
+==依赖追踪==
+
+data是没有依赖追踪的
+
+而computed有依赖追踪
+
+
+
+所以用computed来接收vuex的值 vuex值发生变化时 也会自动跟着变
+
+
 
 ==注意==
 
