@@ -125,3 +125,15 @@ node_module -> chalk -> package.json -> main字段(入口文件,可能是dist)
 
 
 libuv可以编译.node文件 dlopen()
+
+
+
+Buffer.from
+
+path模块
+
+fs模块
+
+http http2 https 模块
+
+global模块部分方法

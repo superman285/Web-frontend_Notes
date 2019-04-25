@@ -111,11 +111,22 @@ onload事件绑定发生在事件完成之后，所以 onload就不生效了，�
 
 xhr.onload = function(){
 
-​    console.log(this.response)
+​    console.log(this.response)//or xhr.responseText
 
 ​    userNameMessageEle.innerHTML = this.response;
 
 }
+
+
+
+或者这种写法:
+
+```js
+request.onreadystatechange = function () {
+   if(request.readyState === 4 && request.status === 200) {
+     console.log(request.responseText);
+   }};
+```
 
 
 

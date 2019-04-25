@@ -4,7 +4,7 @@
 
 
 
-简单点说，组件其实就是自定义的html标签
+简单点说，组件其实就是自定义的html标签 封装好的可以复用的vue实例。
 
 vue实例本质上也是组件，vue实例也有template
 
@@ -108,6 +108,10 @@ ctx.set(‘Access-Control-Allow-Origin’,‘*’)
 
 
 
+Prop 是你可以在组件上注册的一些自定义特性。当一个值传递给一个 prop 特性的时候，它就变成了那个组件实例的一个属性(data)。
+
+
+
 data中:
 
 ```javascript
@@ -174,9 +178,27 @@ data 数据直接从data传到innerText
 
 
 
+儿子:
+
+props: [‘data1’]
+
+父亲:
+
+\<sonComponent data1=‘love you’\>\</sonComponent\>
+
+
+
 3.
 
 平行组件互相调用，直接用vuex呗 全局都可以随便访问到
+
+
+
+通过prop向子组件传递数据
+
+https://cn.vuejs.org/v2/guide/components-props.html
+
+https://cn.vuejs.org/v2/guide/components.html
 
 
 
