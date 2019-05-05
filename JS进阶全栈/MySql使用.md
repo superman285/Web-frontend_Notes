@@ -15,7 +15,7 @@
 
 
 
-
+##### Mac系统开启数据库
 
 第二种直接在命令行进行开启数据库服务
 
@@ -31,9 +31,13 @@
 >
 > 回车后跳过输入密码 直接连接
 >
+> 或者输密码123456 ✅
+>
 > show databases; 可以查看所有数据库
+>
+> 这个时候再开启Navicat! 否则会报错连接不上
 
-或者输个密码123456
+
 
 
 
@@ -53,7 +57,7 @@ create table notesContent(noteid int not null primary key,uid int not null,text 
 
 
 
-##### linux开启关闭数据库 找半天 晕
+##### linux系统开启关闭数据库 找半天 晕
 
 sudo apt-get install mysql-server 安装
 
