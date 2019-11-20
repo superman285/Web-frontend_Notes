@@ -59,6 +59,18 @@ var {y} = {x:1,y:2} //y=2
 
 
 
+不同名对象解构赋值
+
+
+
+let {x:xself,y:yself} = {x:1,y:2}
+
+
+
+xself和yself是自定义的名字//xself=1 yself=2 | x is not defined,y is not defined
+
+
+
 ##### 对象的增强
 
 - 对象中的属性简写

@@ -112,9 +112,11 @@ Prop 是你可以在组件上注册的一些自定义特性。当一个值传递
 
 
 
-data中:
+
 
 ```javascript
+props:['title','id']
+data中:
 post: {
 id: 1,
 title: 'My Journey with Vue'

@@ -346,6 +346,18 @@ getters: { data(state){} }
 
 
 
+💡注意:
+
+Vuex中
+
+getters/mutations 中函数的参数是 state 代表$store.state
+
+
+
+actions中函数的参数是 store 代表$store 所以可用解构方式写成{commit,state,dispatch}
+
+相当于store.commit/store.state/store.dispatch 
+
 
 
 ---

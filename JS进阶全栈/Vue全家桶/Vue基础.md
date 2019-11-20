@@ -424,6 +424,27 @@ watch:{
 
 
 
+> watch结合computed(不带data玩)
+
+```
+watch:
+checkSwitchUser: {
+  handler(newval,oldval){
+      console.log('user switch',newval);
+  },
+  deep:true
+},
+
+computed:
+checkSwitchUser(){
+            return window.tronWeb.defaultAddress.base58
+        },
+```
+
+
+
+
+
 
 
 ##### vue-router 前端路由

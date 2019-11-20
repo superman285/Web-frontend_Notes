@@ -148,11 +148,14 @@ grid-column或grid-row:start/end 或者 start/span 跨度number;
 从左到右，满了往下换行，再从左到右，一共8个div(.h占了两空位)
 
 
-◉◉滚动栏相关◉◉
+◉◉滚动条相关◉◉
 
 html{
     overflow-x:hidden;  /*隐藏滚动栏*/	
     min-width: 1280px;
+}
+&::-webkit-scrollbar {
+	visibility:hidden;   //隐藏滚动条
 }
 ::-webkit-scrollbar {/*滚动条整体样式*/
     width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
